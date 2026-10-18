@@ -1,0 +1,17 @@
+# Нейросети для жизни
+
+> Сайт Татьяны Зениной: нейросети простыми словами для людей в возрасте 50+.
+> Главная: https://example.com/ (после публикации заменить домен)
+> Канал Telegram: https://t.me/neuro_retree · Книги: @tatzenbot · Boosty: https://boosty.to/tatzen
+
+## Статьи
+
+- https://example.com/article_2fa_zashchita — Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг
+- https://example.com/article_33_dipfeyki — Поддельный голос внука: как распознать дипфейк и не отдать деньги
+- https://example.com/article_gosuslugi_vyplaty — Госуслуги: как узнать, какие выплаты и льготы вам положены
+- https://example.com/article_spisali_za_prilozhenie — Списали деньги за бесплатное приложение: как отключить подписку и вернуть своё
+- https://example.com/article_152fz_dannye — 152-ФЗ: ваши данные, ваши права — просто о главном
+- https://example.com/article_statiny_6_mifov — Статины: 6 мифов, о которых важно знать
+- https://example.com/article_bady_riski — БАДы: правда и риски, чтобы не навредить себе
+- https://example.com/article_davlenie_posle_60 — Давление после 60: какая норма и как контролировать
+- https://example.com/article_20_cheklist_10_vecherov — Чек-лист «10 вечеров»: бесплатный старт в нейросетях
