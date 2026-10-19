@@ -54,7 +54,7 @@ def main() -> int:
             warns.append(f"{slug}: нет раздела «Что сделать сегодня»")
         if not re.search(r"(?i)источник|полезные ссылки|рекомендуемые ресурсы", text):
             warns.append(f"{slug}: нет раздела источников/ресурсов")
-        if "Дорогие мои" not in text:
+        if not re.search(r"(?i)напоследок", text):
             warns.append(f"{slug}: нет финального CTA")
         # здоровье: обязательное предупреждение
         if any(t in a.get("tags", []) for t in ("здоровье",)):
