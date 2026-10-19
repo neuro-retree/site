@@ -1,17 +1,26 @@
 # Нейросети для жизни
 
-> Сайт Татьяны Зениной: нейросети простыми словами для людей в возрасте 50+.
-> Главная: https://example.com/ (после публикации заменить домен)
-> Канал Telegram: https://t.me/neuro_retree · Книги: @tatzenbot · Boosty: https://boosty.to/tatzen
+> Сайт Татьяны Зениной: практические объяснения нейросетей простыми словами для людей старшего возраста (50+).
+> Главная: https://neuro-retree.github.io/site/
+> Репозиторий: https://github.com/neuro-retree/site
+> Telegram: https://t.me/neuro_retree
+> Книги: напишите https://t.me/tatzenbot
+> Boosty: https://boosty.to/tatzen
+> VK: https://vk.com/club242405739
 
 ## Статьи
 
-- https://example.com/article_2fa_zashchita — Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг
-- https://example.com/article_33_dipfeyki — Поддельный голос внука: как распознать дипфейк и не отдать деньги
-- https://example.com/article_gosuslugi_vyplaty — Госуслуги: как узнать, какие выплаты и льготы вам положены
-- https://example.com/article_spisali_za_prilozhenie — Списали деньги за бесплатное приложение: как отключить подписку и вернуть своё
-- https://example.com/article_152fz_dannye — 152-ФЗ: ваши данные, ваши права — просто о главном
-- https://example.com/article_statiny_6_mifov — Статины: 6 мифов, о которых важно знать
-- https://example.com/article_bady_riski — БАДы: правда и риски, чтобы не навредить себе
-- https://example.com/article_davlenie_posle_60 — Давление после 60: какая норма и как контролировать
-- https://example.com/article_20_cheklist_10_vecherov — Чек-лист «10 вечеров»: бесплатный старт в нейросетях
+- https://neuro-retree.github.io/site/article_2fa_zashchita.md — Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг
+- https://neuro-retree.github.io/site/article_33_dipfeyki.md — Поддельный голос внука: как распознать дипфейк и не отдать деньги
+- https://neuro-retree.github.io/site/article_gosuslugi_vyplaty.md — Госуслуги: как узнать, какие выплаты и льготы вам положены
+- https://neuro-retree.github.io/site/article_spisali_za_prilozhenie.md — Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё
+- https://neuro-retree.github.io/site/article_152fz_dannye.md — 152-ФЗ: ваши данные, ваши права — просто о главном
+- https://neuro-retree.github.io/site/article_statiny_6_mifov.md — Статины: 6 мифов, о которых важно знать
+- https://neuro-retree.github.io/site/article_bady_riski.md — БАДы: правда и риски, чтобы не навредить себе
+- https://neuro-retree.github.io/site/article_davlenie_posle_60.md — Давление после 60: какая норма и как контролировать
+- https://neuro-retree.github.io/site/article_20_cheklist_10_vecherov.md — Чек-лист «10 вечеров»: бесплатный старт в нейросетях
+
+## Важно
+
+Ссылки на Markdown-файлы — это исходные тексты статей. Читателю удобнее открывать сайт
+и просматривать статьи через интерактивные карточки на главной странице.

@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Нейросети для жизни — Татьяна Зенина, Астрахань</title>
 <meta name="description" content="Нейросети простыми словами для людей в возрасте: статьи, советы, личный опыт. Татьяна Зенина, Астрахань. Канал в Telegram, книга Нейросети для жизни, поддержка через это сообщество.">
+<meta property="og:title" content="Нейросети для жизни — Татьяна Зенина, Астрахань">
+<meta property="og:description" content="Нейросети простыми словами для людей в возрасте: статьи, советы, личный опыт.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neuro-retree.github.io/site/">
+<meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
+<link rel="canonical" href="https://neuro-retree.github.io/site/">
 <style>
 :root{
   --bg:#f4f7f9; --card:#fff; --ink:#1f2d3a; --accent:#0e7c66; --accent2:#1565a8;
@@ -40,14 +46,34 @@ button.read:hover{background:#0b6a58}
 .modal.open{display:flex}
 .panel{background:#fff;max-width:820px;width:100%;max-height:90vh;overflow:auto;border-radius:14px;padding:28px 30px;position:relative}
 .panel h2{margin-top:0;color:var(--accent);font-size:25px}
-.panel .x{position:absolute;top:14px;right:18px;font-size:28px;cursor:pointer;line-height:1;color:var(--soft)}
+.panel .x{position:absolute;top:14px;right:18px;font-size:28px;cursor:pointer;line-height:1;color:var(--soft);background:none;border:0;padding:6px;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px}
+.panel .x:hover{background:#eef2f5;color:var(--ink)}
+.panel .x:focus-visible{outline:3px solid #e5a000;outline-offset:2px}
 .panel .meta{color:var(--soft);font-size:14px;margin-bottom:14px}
 .art h3{font-size:20px;margin:20px 0 8px;color:#153a4d}
 .art p{margin:8px 0}
 .art ul,.art ol{margin:8px 0;padding-left:24px}
 .cta{background:#e7f4f0;border-left:4px solid var(--accent);padding:12px 16px;border-radius:8px;margin-top:22px}
+.art blockquote{border-left:4px solid var(--line);margin:10px 0;padding:6px 14px;color:var(--soft);font-size:15px}
+.art hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+html{scroll-behavior:smooth}
+body{font-size:18px;line-height:1.7}
+a{text-underline-offset:0.18em}
+button.read,.links a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.panel{max-height:90dvh;overflow-y:auto;overflow-wrap:anywhere}
+.panel img{max-width:100%;height:auto}
 .footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--soft);font-size:14px}
-@media(max-width:560px){.h1{font-size:26px}.panel{padding:20px 18px}}
+@media(max-width:560px){
+  .wrap{padding-inline:16px}
+  .grid{grid-template-columns:1fr}
+  .h1{font-size:30px;line-height:1.2}
+  .panel{padding:24px 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
@@ -55,7 +81,7 @@ button.read:hover{background:#0b6a58}
   <div class="wrap">
     <div class="avatar"><img src="channel-avatar-neuro-retree.jpg" alt="Нейросети для жизни"></div>
     <div>
-      <p class="h1">Нейросети для жизни</p>
+      <h1 class="h1">Нейросети для жизни</h1>
       <p class="hsub">Просто о главном: для людей в возрасте. Статьи, советы, личный опыт.</p>
       <div class="links">
         <a href="https://t.me/neuro_retree">Канал Telegram</a>
@@ -79,13 +105,17 @@ button.read:hover{background:#0b6a58}
   <div class="about" style="margin-top:26px">
     <h2>Оплата и благодарность</h2>
     <p>Всё, что я делаю, бесплатно. Если вам пригодились мои истории, вы можете угостить меня чашкой чая на <a href="https://boosty.to/tatzen">Boosty</a> — это лучшее спасибо. А подписка на мой <a href="https://t.me/neuro_retree">Telegram-канал</a> — лучшая поддержка.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+      <a href="https://boosty.to/tatzen" style="background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Поддержать чашкой чая на Boosty</a>
+      <a href="https://vk.com/club242405739" style="background:var(--accent2);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в VK-сообщество</a>
+    </div>
   </div>
 </div>
 </main>
 <footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="llms.txt" style="color:#f4f7f9">llms.txt</a></div></footer>
 
-<div class="modal" id="modal"><div class="panel">
-  <span class="x" onclick="closeArt()">&times;</span>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><div class="panel">
+  <button class="x" type="button" aria-label="Закрыть статью" onclick="closeArt()">&times;</button>
   <div id="panelBody"></div>
 </div></div>
 
@@ -113,54 +143,104 @@ DATA.articles.forEach(a=>{
     <div class="body">
       <span class="tag">${a.tags[0]}</span>
       <h3>${a.title}</h3>
-      <button class="read" onclick="openArt('${a.slug}')">Читать статью</button>
+      <button class="read" onclick="openArt('${a.slug}', this)">Читать статью</button>
     </div>`;
   grid.appendChild(card);
 });
 
 // минимальный markdown для отображения текста статьи
+function esc(t){
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function inline(t){
+  let s = esc(t);
+  s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  s = s.replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>');
+  return s;
+}
 function mdToHtml(t){
-  t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  const lines = t.split('\n'); let out = '', inList = false;
-  const closeList = ()=>{ if(inList){ out+='</ul>'; inList=false; } };
+  const lines = t.split('\n'); let out = '', listType = null;
+  const closeList = ()=>{ if(listType){ out += '</'+listType+'>'; listType=null; } };
   for(const raw of lines){
     const s = raw.trim();
-    if(!s) continue;
+    if(!s){ closeList(); continue; }
     if(/^#{1,4}\s+/.test(s)){
       closeList();
-      const level = s.match(/^#+/)[0].length;
-      const txt = s.replace(/^#+\s+/,'');
-      out += level===1 ? `<h2>${txt}</h2>` : level===2 ? `<h3>${txt}</h3>` : `<h4>${txt}</h4>`;
+      const level = s.match(/^#+/)[0].length - 1;
+      const txt = inline(s.replace(/^#+\s+/,''));
+      out += level <= 1 ? `<h2>${txt}</h2>` : level === 2 ? `<h3>${txt}</h3>` : `<h4>${txt}</h4>`;
     } else if(/^\s*[-*•]\s+/.test(s)){
-      if(!inList){ out+='<ul>'; inList=true; }
-      out += `<li>${s.replace(/^\s*[-*•]\s+/,'')}</li>`;
+      if(listType !== 'ul'){ closeList(); out += '<ul>'; listType='ul'; }
+      out += `<li>${inline(s.replace(/^\s*[-*•]\s+/,''))}</li>`;
     } else if(/^\s*\d+[.)]\s+/.test(s)){
+      if(listType !== 'ol'){ closeList(); out += '<ol>'; listType='ol'; }
+      out += `<li>${inline(s.replace(/^\s*\d+[.)]\s+/,''))}</li>`;
+    } else if(/^\s*>+\s?/.test(s)){
       closeList();
-      out += `<p>${s}</p>`;
+      out += `<blockquote>${inline(s.replace(/^\s*>+\s?/,''))}</blockquote>`;
+    } else if(/^\s*---+$/.test(s)){
+      closeList();
+      out += '<hr>';
     } else {
       closeList();
-      out += `<p>${s}</p>`;
+      out += `<p>${inline(s)}</p>`;
     }
   }
   closeList();
   return out;
 }
 
-async function openArt(slug){
+let lastTrigger = null;
+async function openArt(slug, trigger){
   const a = DATA.articles.find(x=>x.slug===slug);
-  const resp = await fetch(`${slug}.md`);
-  const text = await resp.text();
   const panel = document.getElementById('panelBody');
-  // источник (после «Источники») удаляем из модалки — ниже оставляем ссылку канала
-  const bodyText = text.split(/\n\s*##\s*Источники?/i)[0];
+  const modal = document.getElementById('modal');
+  if(!a) return;
+
+  lastTrigger = trigger || document.activeElement;
   panel.className = 'art';
-  panel.innerHTML = `<h2>${a.title}</h2>
-    <div class="meta">Проект «Нейросети для жизни» · Татьяна Зенина</div>
-    <div>${mdToHtml(bodyText)}</div>
-    <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>`;
-  document.getElementById('modal').classList.add('open');
+  panel.replaceChildren();
+  const waitP = document.createElement('p');
+  waitP.textContent = 'Загружаю статью…';
+  panel.appendChild(waitP);
+  modal.classList.add('open');
+  modal.setAttribute('role','dialog');
+  modal.setAttribute('aria-modal','true');
+
+  try {
+    const resp = await fetch(`${encodeURIComponent(slug)}.md`);
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    const text = await resp.text();
+    if(!text.trim()) throw new Error('Пустой файл статьи');
+
+    panel.replaceChildren();
+    const title = document.createElement('h2');
+    title.id = 'dialogTitle';
+    title.textContent = a.title;
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = 'Проект «Нейросети для жизни» · Татьяна Зенина';
+    const content = document.createElement('div');
+    content.innerHTML = mdToHtml(text);
+    panel.append(title, meta, content);
+  } catch(err){
+    console.error('Ошибка загрузки статьи:', err);
+    panel.replaceChildren();
+    const msg = document.createElement('p');
+    msg.textContent = 'Не удалось открыть статью. Возможно, материал ещё не опубликован.';
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.textContent = 'Попробовать снова';
+    retry.addEventListener('click', ()=>openArt(slug));
+    panel.append(msg, retry);
+  }
 }
-function closeArt(){ document.getElementById('modal').classList.remove('open'); }
+function closeArt(){
+  const modal = document.getElementById('modal');
+  modal.classList.remove('open');
+  if(lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+}
 document.getElementById('modal').addEventListener('click',e=>{ if(e.target.id==='modal') closeArt(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeArt(); });
 </script>

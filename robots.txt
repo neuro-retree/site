@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://neuro-retree.github.io/site/sitemap.xml
