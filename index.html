@@ -11,6 +11,18 @@
 <meta property="og:url" content="https://neuro-retree.github.io/site/">
 <meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
 <link rel="canonical" href="https://neuro-retree.github.io/site/">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="https://neuro-retree.github.io/site/rss.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Нейросети для жизни",
+  "inLanguage": "ru",
+  "description": "Нейросети, цифровая безопасность и полезные интернет-сервисы простыми словами для людей старшего возраста.",
+  "url": "https://neuro-retree.github.io/site/",
+  "author": {"@type": "Person", "name": "Татьяна Зенина"}
+}
+</script>
 <style>
 :root{
   --bg:#f4f7f9; --card:#fff; --ink:#1f2d3a; --accent:#0e7c66; --accent2:#1565a8;
@@ -33,6 +45,12 @@ main{padding:28px 0 60px}
 .about{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:22px 0;box-shadow:var(--shadow)}
 .about h2{margin-top:0;color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.search-status{color:var(--soft);font-size:14px}
+.card-link{display:block;flex:1 1 auto;color:inherit;text-decoration:none}
+.card-link:hover{text-decoration:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .15s;height:100%}
 .card:hover{transform:translateY(-3px)}
 .card img{width:100%;height:auto;display:block}
@@ -50,6 +68,9 @@ button.read:hover{background:#0b6a58}
 .panel .x:hover{background:#eef2f5;color:var(--ink)}
 .panel .x:focus-visible{outline:3px solid #e5a000;outline-offset:2px}
 .panel .meta{color:var(--soft);font-size:14px;margin-bottom:14px}
+.art-tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.art-tools button{padding:9px 14px;font-size:15px;border:1px solid var(--line);border-radius:10px;background:#f4f7f9;color:var(--ink);cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.art-tools button:hover{background:#e7eef2}
 .art h3{font-size:20px;margin:20px 0 8px;color:#153a4d}
 .art p{margin:8px 0}
 .art ul,.art ol{margin:8px 0;padding-left:24px}
@@ -101,6 +122,19 @@ button.read,.links a{min-height:44px;display:inline-flex;align-items:center;just
   </section>
 
   <h2>Что я пишу</h2>
+  <div class="toolbar">
+    <input id="articleSearch" type="search" placeholder="Поиск: например, защита аккаунта" aria-label="Поиск по статьям">
+    <select id="articleCategory" aria-label="Тема">
+      <option value="">Все темы</option>
+      <option value="безопасность">Безопасность</option>
+      <option value="нейросети">Нейросети</option>
+      <option value="здоровье">Здоровье</option>
+      <option value="деньги">Деньги</option>
+      <option value="право">Право</option>
+      <option value="госуслуги">Госуслуги</option>
+    </select>
+    <span id="searchStatus" class="search-status" aria-live="polite"></span>
+  </div>
   <div class="grid" id="grid"></div>
   <div class="about" style="margin-top:26px">
     <h2>Оплата и благодарность</h2>
@@ -112,7 +146,7 @@ button.read,.links a{min-height:44px;display:inline-flex;align-items:center;just
   </div>
 </div>
 </main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="llms.txt" style="color:#f4f7f9">llms.txt</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro-retree@yandex.ru?subject=%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5">Нашли ошибку? Напишите нам</a> · <a href="rss.xml">RSS</a> · <a href="llms.txt" style="color:#f4f7f9">llms.txt</a></div></footer>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><div class="panel">
   <button class="x" type="button" aria-label="Закрыть статью" onclick="closeArt()">&times;</button>
@@ -135,18 +169,40 @@ button.read,.links a{min-height:44px;display:inline-flex;align-items:center;just
 <script>
 const DATA = JSON.parse(document.getElementById('data').textContent);
 const grid = document.getElementById('grid');
-DATA.articles.forEach(a=>{
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <img src="${a.slug}.png" alt="${a.title}" loading="lazy">
-    <div class="body">
-      <span class="tag">${a.tags[0]}</span>
-      <h3>${a.title}</h3>
-      <button class="read" onclick="openArt('${a.slug}', this)">Читать статью</button>
-    </div>`;
-  grid.appendChild(card);
-});
+const searchInput = document.getElementById('articleSearch');
+const categorySelect = document.getElementById('articleCategory');
+const searchStatus = document.getElementById('searchStatus');
+
+function norm(v){
+  return String(v||'').toLocaleLowerCase('ru-RU').replace(/ё/g,'е').trim();
+}
+function renderGrid(){
+  const q = norm(searchInput.value);
+  const cat = norm(categorySelect.value);
+  const filtered = DATA.articles.filter(a=>{
+    const hay = norm(a.title + ' ' + (a.tags||[]).join(' '));
+    const inCat = !cat || (a.tags||[]).some(t=>norm(t)===cat);
+    return hay.includes(q) && inCat;
+  });
+  grid.replaceChildren();
+  filtered.forEach(a=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${a.slug}.png" alt="${a.title}" loading="lazy">
+      <div class="body">
+        <span class="tag">${a.tags[0]}</span>
+        <h3>${a.title}</h3>
+        <button class="read" onclick="openArt('${a.slug}', this)">Читать статью</button>
+      </div>`;
+    grid.appendChild(card);
+  });
+  const found = searchInput.value || categorySelect.value ? `Найдено: ${filtered.length}` : '';
+  searchStatus.textContent = found;
+}
+searchInput.addEventListener('input', renderGrid);
+categorySelect.addEventListener('change', renderGrid);
+renderGrid();
 
 // минимальный markdown для отображения текста статьи
 function esc(t){
@@ -192,7 +248,7 @@ function mdToHtml(t){
 }
 
 let lastTrigger = null;
-async function openArt(slug, trigger){
+async function openArt(slug, trigger, fromHash){
   const a = DATA.articles.find(x=>x.slug===slug);
   const panel = document.getElementById('panelBody');
   const modal = document.getElementById('modal');
@@ -207,6 +263,9 @@ async function openArt(slug, trigger){
   modal.classList.add('open');
   modal.setAttribute('role','dialog');
   modal.setAttribute('aria-modal','true');
+  if(!fromHash && location.hash !== '#'+slug){
+    try{ history.replaceState(null,'','#'+slug); }catch(e){}
+  }
 
   try {
     const resp = await fetch(`${encodeURIComponent(slug)}.md`);
@@ -221,9 +280,26 @@ async function openArt(slug, trigger){
     const meta = document.createElement('div');
     meta.className = 'meta';
     meta.textContent = 'Проект «Нейросети для жизни» · Татьяна Зенина';
+    const tools = document.createElement('div');
+    tools.className = 'art-tools';
+    const copyBtn = document.createElement('button');
+    copyBtn.type = 'button';
+    copyBtn.textContent = 'Скопировать ссылку';
+    copyBtn.addEventListener('click', ()=>{
+      const url = location.origin + location.pathname + '#' + slug;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(()=>{ copyBtn.textContent='Ссылка скопирована'; setTimeout(()=>copyBtn.textContent='Скопировать ссылку',2000); });
+      } else { copyBtn.textContent = url; }
+    });
+    const printBtn = document.createElement('button');
+    printBtn.type = 'button';
+    printBtn.textContent = 'Печать';
+    printBtn.addEventListener('click', ()=>{ window.print(); });
+    tools.append(copyBtn, printBtn);
     const content = document.createElement('div');
     content.innerHTML = mdToHtml(text);
-    panel.append(title, meta, content);
+    panel.append(title, meta, tools, content);
+    if(fromHash && window.scrollTo) window.scrollTo({top:0});
   } catch(err){
     console.error('Ошибка загрузки статьи:', err);
     panel.replaceChildren();
@@ -239,10 +315,17 @@ async function openArt(slug, trigger){
 function closeArt(){
   const modal = document.getElementById('modal');
   modal.classList.remove('open');
+  try{ if(location.hash) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   if(lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
 }
 document.getElementById('modal').addEventListener('click',e=>{ if(e.target.id==='modal') closeArt(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeArt(); });
+window.addEventListener('DOMContentLoaded', ()=>{
+  const h = location.hash.replace('#','');
+  if(h && DATA.articles.some(a=>a.slug===h)){
+    openArt(h, null, true);
+  }
+});
 </script>
 </body>
 </html>
