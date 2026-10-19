@@ -1,0 +1,32 @@
+name: Проверка качества сайта
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получить исходный код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Собрать сайт
+        run: python scripts/rebuild_site.py
+
+      - name: Проверить структуру контента
+        run: python scripts/validate_content.py
+
+      - name: Проверить внутренние ссылки
+        run: python scripts/check_links.py --no-external

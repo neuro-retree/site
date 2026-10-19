@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated": "2026-10-19",
+  "generated": "2026-10-20",
   "articles": [
     {
       "slug": "article_2fa_zashchita",
@@ -108,6 +108,1518 @@
       "url": "https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/",
       "sources_md": "https://neuro-retree.github.io/site/article_20_cheklist_10_vecherov.md",
       "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_01_kak_otkryt_i_ne_slomat_kanon",
+      "title": "Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»",
+      "url": "https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/",
+      "sources_md": "https://neuro-retree.github.io/site/article_01_kak_otkryt_i_ne_slomat_kanon.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_02_promt_ne_strashno_kanon",
+      "title": "Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»",
+      "url": "https://neuro-retree.github.io/site/articles/article_02_promt_ne_strashno_kanon/",
+      "sources_md": "https://neuro-retree.github.io/site/article_02_promt_ne_strashno_kanon.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_10_priznakov_alzgejmer",
+      "title": "Альцгеймер: 10 признаков и когда пора к врачу",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Альцгеймер: 10 признаков и когда пора к врачу",
+      "url": "https://neuro-retree.github.io/site/articles/article_10_priznakov_alzgejmer/",
+      "sources_md": "https://neuro-retree.github.io/site/article_10_priznakov_alzgejmer.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_10_scenariev_byta",
+      "title": "Что нужно знать о «Нейросеть в быту: 10 дел за минуту»",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Что нужно знать о «Нейросеть в быту: 10 дел за минуту»",
+      "url": "https://neuro-retree.github.io/site/articles/article_10_scenariev_byta/",
+      "sources_md": "https://neuro-retree.github.io/site/article_10_scenariev_byta.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_11_zarabotok_na_pensii",
+      "title": "Можно ли заработать с нейросетями на пенсии?",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Можно ли заработать с нейросетями на пенсии?",
+      "url": "https://neuro-retree.github.io/site/articles/article_11_zarabotok_na_pensii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_11_zarabotok_na_pensii.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_14_samozanyatost",
+      "title": "Самозанятость: «Мой налог» за 5 минут и без страха",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Самозанятость: «Мой налог» за 5 минут и без страха",
+      "url": "https://neuro-retree.github.io/site/articles/article_14_samozanyatost/",
+      "sources_md": "https://neuro-retree.github.io/site/article_14_samozanyatost.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_15_promty_dlya_zarabotka",
+      "title": "15 готовых промтов для первого заработка",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: 15 готовых промтов для первого заработка",
+      "url": "https://neuro-retree.github.io/site/articles/article_15_promty_dlya_zarabotka/",
+      "sources_md": "https://neuro-retree.github.io/site/article_15_promty_dlya_zarabotka.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_4_puti_zarabotka",
+      "title": "Заработок на нейросетях: 4 пути для людей 50+",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Заработок на нейросетях: 4 пути для людей 50+",
+      "url": "https://neuro-retree.github.io/site/articles/article_4_puti_zarabotka/",
+      "sources_md": "https://neuro-retree.github.io/site/article_4_puti_zarabotka.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_5_urovnej_avtomatizacii",
+      "title": "5 уровней автоматизации: от заметки до конвейера",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: 5 уровней автоматизации: от заметки до конвейера",
+      "url": "https://neuro-retree.github.io/site/articles/article_5_urovnej_avtomatizacii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_5_urovnej_avtomatizacii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_agenty_rabotayut_sami",
+      "title": "Агенты — нейросети, которые работают сами",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Агенты — нейросети, которые работают сами",
+      "url": "https://neuro-retree.github.io/site/articles/article_agenty_rabotayut_sami/",
+      "sources_md": "https://neuro-retree.github.io/site/article_agenty_rabotayut_sami.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ai_konsultant_sosedi",
+      "title": "AI-консультант для соседей: как я помогаю и зарабатываю",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: AI-консультант для соседей: как я помогаю и зарабатываю",
+      "url": "https://neuro-retree.github.io/site/articles/article_ai_konsultant_sosedi/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ai_konsultant_sosedi.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_art_terapiya_60",
+      "title": "Арт-терапия после 60: творчество продлевает жизнь",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Арт-терапия после 60: творчество продлевает жизнь",
+      "url": "https://neuro-retree.github.io/site/articles/article_art_terapiya_60/",
+      "sources_md": "https://neuro-retree.github.io/site/article_art_terapiya_60.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_audiokniga_iz_rukopisi",
+      "title": "Аудиокнига из рукописи: путь для тех, кому трудно читать",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Аудиокнига из рукописи: путь для тех, кому трудно читать",
+      "url": "https://neuro-retree.github.io/site/articles/article_audiokniga_iz_rukopisi/",
+      "sources_md": "https://neuro-retree.github.io/site/article_audiokniga_iz_rukopisi.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_avatarka_nejroset",
+      "title": "Как сделать аватарку нейросетью: 6 сервисов",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как сделать аватарку нейросетью: 6 сервисов",
+      "url": "https://neuro-retree.github.io/site/articles/article_avatarka_nejroset/",
+      "sources_md": "https://neuro-retree.github.io/site/article_avatarka_nejroset.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_babushka_i_kot",
+      "title": "Бабушка и кот: общий язык с нейросетью (моя история)",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Бабушка и кот: общий язык с нейросетью (моя история)",
+      "url": "https://neuro-retree.github.io/site/articles/article_babushka_i_kot/",
+      "sources_md": "https://neuro-retree.github.io/site/article_babushka_i_kot.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_bloger_60_ii",
+      "title": "ИИ-помощник блогера 60+: 7 дел за 15 минут",
+      "tags": [
+        "право"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: ИИ-помощник блогера 60+: 7 дел за 15 минут",
+      "url": "https://neuro-retree.github.io/site/articles/article_bloger_60_ii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_bloger_60_ii.md",
+      "category": "право",
+      "status": "published"
+    },
+    {
+      "slug": "article_budushchee_ii",
+      "title": "Что ждать пенсионерам от ИИ через 5 лет",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Что ждать пенсионерам от ИИ через 5 лет",
+      "url": "https://neuro-retree.github.io/site/articles/article_budushchee_ii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_budushchee_ii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_cena_konsultacii",
+      "title": "Цена: сколько брать за консультацию и как её повышать",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Цена: сколько брать за консультацию и как её повышать",
+      "url": "https://neuro-retree.github.io/site/articles/article_cena_konsultacii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_cena_konsultacii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_chtenie_vsluh",
+      "title": "Чтение вслух: 15 минут в день для ясного ума",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Чтение вслух: 15 минут в день для ясного ума",
+      "url": "https://neuro-retree.github.io/site/articles/article_chtenie_vsluh/",
+      "sources_md": "https://neuro-retree.github.io/site/article_chtenie_vsluh.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_chto_takoe_promt",
+      "title": "Что такое промт? Объясняю простыми словами",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Что такое промт? Объясняю простыми словами",
+      "url": "https://neuro-retree.github.io/site/articles/article_chto_takoe_promt/",
+      "sources_md": "https://neuro-retree.github.io/site/article_chto_takoe_promt.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_demenciya_faktory",
+      "title": "Деменция: 14 факторов риска, и 10 из них — в ваших руках",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Деменция: 14 факторов риска, и 10 из них — в ваших руках",
+      "url": "https://neuro-retree.github.io/site/articles/article_demenciya_faktory/",
+      "sources_md": "https://neuro-retree.github.io/site/article_demenciya_faktory.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_dzen_2026_strategii",
+      "title": "Заработок в Дзене в 2026: честный разбор стратегий",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Заработок в Дзене в 2026: честный разбор стратегий",
+      "url": "https://neuro-retree.github.io/site/articles/article_dzen_2026_strategii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_dzen_2026_strategii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ekonomiya_modeli",
+      "title": "Как нейросети снижают расходы: выбираем модель",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как нейросети снижают расходы: выбираем модель",
+      "url": "https://neuro-retree.github.io/site/articles/article_ekonomiya_modeli/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ekonomiya_modeli.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_fishing_kak_raspoznat",
+      "title": "Фишинг: письмо от банка — как распознать обман",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Фишинг: письмо от банка — как распознать обман",
+      "url": "https://neuro-retree.github.io/site/articles/article_fishing_kak_raspoznat/",
+      "sources_md": "https://neuro-retree.github.io/site/article_fishing_kak_raspoznat.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_gallyucinacii",
+      "title": "Галлюцинации нейросети: почему «врёт» и как проверить",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Галлюцинации нейросети: почему «врёт» и как проверить",
+      "url": "https://neuro-retree.github.io/site/articles/article_gallyucinacii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_gallyucinacii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_gallyucinacii_u_suda",
+      "title": "Нейросеть «придумала» судебный акт — оштрафовали",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Нейросеть «придумала» судебный акт — оштрафовали",
+      "url": "https://neuro-retree.github.io/site/articles/article_gallyucinacii_u_suda/",
+      "sources_md": "https://neuro-retree.github.io/site/article_gallyucinacii_u_suda.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_gepatoprotektory",
+      "title": "Гепатопротекторы: правда о «защите печени",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Гепатопротекторы: правда о «защите печени",
+      "url": "https://neuro-retree.github.io/site/articles/article_gepatoprotektory/",
+      "sources_md": "https://neuro-retree.github.io/site/article_gepatoprotektory.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_giperpersonalizaciya",
+      "title": "Гиперперсонализация: как нейросеть «читает мысли",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Гиперперсонализация: как нейросеть «читает мысли",
+      "url": "https://neuro-retree.github.io/site/articles/article_giperpersonalizaciya/",
+      "sources_md": "https://neuro-retree.github.io/site/article_giperpersonalizaciya.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_glitsin_pravda",
+      "title": "Глицин: правда из лаборатории",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Глицин: правда из лаборатории",
+      "url": "https://neuro-retree.github.io/site/articles/article_glitsin_pravda/",
+      "sources_md": "https://neuro-retree.github.io/site/article_glitsin_pravda.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_hobbi_dohod",
+      "title": "Заработок на хобби после 50: деньги, радость и здоровье",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Заработок на хобби после 50: деньги, радость и здоровье",
+      "url": "https://neuro-retree.github.io/site/articles/article_hobbi_dohod/",
+      "sources_md": "https://neuro-retree.github.io/site/article_hobbi_dohod.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_agent",
+      "title": "ИИ-агент: умный бот, который работает за вас",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: ИИ-агент: умный бот, который работает за вас",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_agent/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_agent.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_agent_chast1",
+      "title": "Ваш цифровой секретарь. Часть 1: где живёт помощник и как дать ему первое задание",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Ваш цифровой секретарь. Часть 1: где живёт помощник и как дать ему первое задание",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_agent_chast1/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_agent_chast1.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_agent_chast2",
+      "title": "Ваш цифровой секретарь. Часть 2: инструменты, безопасность и первые шаги",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Ваш цифровой секретарь. Часть 2: инструменты, безопасность и первые шаги",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_agent_chast2/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_agent_chast2.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_agent_passiv",
+      "title": "Пассивный доход на ИИ-агенте»: разбор мифа",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Пассивный доход на ИИ-агенте»: разбор мифа",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_agent_passiv/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_agent_passiv.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_dlya_zhizni",
+      "title": "Нейросети для жизни: как перестать бояться «умных машин» и начать ими пользоваться",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Нейросети для жизни: как перестать бояться «умных машин» и начать ими пользоваться",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_dlya_zhizni/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_dlya_zhizni.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_ne_zamenit_vracha",
+      "title": "Нейросеть не заменит врача — но может помочь вам обоим",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Нейросеть не заменит врача — но может помочь вам обоим",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_ne_zamenit_vracha/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_ne_zamenit_vracha.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_ii_repetitor",
+      "title": "Нейросеть как репетитор русского языка",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Нейросеть как репетитор русского языка",
+      "url": "https://neuro-retree.github.io/site/articles/article_ii_repetitor/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ii_repetitor.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_imuschestvo_v_brake",
+      "title": "Имущество в браке: что ваше, а что делится",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Имущество в браке: что ваше, а что делится",
+      "url": "https://neuro-retree.github.io/site/articles/article_imuschestvo_v_brake/",
+      "sources_md": "https://neuro-retree.github.io/site/article_imuschestvo_v_brake.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_ipoteka_pensioneram",
+      "title": "Ипотека для пенсионеров: правила и камни",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Ипотека для пенсионеров: правила и камни",
+      "url": "https://neuro-retree.github.io/site/articles/article_ipoteka_pensioneram/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ipoteka_pensioneram.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_kak_chitat_o_badah",
+      "title": "Статьи о БАДах: 3 маркера рекламы под видом науки",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Статьи о БАДах: 3 маркера рекламы под видом науки",
+      "url": "https://neuro-retree.github.io/site/articles/article_kak_chitat_o_badah/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kak_chitat_o_badah.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kak_nachat_i_ne_brosit",
+      "title": "Как начать и не бросить: руководство по нейросетям",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как начать и не бросить: руководство по нейросетям",
+      "url": "https://neuro-retree.github.io/site/articles/article_kak_nachat_i_ne_brosit/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kak_nachat_i_ne_brosit.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kalendar_publikacij",
+      "title": "Календарь публикаций: контент на месяц без стресса",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Календарь публикаций: контент на месяц без стресса",
+      "url": "https://neuro-retree.github.io/site/articles/article_kalendar_publikacij/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kalendar_publikacij.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kishechnik_pochki",
+      "title": "Кишечник и почки: неожиданная связь",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Кишечник и почки: неожиданная связь",
+      "url": "https://neuro-retree.github.io/site/articles/article_kishechnik_pochki/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kishechnik_pochki.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_kniga_chestnye_pravila",
+      "title": "Книга с нейросетью по-честному: 7 правил",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Книга с нейросетью по-честному: 7 правил",
+      "url": "https://neuro-retree.github.io/site/articles/article_kniga_chestnye_pravila/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kniga_chestnye_pravila.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kniga_svoimi_slovami",
+      "title": "Книга своими словами: нейросеть пишет, вы — душа",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Книга своими словами: нейросеть пишет, вы — душа",
+      "url": "https://neuro-retree.github.io/site/articles/article_kniga_svoimi_slovami/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kniga_svoimi_slovami.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_komissii_ploshchadok",
+      "title": "Комиссии площадок 2026: сколько реально останется у вас",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Комиссии площадок 2026: сколько реально останется у вас",
+      "url": "https://neuro-retree.github.io/site/articles/article_komissii_ploshchadok/",
+      "sources_md": "https://neuro-retree.github.io/site/article_komissii_ploshchadok.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_korotkie_teksty_socseti",
+      "title": "Короткие тексты для соцсетей: что заказывают чаще всего",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Короткие тексты для соцсетей: что заказывают чаще всего",
+      "url": "https://neuro-retree.github.io/site/articles/article_korotkie_teksty_socseti/",
+      "sources_md": "https://neuro-retree.github.io/site/article_korotkie_teksty_socseti.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kredit_pod_zalog_risk",
+      "title": "Кредит под залог квартиры: 5 красных флагов",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Кредит под залог квартиры: 5 красных флагов",
+      "url": "https://neuro-retree.github.io/site/articles/article_kredit_pod_zalog_risk/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kredit_pod_zalog_risk.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_kuda_zapisat_parol",
+      "title": "Куда записать пароль: памятка для начинающих",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Куда записать пароль: памятка для начинающих",
+      "url": "https://neuro-retree.github.io/site/articles/article_kuda_zapisat_parol/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kuda_zapisat_parol.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_kursy_komp_gramotnosti",
+      "title": "Курсы компьютерной грамотности для пенсионеров бесплатно",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Курсы компьютерной грамотности для пенсионеров бесплатно",
+      "url": "https://neuro-retree.github.io/site/articles/article_kursy_komp_gramotnosti/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kursy_komp_gramotnosti.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kursy_po_ii",
+      "title": "Как выбрать курс по нейросетям и не переплатить",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как выбрать курс по нейросетям и не переплатить",
+      "url": "https://neuro-retree.github.io/site/articles/article_kursy_po_ii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kursy_po_ii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_kwork_pervyj_zakaz",
+      "title": "Первый заказ на Kwork: инструкция для 50+",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Первый заказ на Kwork: инструкция для 50+",
+      "url": "https://neuro-retree.github.io/site/articles/article_kwork_pervyj_zakaz/",
+      "sources_md": "https://neuro-retree.github.io/site/article_kwork_pervyj_zakaz.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_logotipy_s_nejrosetyu",
+      "title": "Логотипы и аватарки с нейросетью: услуга",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Логотипы и аватарки с нейросетью: услуга",
+      "url": "https://neuro-retree.github.io/site/articles/article_logotipy_s_nejrosetyu/",
+      "sources_md": "https://neuro-retree.github.io/site/article_logotipy_s_nejrosetyu.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_lokalnye_nejroseti",
+      "title": "Локальные нейросети: когда интернет не нужен",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Локальные нейросети: когда интернет не нужен",
+      "url": "https://neuro-retree.github.io/site/articles/article_lokalnye_nejroseti/",
+      "sources_md": "https://neuro-retree.github.io/site/article_lokalnye_nejroseti.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_markirovka_reklamy",
+      "title": "Маркировка рекламы: памятка про «реклама», эrid и ОРД",
+      "tags": [
+        "право"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Маркировка рекламы: памятка про «реклама», эrid и ОРД",
+      "url": "https://neuro-retree.github.io/site/articles/article_markirovka_reklamy/",
+      "sources_md": "https://neuro-retree.github.io/site/article_markirovka_reklamy.md",
+      "category": "право",
+      "status": "published"
+    },
+    {
+      "slug": "article_markirovka_reklamy_bloger",
+      "title": "Маркировка рекламы для блогера: просто о сложном",
+      "tags": [
+        "право"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Маркировка рекламы для блогера: просто о сложном",
+      "url": "https://neuro-retree.github.io/site/articles/article_markirovka_reklamy_bloger/",
+      "sources_md": "https://neuro-retree.github.io/site/article_markirovka_reklamy_bloger.md",
+      "category": "право",
+      "status": "published"
+    },
+    {
+      "slug": "article_med_yur_promty",
+      "title": "Медицинские и юридические промты: что можно, что нельзя",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Медицинские и юридические промты: что можно, что нельзя",
+      "url": "https://neuro-retree.github.io/site/articles/article_med_yur_promty/",
+      "sources_md": "https://neuro-retree.github.io/site/article_med_yur_promty.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_melkaia_motorika",
+      "title": "Как простые занятия с руками помогают мозгу отдохнуть и успокоиться",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как простые занятия с руками помогают мозгу отдохнуть и успокоиться",
+      "url": "https://neuro-retree.github.io/site/articles/article_melkaia_motorika/",
+      "sources_md": "https://neuro-retree.github.io/site/article_melkaia_motorika.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_memuary_s_nejrosetyu",
+      "title": "Семейные мемуары с нейросетью: напишем, пока живы",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Семейные мемуары с нейросетью: напишем, пока живы",
+      "url": "https://neuro-retree.github.io/site/articles/article_memuary_s_nejrosetyu/",
+      "sources_md": "https://neuro-retree.github.io/site/article_memuary_s_nejrosetyu.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_meteochuvstvitelnost",
+      "title": "Метеочувствительность: как пережить перепады погоды",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Метеочувствительность: как пережить перепады погоды",
+      "url": "https://neuro-retree.github.io/site/articles/article_meteochuvstvitelnost/",
+      "sources_md": "https://neuro-retree.github.io/site/article_meteochuvstvitelnost.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_moi_4_knigi",
+      "title": "Мои 4 книги: что внутри и кому они помогут",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Мои 4 книги: что внутри и кому они помогут",
+      "url": "https://neuro-retree.github.io/site/articles/article_moi_4_knigi/",
+      "sources_md": "https://neuro-retree.github.io/site/article_moi_4_knigi.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_nakopitelnaya_pensiya",
+      "title": "Накопительная пенсия: как посчитать свои накопления",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Накопительная пенсия: как посчитать свои накопления",
+      "url": "https://neuro-retree.github.io/site/articles/article_nakopitelnaya_pensiya/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nakopitelnaya_pensiya.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_nakopitelnaya_pensiya_2026",
+      "title": "Накопительная пенсия 2026: как получить сразу",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Накопительная пенсия 2026: как получить сразу",
+      "url": "https://neuro-retree.github.io/site/articles/article_nakopitelnaya_pensiya_2026/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nakopitelnaya_pensiya_2026.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_nakopitelnaya_pensiya_vyplata",
+      "title": "Накопительная пенсия: деньги, доступные прямо сейчас",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Накопительная пенсия: деньги, доступные прямо сейчас",
+      "url": "https://neuro-retree.github.io/site/articles/article_nakopitelnaya_pensiya_vyplata/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nakopitelnaya_pensiya_vyplata.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_nalogi_avtora",
+      "title": "Налоги автора-блогера: НПД, донаты, реклама просто",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Налоги автора-блогера: НПД, донаты, реклама просто",
+      "url": "https://neuro-retree.github.io/site/articles/article_nalogi_avtora/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nalogi_avtora.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_nalogi_blogera_2026",
+      "title": "Если блог приносит деньги: налоги для автора в 2026",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Если блог приносит деньги: налоги для автора в 2026",
+      "url": "https://neuro-retree.github.io/site/articles/article_nalogi_blogera_2026/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nalogi_blogera_2026.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_nalogovyj_vychet_obuchenie",
+      "title": "Налоговый вычет за обучение: до 19 500 рублей",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Налоговый вычет за обучение: до 19 500 рублей",
+      "url": "https://neuro-retree.github.io/site/articles/article_nalogovyj_vychet_obuchenie/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nalogovyj_vychet_obuchenie.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_nalogovyj_vychet_obuchenie_2026",
+      "title": "Налоговый вычет за обучение: верните до 14 300 ₽",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Налоговый вычет за обучение: верните до 14 300 ₽",
+      "url": "https://neuro-retree.github.io/site/articles/article_nalogovyj_vychet_obuchenie_2026/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nalogovyj_vychet_obuchenie_2026.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_nejroset_hudozhnik",
+      "title": "Нейросеть-художник: картины по описанию без навыков",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Нейросеть-художник: картины по описанию без навыков",
+      "url": "https://neuro-retree.github.io/site/articles/article_nejroset_hudozhnik/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nejroset_hudozhnik.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_nejroset_sobesednik",
+      "title": "Нейросеть-собеседник: как не чувствовать себя одиноко",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Нейросеть-собеседник: как не чувствовать себя одиноко",
+      "url": "https://neuro-retree.github.io/site/articles/article_nejroset_sobesednik/",
+      "sources_md": "https://neuro-retree.github.io/site/article_nejroset_sobesednik.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_obuchenie_55",
+      "title": "Где бесплатно выучиться нейросетям после 55",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Где бесплатно выучиться нейросетям после 55",
+      "url": "https://neuro-retree.github.io/site/articles/article_obuchenie_55/",
+      "sources_md": "https://neuro-retree.github.io/site/article_obuchenie_55.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_obyasni_sosedke",
+      "title": "Как объяснить соседке, что такое нейросеть",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как объяснить соседке, что такое нейросеть",
+      "url": "https://neuro-retree.github.io/site/articles/article_obyasni_sosedke/",
+      "sources_md": "https://neuro-retree.github.io/site/article_obyasni_sosedke.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_oshibki_90_dnej",
+      "title": "Ошибки первых 90 дней в заработке с нейросетями",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Ошибки первых 90 дней в заработке с нейросетями",
+      "url": "https://neuro-retree.github.io/site/articles/article_oshibki_90_dnej/",
+      "sources_md": "https://neuro-retree.github.io/site/article_oshibki_90_dnej.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_otkrytki_na_zakaz",
+      "title": "Открытки на заказ: заработок без текстов",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Открытки на заказ: заработок без текстов",
+      "url": "https://neuro-retree.github.io/site/articles/article_otkrytki_na_zakaz/",
+      "sources_md": "https://neuro-retree.github.io/site/article_otkrytki_na_zakaz.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_otkrytyj_urok",
+      "title": "Открытый урок: первый запрос вместе с вами",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Открытый урок: первый запрос вместе с вами",
+      "url": "https://neuro-retree.github.io/site/articles/article_otkrytyj_urok/",
+      "sources_md": "https://neuro-retree.github.io/site/article_otkrytyj_urok.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_otzyvy_kak_reklama",
+      "title": "Отзывы как реклама: как просить и показывать",
+      "tags": [
+        "право"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Отзывы как реклама: как просить и показывать",
+      "url": "https://neuro-retree.github.io/site/articles/article_otzyvy_kak_reklama/",
+      "sources_md": "https://neuro-retree.github.io/site/article_otzyvy_kak_reklama.md",
+      "category": "право",
+      "status": "published"
+    },
+    {
+      "slug": "article_ozvuchka_pozdravlenie",
+      "title": "Озвучка: аудиопоздравление голосом диктора за 10 минут",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Озвучка: аудиопоздравление голосом диктора за 10 минут",
+      "url": "https://neuro-retree.github.io/site/articles/article_ozvuchka_pozdravlenie/",
+      "sources_md": "https://neuro-retree.github.io/site/article_ozvuchka_pozdravlenie.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_pamyat_9_uprazhnenij",
+      "title": "Память после 60: 9 простых упражнений, которые работают",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Память после 60: 9 простых упражнений, которые работают",
+      "url": "https://neuro-retree.github.io/site/articles/article_pamyat_9_uprazhnenij/",
+      "sources_md": "https://neuro-retree.github.io/site/article_pamyat_9_uprazhnenij.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_pamyatka_bezopasnosti",
+      "title": "Памятка безопасности для ваших клиентов (готовая)",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Памятка безопасности для ваших клиентов (готовая)",
+      "url": "https://neuro-retree.github.io/site/articles/article_pamyatka_bezopasnosti/",
+      "sources_md": "https://neuro-retree.github.io/site/article_pamyatka_bezopasnosti.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_passiv_dohod_bezopasno",
+      "title": "Пассивный доход: безопасные пути и опасные ловушки",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Пассивный доход: безопасные пути и опасные ловушки",
+      "url": "https://neuro-retree.github.io/site/articles/article_passiv_dohod_bezopasno/",
+      "sources_md": "https://neuro-retree.github.io/site/article_passiv_dohod_bezopasno.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_passivnyj_dohod_oshibki",
+      "title": "Пассивный доход: 5 ошибок, на которых теряют деньги",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Пассивный доход: 5 ошибок, на которых теряют деньги",
+      "url": "https://neuro-retree.github.io/site/articles/article_passivnyj_dohod_oshibki/",
+      "sources_md": "https://neuro-retree.github.io/site/article_passivnyj_dohod_oshibki.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_passivnyj_dohod_pravda",
+      "title": "Пассивный доход»: правда, которую скрывают",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Пассивный доход»: правда, которую скрывают",
+      "url": "https://neuro-retree.github.io/site/articles/article_passivnyj_dohod_pravda/",
+      "sources_md": "https://neuro-retree.github.io/site/article_passivnyj_dohod_pravda.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_perevod_svoimi_slovami",
+      "title": "Переводы и «пересказ своими словами»: простая услуга",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Переводы и «пересказ своими словами»: простая услуга",
+      "url": "https://neuro-retree.github.io/site/articles/article_perevod_svoimi_slovami/",
+      "sources_md": "https://neuro-retree.github.io/site/article_perevod_svoimi_slovami.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_pisma_zhiloby_pozdravleniya",
+      "title": "Напиши за меня»: письма, жалобы, поздравления",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Напиши за меня»: письма, жалобы, поздравления",
+      "url": "https://neuro-retree.github.io/site/articles/article_pisma_zhiloby_pozdravleniya/",
+      "sources_md": "https://neuro-retree.github.io/site/article_pisma_zhiloby_pozdravleniya.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_platformy_dzen_boosty_vk",
+      "title": "Дзен vs Boosty vs VK: что выбрать для своих текстов",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Дзен vs Boosty vs VK: что выбрать для своих текстов",
+      "url": "https://neuro-retree.github.io/site/articles/article_platformy_dzen_boosty_vk/",
+      "sources_md": "https://neuro-retree.github.io/site/article_platformy_dzen_boosty_vk.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_podagra_dieta",
+      "title": "Подагра и мочевая кислота: что можно и что нельзя есть",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Подагра и мочевая кислота: что можно и что нельзя есть",
+      "url": "https://neuro-retree.github.io/site/articles/article_podagra_dieta/",
+      "sources_md": "https://neuro-retree.github.io/site/article_podagra_dieta.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_portfolio_za_vecher",
+      "title": "Портфолио за вечер: 3 работы, и заказчики увидят",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Портфолио за вечер: 3 работы, и заказчики увидят",
+      "url": "https://neuro-retree.github.io/site/articles/article_portfolio_za_vecher/",
+      "sources_md": "https://neuro-retree.github.io/site/article_portfolio_za_vecher.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_pozdravlenie_ot_kota",
+      "title": "Поздравления «от кота» и «от внучки»: необычная услуга",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Поздравления «от кота» и «от внучки»: необычная услуга",
+      "url": "https://neuro-retree.github.io/site/articles/article_pozdravlenie_ot_kota/",
+      "sources_md": "https://neuro-retree.github.io/site/article_pozdravlenie_ot_kota.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_pozdravlenie_s_promtom",
+      "title": "Праздничное поздравление: тёплый текст через промт",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Праздничное поздравление: тёплый текст через промт",
+      "url": "https://neuro-retree.github.io/site/articles/article_pozdravlenie_s_promtom/",
+      "sources_md": "https://neuro-retree.github.io/site/article_pozdravlenie_s_promtom.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_prajs_ne_prodeshevit",
+      "title": "Прайс: как назвать цену и не продешевить",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Прайс: как назвать цену и не продешевить",
+      "url": "https://neuro-retree.github.io/site/articles/article_prajs_ne_prodeshevit/",
+      "sources_md": "https://neuro-retree.github.io/site/article_prajs_ne_prodeshevit.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_promt_ne_strashno",
+      "title": "Промт — не страшно: что писать нейросети",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Промт — не страшно: что писать нейросети",
+      "url": "https://neuro-retree.github.io/site/articles/article_promt_ne_strashno/",
+      "sources_md": "https://neuro-retree.github.io/site/article_promt_ne_strashno.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_promty_dlya_konsultacij",
+      "title": "Промты для консультации: 5 готовых запросов",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Промты для консультации: 5 готовых запросов",
+      "url": "https://neuro-retree.github.io/site/articles/article_promty_dlya_konsultacij/",
+      "sources_md": "https://neuro-retree.github.io/site/article_promty_dlya_konsultacij.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_prostoy_tekst",
+      "title": "Пишите просто: 5 правил понятного текста",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Пишите просто: 5 правил понятного текста",
+      "url": "https://neuro-retree.github.io/site/articles/article_prostoy_tekst/",
+      "sources_md": "https://neuro-retree.github.io/site/article_prostoy_tekst.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_proverka_dolgov_fssp",
+      "title": "Как проверить себя на долги (ФССП) за 5 минут",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как проверить себя на долги (ФССП) за 5 минут",
+      "url": "https://neuro-retree.github.io/site/articles/article_proverka_dolgov_fssp/",
+      "sources_md": "https://neuro-retree.github.io/site/article_proverka_dolgov_fssp.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_proverka_firmy_za_5_minut",
+      "title": "Как проверить фирму за 5 минут: реестры и сервисы",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как проверить фирму за 5 минут: реестры и сервисы",
+      "url": "https://neuro-retree.github.io/site/articles/article_proverka_firmy_za_5_minut/",
+      "sources_md": "https://neuro-retree.github.io/site/article_proverka_firmy_za_5_minut.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_psillium",
+      "title": "Как псиллиум помогает наладить пищеварение и избежать ошибок",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как псиллиум помогает наладить пищеварение и избежать ошибок",
+      "url": "https://neuro-retree.github.io/site/articles/article_psillium/",
+      "sources_md": "https://neuro-retree.github.io/site/article_psillium.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_psillium_lekarstva",
+      "title": "Псиллиум и лекарства: важный интервал в 2 часа",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Псиллиум и лекарства: важный интервал в 2 часа",
+      "url": "https://neuro-retree.github.io/site/articles/article_psillium_lekarstva/",
+      "sources_md": "https://neuro-retree.github.io/site/article_psillium_lekarstva.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_public_wifi",
+      "title": "Публичный Wi-Fi в кафе: что можно делать, а что нельзя",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Публичный Wi-Fi в кафе: что можно делать, а что нельзя",
+      "url": "https://neuro-retree.github.io/site/articles/article_public_wifi/",
+      "sources_md": "https://neuro-retree.github.io/site/article_public_wifi.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_rasshifrovka_video",
+      "title": "Расшифровка видео в текст: услуга на каждый день",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Расшифровка видео в текст: услуга на каждый день",
+      "url": "https://neuro-retree.github.io/site/articles/article_rasshifrovka_video/",
+      "sources_md": "https://neuro-retree.github.io/site/article_rasshifrovka_video.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_rasteniya_60",
+      "title": "Комнатные растения после 60: польза для тела и ума",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Комнатные растения после 60: польза для тела и ума",
+      "url": "https://neuro-retree.github.io/site/articles/article_rasteniya_60/",
+      "sources_md": "https://neuro-retree.github.io/site/article_rasteniya_60.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_shemy_moshennikov_2026",
+      "title": "Новые схемы мошенников 2026: не отдайте денег",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Новые схемы мошенников 2026: не отдайте денег",
+      "url": "https://neuro-retree.github.io/site/articles/article_shemy_moshennikov_2026/",
+      "sources_md": "https://neuro-retree.github.io/site/article_shemy_moshennikov_2026.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_shkola_bloginga_55",
+      "title": "Блогинг для 55+: почему он стал делом старшего поколения",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Блогинг для 55+: почему он стал делом старшего поколения",
+      "url": "https://neuro-retree.github.io/site/articles/article_shkola_bloginga_55/",
+      "sources_md": "https://neuro-retree.github.io/site/article_shkola_bloginga_55.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_sluh_i_pamyat",
+      "title": "Слух и память: недооценённая связь",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Слух и память: недооценённая связь",
+      "url": "https://neuro-retree.github.io/site/articles/article_sluh_i_pamyat/",
+      "sources_md": "https://neuro-retree.github.io/site/article_sluh_i_pamyat.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_sluzhba_podpiski",
+      "title": "Служба подписки: 3 консультации в месяц",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Служба подписки: 3 консультации в месяц",
+      "url": "https://neuro-retree.github.io/site/articles/article_sluzhba_podpiski/",
+      "sources_md": "https://neuro-retree.github.io/site/article_sluzhba_podpiski.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_sockontrakt",
+      "title": "Соцконтракт: деньги на ваше дело от государства",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Соцконтракт: деньги на ваше дело от государства",
+      "url": "https://neuro-retree.github.io/site/articles/article_sockontrakt/",
+      "sources_md": "https://neuro-retree.github.io/site/article_sockontrakt.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_solnechnye_paneli_balkon",
+      "title": "Солнечные панели на балконе: сколько света и денег они дают",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Солнечные панели на балконе: сколько света и денег они дают",
+      "url": "https://neuro-retree.github.io/site/articles/article_solnechnye_paneli_balkon/",
+      "sources_md": "https://neuro-retree.github.io/site/article_solnechnye_paneli_balkon.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_sravnenie_ozvuchki",
+      "title": "Озвучка текста: Zvukogram, ElevenLabs или Silero",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Озвучка текста: Zvukogram, ElevenLabs или Silero",
+      "url": "https://neuro-retree.github.io/site/articles/article_sravnenie_ozvuchki/",
+      "sources_md": "https://neuro-retree.github.io/site/article_sravnenie_ozvuchki.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_subtitry",
+      "title": "Субтитры на русском: не только для слабослышащих",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Субтитры на русском: не только для слабослышащих",
+      "url": "https://neuro-retree.github.io/site/articles/article_subtitry/",
+      "sources_md": "https://neuro-retree.github.io/site/article_subtitry.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_tabldm_predskazanie",
+      "title": "Как нейросеть предсказывает по таблицам: просто о сложном",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как нейросеть предсказывает по таблицам: просто о сложном",
+      "url": "https://neuro-retree.github.io/site/articles/article_tabldm_predskazanie/",
+      "sources_md": "https://neuro-retree.github.io/site/article_tabldm_predskazanie.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_telegram_partnerki",
+      "title": "Telegram-партнёрки: заработок на «Звёздах» без вложений",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Telegram-партнёрки: заработок на «Звёздах» без вложений",
+      "url": "https://neuro-retree.github.io/site/articles/article_telegram_partnerki/",
+      "sources_md": "https://neuro-retree.github.io/site/article_telegram_partnerki.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_upakui_za_vecher",
+      "title": "Как за 4 вечера создать продающий пост, который привлечёт клиентов",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как за 4 вечера создать продающий пост, который привлечёт клиентов",
+      "url": "https://neuro-retree.github.io/site/articles/article_upakui_za_vecher/",
+      "sources_md": "https://neuro-retree.github.io/site/article_upakui_za_vecher.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_vajb_koding",
+      "title": "Вайб-кодинг без программирования: свой инструмент",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Вайб-кодинг без программирования: свой инструмент",
+      "url": "https://neuro-retree.github.io/site/articles/article_vajb_koding/",
+      "sources_md": "https://neuro-retree.github.io/site/article_vajb_koding.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_video_iz_teksta",
+      "title": "Видео из текста: от слайда к ролику без монтажёра",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Видео из текста: от слайда к ролику без монтажёра",
+      "url": "https://neuro-retree.github.io/site/articles/article_video_iz_teksta/",
+      "sources_md": "https://neuro-retree.github.io/site/article_video_iz_teksta.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_volonterstvo_60",
+      "title": "Волонтёрство после 60: польза для души и ума",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Волонтёрство после 60: польза для души и ума",
+      "url": "https://neuro-retree.github.io/site/articles/article_volonterstvo_60/",
+      "sources_md": "https://neuro-retree.github.io/site/article_volonterstvo_60.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_vordstat_temy",
+      "title": "Вордстат: как подбирать темы для статей",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Вордстат: как подбирать темы для статей",
+      "url": "https://neuro-retree.github.io/site/articles/article_vordstat_temy/",
+      "sources_md": "https://neuro-retree.github.io/site/article_vordstat_temy.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_vozrazheniya_klientov",
+      "title": "Как отвечать на возражения клиентов: 5 ответов",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как отвечать на возражения клиентов: 5 ответов",
+      "url": "https://neuro-retree.github.io/site/articles/article_vozrazheniya_klientov/",
+      "sources_md": "https://neuro-retree.github.io/site/article_vozrazheniya_klientov.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_vydumki_ii",
+      "title": "Как не попасться на выдумки нейросети",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как не попасться на выдумки нейросети",
+      "url": "https://neuro-retree.github.io/site/articles/article_vydumki_ii/",
+      "sources_md": "https://neuro-retree.github.io/site/article_vydumki_ii.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_vyvod_s_boosty",
+      "title": "Как выводить деньги с Boosty: без комиссии и без ошибок",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как выводить деньги с Boosty: без комиссии и без ошибок",
+      "url": "https://neuro-retree.github.io/site/articles/article_vyvod_s_boosty/",
+      "sources_md": "https://neuro-retree.github.io/site/article_vyvod_s_boosty.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_zamedlit_alzgejmer",
+      "title": "Как замедлить Альцгеймер: 5 рычагов в ваших руках",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Как замедлить Альцгеймер: 5 рычагов в ваших руках",
+      "url": "https://neuro-retree.github.io/site/articles/article_zamedlit_alzgejmer/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zamedlit_alzgejmer.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_zamena_scheta_cb",
+      "title": "Замените счёт в Центробанке» — схема мошенников",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Замените счёт в Центробанке» — схема мошенников",
+      "url": "https://neuro-retree.github.io/site/articles/article_zamena_scheta_cb/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zamena_scheta_cb.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_zapor_sredstva",
+      "title": "Запоры после 60: как выбрать безопасное слабительное",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Запоры после 60: как выбрать безопасное слабительное",
+      "url": "https://neuro-retree.github.io/site/articles/article_zapor_sredstva/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zapor_sredstva.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_zarabotok_ii_50",
+      "title": "Заработок с нейросетью после 50: что реально",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Заработок с нейросетью после 50: что реально",
+      "url": "https://neuro-retree.github.io/site/articles/article_zarabotok_ii_50/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zarabotok_ii_50.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_zarabotok_na_botah",
+      "title": "Заработок на чат-ботах с ИИ без программирования",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Заработок на чат-ботах с ИИ без программирования",
+      "url": "https://neuro-retree.github.io/site/articles/article_zarabotok_na_botah/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zarabotok_na_botah.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_zhaloba_na_vracha",
+      "title": "Халатность врача: куда жаловаться и как защитить себя",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Халатность врача: куда жаловаться и как защитить себя",
+      "url": "https://neuro-retree.github.io/site/articles/article_zhaloba_na_vracha/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zhaloba_na_vracha.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_zooterapiya",
+      "title": "Зоотерапия после 60: 15 минут с питомцем творят чудеса",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Зоотерапия после 60: 15 минут с питомцем творят чудеса",
+      "url": "https://neuro-retree.github.io/site/articles/article_zooterapiya/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zooterapiya.md",
+      "category": "нейросети",
+      "status": "published"
+    },
+    {
+      "slug": "article_zrenie_makula",
+      "title": "Зрение после 60: макулярная дегенерация и тест Амслера",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Статья на сайте «Нейросети для жизни»: Зрение после 60: макулярная дегенерация и тест Амслера",
+      "url": "https://neuro-retree.github.io/site/articles/article_zrenie_makula/",
+      "sources_md": "https://neuro-retree.github.io/site/article_zrenie_makula.md",
+      "category": "здоровье",
       "status": "published"
     }
   ]

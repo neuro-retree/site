@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства» — Нейросети для жизни</title>
+<meta name="description" content="Статья на сайте «Нейросети для жизни»: Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»">
+<meta name="theme-color" content="#0b5c4f">
+<link rel="canonical" href="https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Нейросети для жизни">
+<meta property="og:title" content="Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства» — Нейросети для жизни">
+<meta property="og:description" content="Статья на сайте «Нейросети для жизни»: Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»">
+<meta property="og:url" content="https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/">
+<meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="https://neuro-retree.github.io/site/rss.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»", "inLanguage": "ru", "description": "Статья на сайте «Нейросети для жизни»: Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»", "author": {"@type": "Person", "name": "Татьяна Зенина"}, "publisher": {"@type": "Organization", "name": "Нейросети для жизни"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/"}}</script>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f4f7f9;--card:#fff;--ink:#1f2d3a;--accent:#0e7c66;--accent2:#1565a8;--soft:#5b7080;--line:#e2e9ee;--shadow:0 2px 10px rgba(20,40,60,.08);--fs:1.1875rem}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff;--shadow:none}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:var(--fs)}
+a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+header .title{font-size:24px;margin:0;color:#fff}
+header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
+.breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
+main{padding:10px 0 60px}
+.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card img{width:100%%;height:100%%;object-fit:cover;object-position:center;display:block}
+.card .cov{width:100%%;aspect-ratio:16/9;overflow:hidden;background:#dfe9e4;display:flex;align-items:center;justify-content:center}
+.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
+.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
+.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-read:hover{background:#0b6a58;text-decoration:none}
+.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
+.article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
+.article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
+.article h3{margin:22px 0 8px;color:#153a4d;font-size:20px}
+.article p{margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:26px}
+.article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
+.article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
+.article img{max-width:100%%;height:auto}
+.toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
+.toc b{color:#153a4d}
+.toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.tools-bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.tools-bar button{padding:10px 16px;font-size:15px;border:1px solid #e2e9ee;border-radius:10px;background:#f4f7f9;color:#1f2d3a;cursor:pointer;min-height:44px}
+.tools-bar button:hover{background:#e7eef2}
+.related{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:14px 18px;margin-top:24px}
+.related a{display:block;margin:6px 0}
+.cta{background:#e7f4f0;border-left:4px solid #0e7c66;padding:12px 16px;border-radius:8px;margin-top:24px}
+.footer{border-top:1px solid #e2e9ee;margin-top:40px;padding:18px 0;color:#5b7080;font-size:14px}
+.a11ybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px;max-width:1080px;margin:0 auto;font-size:15px;color:var(--soft)}
+.a11ybar button{min-height:44px;min-width:44px;font-size:16px;font-weight:600;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:8px;cursor:pointer;padding:6px 12px}
+.a11ybar button:hover{background:#eef2f5}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:8px;top:8px;background:#fff;padding:10px 14px;z-index:60;border:2px solid var(--accent);border-radius:8px}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.search-status{color:#5b7080;font-size:14px}
+.tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
+.tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page textarea{min-height:120px}
+.tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
+.btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
+.btn:hover{background:#0b6a58}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content" style="position:absolute;left:-999px">Перейти к тексту</a>
+<div class="a11ybar" id="a11y-toolbar" aria-label="Настройки чтения"></div>
+<header><div class="wrap inline">
+  <div class="title">Нейросети для жизни</div>
+  <div class="links">
+    <a href="https://neuro-retree.github.io/site/">Главная</a>
+    <a href="https://neuro-retree.github.io/site/articles/">Статьи</a>
+    <a href="https://neuro-retree.github.io/site/tools/">Инструменты</a>
+    <a href="https://neuro-retree.github.io/site/learning/">Обучение</a>
+    <a href="https://neuro-retree.github.io/site/slovar/">Словарь</a>
+  </div>
+</div></header>
+<main><div class="wrap">
+
+<div class="breadcrumbs"><a href="https://neuro-retree.github.io/site/">Главная</a> → <a href="https://neuro-retree.github.io/site/articles/">Статьи</a> → Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</div>
+<div class="article">
+  <span class="tag">Нейросети</span>
+  <h1>Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</h1>
+  <div class="meta">Проект «Нейросети для жизни» · Татьяна Зенина, Астрахань · проверено 2026-10-20</div>
+  <div class="tools-bar">
+    <button type="button" onclick="window.print()">Печать</button>
+    <button type="button" onclick="copyLink()">Скопировать ссылку</button>
+  </div>
+  <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Страх первого экрана: как подружиться с искусственным интеллектом, если вам за 50</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Где искать вашего нового электронного помощника</a></li><li style="margin-left:0px;list-style:disc"><a href="#h4">Первый разговор без лишних реверансов и церемоний</a></li><li style="margin-left:0px;list-style:disc"><a href="#h5">Как управлять беседой: учимся задавать вопросы правильно</a></li><li style="margin-left:0px;list-style:disc"><a href="#h6">От страха к реальной пользе всего за пять минут</a></li><li style="margin-left:0px;list-style:disc"><a href="#h7">Пять простых правил для уверенного общения</a></li></ul></div>
+  <h2 id="h1">Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</h2>
+<h2 id="h2">Страх первого экрана: как подружиться с искусственным интеллектом, если вам за 50</h2>
+<p>Самое страшное в любой новой технологии — это всегда первый экран. Всё незнакомое, кнопочки мелкие, глаза разбегаются, а сердце начинает колотиться чаще. Я сама отлично помню этот момент, когда мой внук Серёжа впервые открыл на планшете какую-то непонятную нейросеть. Мои руки буквально дрожали от страха. В голове крутилась только одна мысль: сейчас я случайно нажму не туда, и всё — планшет сломается, интернет пропадёт, а внук будет ругать, что бабушка опять всё испортила.</p>
+<p>Знакомое чувство? Уверена, что да.</p>
+<p>Так вот, чтобы вы сразу расслабились и перестали бояться: «сломать» современный сайт или мобильное приложение простым кликом абсолютно невозможно. Это же не хрустальная ваза ручной работы из бабушкиного комода и не сложнейший хирургический прибор. Вы — всего лишь гость в чужом виртуальном доме. Самое худшее, что может случиться от самого неудачного или лишнего нажатия на экран, — это то, что случайно откроется какая-нибудь ненужная рекламная справка или вылезет назойливое окошко с предложением купить платную подписку. На этот случай у нас есть проверенное оружие: мы просто находим крестик в самом верхнем углу этого окошка, нажимаем на него, и дело с концом. Ничего страшного не произошло, жизнь продолжается.</p>
+<hr>
+<h2 id="h3">Где искать вашего нового электронного помощника</h2>
+<p>Давайте сделаем первые шаги спокойно и методично. Сначала нам нужно найти саму программу, с которой мы будем общаться.</p>
+<p>Если вы держите в руках обычный смартфон или планшет, посмотрите внимательно на главный экран. Обычно там пестрят самые разные разноцветные значки и иконки. Нам нужен яркий кружочек или квадрат — у многих сейчас установлен фиолетовый значок популярного помощника GigaChat или синяя иконка другой аналогичной программы.</p>
+<p>Если на главном экране ничего подобного нет, не паникуйте. Откройте ваш привычный браузер — это та самая программа, через которую вы обычно читаете утренние новости, ищете рецепты пирогов или заходите на сайты погоды. В поисковой строке (в самом верху или посередине экрана) наберите понятные слова: например, русскими буквами напишите «ГигаЧат» или «Искусственный интеллект для общения». Самая первая ссылка в поисковой выдаче — это именно то, что нам нужно. Смело нажимайте на неё.</p>
+<p>На персональном компьютере или ноутбуке всё делается точно так же. Открыли ваш любимый поисковик (Яндекс или Google), напечатали название, перешли по первой ссылке.</p>
+<p>Теперь внимательно посмотрим на открывшийся экран. Видите большую пустую белую полоску (она может быть внизу или посередине страницы)? Прямо внутри этой полоски или сразу под ней часто мигает тонкая вертикальная чёрточка. Это не просто чёрточка, это ваш главный ориентир. Это так называемое «окно ввода текста» — наш виртуальный почтовый ящик, через который мы будем отправлять сообщения роботу. Чуть выше этой полоски бежит поле с текстом — это называется чат или история общения.</p>
+<p>Всё, что вы напишете сами, будет появляться сверху красивыми голубыми или серыми облачками (точно так же, как в мессенджерах, когда вы переписываетесь с детьми или внуками). А ответы самой программы будут выпадать снизу, но уже совсем другим цветом, чтобы вы не путали, где ваши слова, а где чужие. Если вы уже успели пообщаться с программой раньше — сегодня утром или даже вчера вечером, — не ищите этот текст. Он никуда не пропал, а просто ушёл наверх. Легко и плавно листайте экран пальцем или крутите колесико мышки вверх — вся история бережно сохранена.</p>
+<p>Понять, что вы уже находитесь внутри программы и можно смело начинать общение, очень просто. Посмотрите на ту самую мигающую чёрточку. Если она ритмично ждёт — значит, система полностью включена, работает и внимательно вас «слушает». Обратите внимание: никаких сложных паролей, длинных регистраций или платных установок на этом самом начальном этапе от вас не требуется. Открыли страницу, увидели поле для ввода текста — всё, можете смело здороваться. Как только вы напечатаете своё самое первое слово, эта мигающая чёрточка исчезнет, уступая место вашему тексту. Значит, диалог официально начался.</p>
+<hr>
+<h2 id="h4">Первый разговор без лишних реверансов и церемоний</h2>
+<p>Итак, мы с вами успешно добрались до самого интересного момента — до нашего самого первого живого разговора с машиной.</p>
+<p>Смотрите на ту самую мигающую чёрточку в белом поле. Она терпеливо ждёт вашего слова. Запомните главное правило: не нужно сидеть перед экраном и придумывать какие-то особенно умные, мудрёные фразы или пытаться как-то по-особенному, излишне вежливо кланяться программе. Она не человек, у нее нет человеческих амбиций, поэтому ваши чрезмерные реверансы ей совершенно ни к чему.</p>
+<p>Самое лучшее, что можно сделать для старта, — это использовать самые простые, обыденные слова. Напишите самое простое: «Привет». Или чуть более уважительно: «Здравствуй».</p>
+<p>После этого найдите кнопку отправки сообщения. Обычно она выглядит как маленькая стрелочка, указывающая вверх или вбок, либо как аккуратный бумажный самолётик. Нажмите на неё.</p>
+<p>И теперь просто смотрите на экран. Буквально через одну-две секунды там появится печатный текст. Он будет выделен другим цветом и шрифтом, чтобы вы никогда не путали свои собственные мысли с ответами робота. Чаще всего этот ответ начинается с вежливого «Здравствуйте!» или «Добрый день!», а дальше программа сама обязательно спросит, чем именно она может вам помочь.</p>
+<p>Вы сразу увидите, что диалог пошёл. По ощущениям это очень сильно напоминает обычную переписку по телефону с любимым внуком, только есть одно приятное отличие: искусственный интеллект отвечает вам абсолютно мгновенно, без задержек и всегда предельно вежливо.</p>
+<hr>
+<h2 id="h5">Как управлять беседой: учимся задавать вопросы правильно</h2>
+<p>Здесь кроется один очень важный и полезный нюанс. Допустим, вы задали вопрос, а в ответ получили длинный-предлинный текст, настоящую «простыню» из букв и сложных терминов. Не пугайтесь. Никто не заставляет вас сидеть и вникать в каждое слово.</p>
+<p>Прямо под этим длинным ответом снова появилось ваше знакомое белое окошко для ввода? Вот туда вы можете написать абсолютно любую команду своими собственными словами, например: «Сделай этот текст короче» или «Объясни мне это простыми человеческими словами». Я сама пользуюсь этим приемом постоянно, когда нейросеть начинает слишком сильно мудрствовать.</p>
+<p>Программа тут же мгновенно извинится и перепишет всё заново, но уже гораздо короче, яснее и понятнее. А если в тексте вам встретится какое-то непонятное, иностранное слово или профессиональный термин, не стесняйтесь — смело спрашивайте прямо у неё: «А что такое, например, интерфейс?» И она тут же подробно и доступно объяснит, что это всего лишь то, как выглядит экран вашего телефона.</p>
+<p>Вы, возможно, спросите меня: откуда у простой бездушной машины такой невероятно вежливый тон? Почему она пишет практически без орфографических ошибок?</p>
+<p>Понимаете ли в чём дело: любая нейросеть — это колоссальная, гигантская книга, в которую собраны миллиарды самых разных текстов, написанных людьми. В этой цифровой библиотеке хранятся классические романы, учебники по физике и кулинарии, хорошие статьи, деловые письма и энциклопедии. Создатели долго и терпеливо учили искусственный интеллект быть аккуратным, грамотным и культурным собеседником.</p>
+<p>Но всегда помните главное: перед вами всё равно безобидный робот. Она абсолютно никогда не обидится, если вы вдруг попросите её переписать текст грубее, проще или добавить немного юмора. Ей всё равно, у нее нет обид и самолюбия, она просто послушно выполняет любую вашу текстовую просьбу.</p>
+<hr>
+<h2 id="h6">От страха к реальной пользе всего за пять минут</h2>
+<p>Итак, мы с вами успешно поздоровались, получили самый первый в жизни ответ, разобрались, где чьи реплики на экране. Теперь наступает самый приятный момент — превратить наш изначальный страх в реальную, осязаемую пользу для дома и жизни.</p>
+<p>Давайте начнем с какого-нибудь маленького, простого дела. Такого, чтобы результат был виден немедленно, а ваша голова при этом абсолютно не устала.</p>
+<p>Начните с того, что находится прямо сейчас у вас под рукой. Например, встаньте, откройте дверцу холодильника и посмотрите, какие продукты там скучают. Допустим, там обнаружились остатки докторской колбасы, два куриных яйца, небольшой кусочек твёрдого сыра и одинокий помидор.</p>
+<p>Вот прямо так, без всяких церемоний, зайдите в программу и напишите ей простым языком:</p>
+<p><em>«Что можно быстро и вкусно приготовить на скорую руку из сосисок, двух яиц, сыра и помидора?»</em></p>
+<p>Или попробуйте другой жизненный сценарий. Допустим, у вашей любимой внучки послезавтра день рождения, а вы никак не можете придумать хорошее, душевное поздравление. Напишите программе:</p>
+<p><em>«Придумай короткое, но очень теплое поздравление для внучки, ей исполняется 12 лет, она очень любит котов и обожает рисовать акварелью».</em></p>
+<p>Чувствуете разницу? Мы даем искусственному интеллекту конкретные, жизненные факты, а он за пару секунд выдает нам полностью готовое, красивое решение нашей проблемы.</p>
+<p>Конечно, программа может ответить предложенным списком рецептов или сочинить красивое поздравление. Но вдруг предложенный рецепт покажется вам слишком сложным, со странными и непонятными ресторанными словами? Не беда. Просто напишите ей в ответ:</p>
+<p><em>«Слишком мудрёно для меня. Давай-ка попроще, из самых обычных продуктов, которые есть на любой кухне».</em></p>
+<p>И она тут же перестроит ответ специально под ваши запросы.</p>
+<hr>
+<h2 id="h7">Пять простых правил для уверенного общения</h2>
+<p>Чтобы вам было совсем легко и комфортно общаться с электронным помощником каждый день, давайте закрепим несколько простых правил. Они станут вашим надежным компасом в мире современных технологий:</p>
+<ol>
+<li><strong>Не бойтесь ошибаться.</strong> На клавиатуре нет ни одной волшебной кнопки, способной испортить ваш компьютер или планшет от одного неверного движения. Если зашли куда-то не туда — просто закройте вкладку или нажмите стрелочку «Назад».</li>
+<li><strong>Пишите так, как разговариваете.</strong> Забудьте про канцелярит и официальный тон. Общайтесь с нейросетью точно так же, как вы привыкли разговаривать с соседкой на скамейке или с любимыми детьми по телефону.</li>
+<li><strong>Задавайте уточняющие вопросы.</strong> Если ответ кажется слишком сложным, длинным или научным, не стесняйтесь просить: «Объясни проще», «Расскажи подробнее» или «Приведи пример из жизни».</li>
+<li><strong>Используйте для реальных дел.</strong> Просите составить список покупок перед походом на рынок, придумать план уборки, найти рецепт шарлотки с яблоками или подобрать интересную книгу на вечер.</li>
+<li><strong>Относитесь к этому как к игре.</strong> Помните, что перед вами всего лишь очень эрудированный, но послушный цифровой помощник. Он создан для того, чтобы облегчать нам жизнь, экономить время и беречь нервы, а вовсе не для того, чтобы экзаменовать нас или оценивать наши знания.</li>
+</ol>
+<p>Вот видите? Ничего по-настоящему сложного и страшного в этом цифровом мире нет. Стоит только сделать самый первый шаг, перешагнуть через минутное смущение — и перед вами откроется огромный, удивительный и очень полезный мир новых возможностей. Смелее берите планшет или телефон, нажимайте на заветную иконку и начинайте свой первый диалог. У вас обязательно всё получится!</p>
+<p>Только помните главное: <strong>ИИ, как и человек, может ошибаться.</strong> Если нейросеть не знает ответа и у неё нет под рукой проверенных источников, она начинает придумывать — это называют галлюцинациями. Так же и человек, когда чего-то не знает, начинает додумывать. Чтобы избежать ошибок, всегда сначала находите проверенные источники информации, а потом просите нейросеть проводить веб-поиск на каждом шагу: уточнять, находить источники, дополнять уже имеющуюся информацию новыми данными. Так выводы получаются точными и верными.</p>
+  <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/">Чек-лист «10 вечеров»: бесплатный старт в нейросетях</a><a href="https://neuro-retree.github.io/site/articles/article_02_promt_ne_strashno_kanon/">Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»</a><a href="https://neuro-retree.github.io/site/articles/article_10_scenariev_byta/">Что нужно знать о «Нейросеть в быту: 10 дел за минуту»</a></div>
+  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
+</div>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+
+</div></main>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<script src="/a11y-toggle.js" defer></script>
+</body>
+</html>
