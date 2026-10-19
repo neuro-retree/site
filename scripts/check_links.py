@@ -44,6 +44,8 @@ def main() -> int:
                 continue
             if ref.endswith("/"):
                 ok = (page.parent / ref / "index.html").exists() or (page.parent / ref).exists()
+            elif ref.startswith("/"):
+                ok = (ROOT / ref.lstrip("/")).exists()
             else:
                 ok = (page.parent / ref).exists()
             if not ok:
