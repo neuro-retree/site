@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "generated": "2026-10-19",
+  "articles": [
+    {
+      "slug": "article_2fa_zashchita",
+      "title": "Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов.",
+      "url": "https://neuro-retree.github.io/site/articles/article_2fa_zashchita/",
+      "sources_md": "https://neuro-retree.github.io/site/article_2fa_zashchita.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_33_dipfeyki",
+      "title": "Поддельный голос внука: как распознать дипфейк и не отдать деньги",
+      "tags": [
+        "безопасность"
+      ],
+      "description": "Как проверить подозрительный звонок и защитить близких от мошенников с новыми технологиями.",
+      "url": "https://neuro-retree.github.io/site/articles/article_33_dipfeyki/",
+      "sources_md": "https://neuro-retree.github.io/site/article_33_dipfeyki.md",
+      "category": "безопасность",
+      "status": "published"
+    },
+    {
+      "slug": "article_gosuslugi_vyplaty",
+      "title": "Госуслуги: как узнать, какие выплаты и льготы вам положены",
+      "tags": [
+        "госуслуги"
+      ],
+      "description": "Какие сведения доступны на Госуслугах и в ЕГИССО и что делать дальше.",
+      "url": "https://neuro-retree.github.io/site/articles/article_gosuslugi_vyplaty/",
+      "sources_md": "https://neuro-retree.github.io/site/article_gosuslugi_vyplaty.md",
+      "category": "госуслуги",
+      "status": "published"
+    },
+    {
+      "slug": "article_spisali_za_prilozhenie",
+      "title": "Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё",
+      "tags": [
+        "деньги"
+      ],
+      "description": "Пошагово: где найти подписку, как её отключить и попробовать вернуть деньги.",
+      "url": "https://neuro-retree.github.io/site/articles/article_spisali_za_prilozhenie/",
+      "sources_md": "https://neuro-retree.github.io/site/article_spisali_za_prilozhenie.md",
+      "category": "деньги",
+      "status": "published"
+    },
+    {
+      "slug": "article_152fz_dannye",
+      "title": "152-ФЗ: ваши данные, ваши права — просто о главном",
+      "tags": [
+        "право"
+      ],
+      "description": "Что компаниям можно делать с вашими данными и как потребовать их удалить.",
+      "url": "https://neuro-retree.github.io/site/articles/article_152fz_dannye/",
+      "sources_md": "https://neuro-retree.github.io/site/article_152fz_dannye.md",
+      "category": "право",
+      "status": "published"
+    },
+    {
+      "slug": "article_statiny_6_mifov",
+      "title": "Статины: 6 мифов, о которых важно знать",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Разбираем самые распространённые страхи про препараты, снижающие холестерин.",
+      "url": "https://neuro-retree.github.io/site/articles/article_statiny_6_mifov/",
+      "sources_md": "https://neuro-retree.github.io/site/article_statiny_6_mifov.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_bady_riski",
+      "title": "БАДы: правда и риски, чтобы не навредить себе",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Как читать состав, где искать проверенную информацию и почему БАДы не заменяют лекарства.",
+      "url": "https://neuro-retree.github.io/site/articles/article_bady_riski/",
+      "sources_md": "https://neuro-retree.github.io/site/article_bady_riski.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_davlenie_posle_60",
+      "title": "Давление после 60: какая норма и как контролировать",
+      "tags": [
+        "здоровье"
+      ],
+      "description": "Понятно о цифрах тонометра, дневнике измерений и визите к врачу.",
+      "url": "https://neuro-retree.github.io/site/articles/article_davlenie_posle_60/",
+      "sources_md": "https://neuro-retree.github.io/site/article_davlenie_posle_60.md",
+      "category": "здоровье",
+      "status": "published"
+    },
+    {
+      "slug": "article_20_cheklist_10_vecherov",
+      "title": "Чек-лист «10 вечеров»: бесплатный старт в нейросетях",
+      "tags": [
+        "нейросети"
+      ],
+      "description": "Простые первые шаги: как за десять вечеров подружиться с нейросетью и не испугаться.",
+      "url": "https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/",
+      "sources_md": "https://neuro-retree.github.io/site/article_20_cheklist_10_vecherov.md",
+      "category": "нейросети",
+      "status": "published"
+    }
+  ]
+}

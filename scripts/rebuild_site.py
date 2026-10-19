@@ -1,0 +1,616 @@
+# -*- coding: utf-8 -*-
+"""rebuild_site.py — сборка статических страниц сайта «Нейросети для жизни».
+
+Генерирует из Markdown-статей в корне site_project:
+  - articles/<slug>/index.html   — отдельная HTML-страница каждой статьи
+  - articles/index.html          — каталог статей с поиском и фильтром
+  - tools/index.html             — инструменты (конструктор промптов, проверка сообщений)
+  - learning/index.html          — три учебных маршрута
+  - data/articles.json           — машинный реестр статей
+  - sitemap.xml, rss.xml         — обновляются реальными адресами
+  - index.html                   — главная пересобирается (карточки-ссылки)
+
+Запуск: python scripts/rebuild_site.py
+"""
+import html
+import json
+import re
+import sys
+from datetime import date
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+BASE_URL = "https://neuro-retree.github.io/site/"
+AUTHOR = "Татьяна Зенина"
+SITE_NAME = "Нейросети для жизни"
+
+ARTICLES = [
+    {"slug": "article_2fa_zashchita", "title": "Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг", "tags": ["безопасность"], "desc": "Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов."},
+    {"slug": "article_33_dipfeyki", "title": "Поддельный голос внука: как распознать дипфейк и не отдать деньги", "tags": ["безопасность"], "desc": "Как проверить подозрительный звонок и защитить близких от мошенников с новыми технологиями."},
+    {"slug": "article_gosuslugi_vyplaty", "title": "Госуслуги: как узнать, какие выплаты и льготы вам положены", "tags": ["госуслуги"], "desc": "Какие сведения доступны на Госуслугах и в ЕГИССО и что делать дальше."},
+    {"slug": "article_spisali_za_prilozhenie", "title": "Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё", "tags": ["деньги"], "desc": "Пошагово: где найти подписку, как её отключить и попробовать вернуть деньги."},
+    {"slug": "article_152fz_dannye", "title": "152-ФЗ: ваши данные, ваши права — просто о главном", "tags": ["право"], "desc": "Что компаниям можно делать с вашими данными и как потребовать их удалить."},
+    {"slug": "article_statiny_6_mifov", "title": "Статины: 6 мифов, о которых важно знать", "tags": ["здоровье"], "desc": "Разбираем самые распространённые страхи про препараты, снижающие холестерин."},
+    {"slug": "article_bady_riski", "title": "БАДы: правда и риски, чтобы не навредить себе", "tags": ["здоровье"], "desc": "Как читать состав, где искать проверенную информацию и почему БАДы не заменяют лекарства."},
+    {"slug": "article_davlenie_posle_60", "title": "Давление после 60: какая норма и как контролировать", "tags": ["здоровье"], "desc": "Понятно о цифрах тонометра, дневнике измерений и визите к врачу."},
+    {"slug": "article_20_cheklist_10_vecherov", "title": "Чек-лист «10 вечеров»: бесплатный старт в нейросетях", "tags": ["нейросети"], "desc": "Простые первые шаги: как за десять вечеров подружиться с нейросетью и не испугаться."},
+]
+
+CATEGORY_LABELS = {
+    "безопасность": "Безопасность",
+    "нейросети": "Нейросети",
+    "здоровье": "Здоровье",
+    "деньги": "Деньги",
+    "право": "Право",
+    "госуслуги": "Госуслуги",
+}
+
+BUILD_DATE = date(2026, 10, 19).isoformat()
+
+
+# ---------- Markdown -> HTML (безопасная минимальная реализация) ----------
+
+def esc(t):
+    return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def inline(t):
+    s = esc(t)
+    s = re.sub(r"\[([^\]]+)\]\((https?:[^)\s]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
+    s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
+    s = re.sub(r"(^|[^*])\*([^*\n]+)\*", r"\1<em>\2</em>", s)
+    return s
+
+
+def md_to_html(t):
+    """Возвращает (html_body, toc), где toc — список (id, уровень, текст)."""
+    lines = t.split("\n")
+    out = []
+    list_type = None
+    toc = []
+    h_count = 0
+
+    def close_list():
+        nonlocal list_type
+        if list_type:
+            out.append("</%s>" % list_type)
+            list_type = None
+
+    for raw in lines:
+        s = raw.strip()
+        if not s:
+            close_list()
+            continue
+        m = re.match(r"^(#{1,4})\s+(.*)$", s)
+        if m:
+            close_list()
+            level = len(m.group(1))
+            txt = inline(m.group(2))
+            h_count += 1
+            hid = "h%d" % h_count
+            tag = "h2" if level <= 2 else "h3" if level == 3 else "h4"
+            out.append('<%s id="%s">%s</%s>' % (tag, hid, txt, tag))
+            if level <= 3:
+                toc.append((hid, level, re.sub(r"<[^>]+>", "", m.group(2))))
+        elif re.match(r"^\s*[-*•]\s+", s):
+            if list_type != "ul":
+                close_list()
+                out.append("<ul>")
+                list_type = "ul"
+            out.append("<li>%s</li>" % inline(re.sub(r"^\s*[-*•]\s+", "", s)))
+        elif re.match(r"^\s*\d+[.)]\s+", s):
+            if list_type != "ol":
+                close_list()
+                out.append("<ol>")
+                list_type = "ol"
+            out.append("<li>%s</li>" % inline(re.sub(r"^\s*\d+[.)]\s+", "", s)))
+        elif re.match(r"^\s*>+\s?", s):
+            close_list()
+            out.append("<blockquote>%s</blockquote>" % inline(re.sub(r"^\s*>+\s?", "", s)))
+        elif re.match(r"^\s*-{3,}\s*$", s):
+            close_list()
+            out.append("<hr>")
+        else:
+            close_list()
+            out.append("<p>%s</p>" % inline(s))
+    close_list()
+    return "\n".join(out), toc
+
+
+# ---------- Каркас страницы ----------
+
+CSS = """
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;background:#f4f7f9;color:#1f2d3a;line-height:1.7;font-size:18px}
+a{color:#1565a8;text-decoration:none;text-underline-offset:0.18em}
+a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%,#1565a8);color:#fff;padding:28px 0 24px}
+header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+header .title{font-size:24px;margin:0;color:#fff}
+header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
+.breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
+main{padding:10px 0 60px}
+.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card img{width:100%;height:auto;display:block}
+.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
+.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
+.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-read:hover{background:#0b6a58;text-decoration:none}
+.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
+.article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
+.article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
+.article h3{margin:22px 0 8px;color:#153a4d;font-size:20px}
+.article p{margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:26px}
+.article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
+.article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
+.article img{max-width:100%;height:auto}
+.toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
+.toc b{color:#153a4d}
+.toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.tools-bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.tools-bar button{padding:10px 16px;font-size:15px;border:1px solid #e2e9ee;border-radius:10px;background:#f4f7f9;color:#1f2d3a;cursor:pointer;min-height:44px}
+.tools-bar button:hover{background:#e7eef2}
+.related{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:14px 18px;margin-top:24px}
+.related a{display:block;margin:6px 0}
+.cta{background:#e7f4f0;border-left:4px solid #0e7c66;padding:12px 16px;border-radius:8px;margin-top:24px}
+.footer{border-top:1px solid #e2e9ee;margin-top:40px;padding:18px 0;color:#5b7080;font-size:14px}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.search-status{color:#5b7080;font-size:14px}
+.tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
+.tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page textarea{min-height:120px}
+.tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
+.btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
+.btn:hover{background:#0b6a58}
+@media(max-width:560px){.wrap{padding-inline:14px}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
+"""
+
+
+def page(title, desc, body, canonical, extra_head=""):
+    return """<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>%s</title>
+<meta name="description" content="%s">
+<link rel="canonical" href="%s">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="%srss.xml">
+%s
+<style>%s</style>
+</head>
+<body>
+<header><div class="wrap inline">
+  <div class="title">Нейросети для жизни</div>
+  <div class="links">
+    <a href="%s">Главная</a>
+    <a href="%sarticles/">Статьи</a>
+    <a href="%stools/">Инструменты</a>
+    <a href="%slearning/">Обучение</a>
+  </div>
+</div></header>
+<main><div class="wrap">
+%s
+</div></main>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro-retree@yandex.ru?subject=%s">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
+</body>
+</html>""" % (
+        html.escape(title), html.escape(desc[:190]), canonical,
+        BASE_URL, extra_head, CSS, BASE_URL, BASE_URL, BASE_URL, BASE_URL,
+        body, AUTHOR, "%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%B9%D1%82%D0%B5", BASE_URL
+    )
+
+
+HEADER_HOME = """
+<h1 style="font-size:30px;margin:20px 0 6px;color:#133a33">Нейросети для жизни</h1>
+<p style="color:#5b7080;font-size:17px;margin:0 0 10px">Просто о главном: для людей в возрасте. Статьи, советы, личный опыт.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 18px">
+  <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="articles/">Все статьи</a>
+  <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="tools/">Инструменты</a>
+  <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="learning/">Обучение</a>
+</div>
+"""
+
+
+def related_block(slug, tags):
+    related = [a for a in ARTICLES if a["slug"] != slug and set(a["tags"]) & set(tags)]
+    if not related:
+        return ""
+    items = "".join('<a href="%sarticles/%s/">%s</a>' % (BASE_URL, a["slug"], html.escape(a["title"])) for a in related[:3])
+    return '<div class="related"><b>Читайте также по теме:</b>%s</div>' % items
+
+
+# ---------- Страница статьи ----------
+
+def build_article(a, md_text):
+    body_html, toc = md_to_html(md_text)
+    cat = CATEGORY_LABELS.get(a["tags"][0], a["tags"][0])
+    toc_html = ""
+    if len(toc) > 2:
+        items = []
+        for hid, level, txt in toc:
+            items.append('<li style="margin-left:%dpx;list-style:%s"><a href="#%s">%s</a></li>' % (
+                (level - 2) * 14 if level > 2 else 0,
+                "none" if level > 2 else "disc",
+                hid, html.escape(txt)))
+        toc_html = '<div class="toc"><b>Содержание</b><ul>%s</ul></div>' % "".join(items)
+
+    body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → <a href="%sarticles/">Статьи</a> → %s</div>
+<div class="article">
+  <span class="tag">%s</span>
+  <h1>%s</h1>
+  <div class="meta">Проект «Нейросети для жизни» · %s, Астрахань · проверено %s</div>
+  <div class="tools-bar">
+    <button type="button" onclick="window.print()">Печать</button>
+    <button type="button" onclick="copyLink()">Скопировать ссылку</button>
+  </div>
+  %s
+  %s
+  %s
+  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
+</div>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+""" % (BASE_URL, BASE_URL, html.escape(a["title"]), html.escape(cat), html.escape(a["title"]),
+       AUTHOR, BUILD_DATE, toc_html, body_html, related_block(a["slug"], a["tags"]))
+
+    jsonld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": a["title"],
+        "inLanguage": "ru",
+        "description": a["desc"],
+        "author": {"@type": "Person", "name": AUTHOR},
+        "publisher": {"@type": "Organization", "name": SITE_NAME},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "%sarticles/%s/" % (BASE_URL, a["slug"])}
+    }, ensure_ascii=False)
+    extra = '<script type="application/ld+json">%s</script>' % jsonld
+
+    out = page(a["title"] + " — Нейросети для жизни", a["desc"],
+               body, "%sarticles/%s/" % (BASE_URL, a["slug"]), extra)
+    p = ROOT / "articles" / a["slug"] / "index.html"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(out, encoding="utf-8")
+    # копируем обложку статьи в папку
+    img_src = ROOT / (a["slug"] + ".png")
+    img_dst = p.parent / (a["slug"] + ".png")
+    if img_src.exists() and not img_dst.exists():
+        img_dst.write_bytes(img_src.read_bytes())
+
+
+# ---------- Каталог статей ----------
+
+def build_catalog():
+    cards = []
+    for a in ARTICLES:
+        cat = CATEGORY_LABELS.get(a["tags"][0], a["tags"][0])
+        cards.append("""
+<div class="card" data-slug="%s" data-title="%s" data-tags="%s">
+  <a href="%sarticles/%s/"><img src="%sarticles/%s/%s.png" alt="%s" loading="lazy"></a>
+  <div class="body">
+    <span class="tag">%s</span>
+    <h3><a href="%sarticles/%s/">%s</a></h3>
+    <p>%s</p>
+    <a class="btn-read" href="%sarticles/%s/">Читать статью</a>
+  </div>
+</div>""" % (a["slug"], html.escape(a["title"]), ",".join(a["tags"]),
+             BASE_URL, a["slug"], BASE_URL, a["slug"], a["slug"], html.escape(a["title"]),
+             html.escape(cat), BASE_URL, a["slug"], html.escape(a["title"]),
+             html.escape(a["desc"]), BASE_URL, a["slug"]))
+
+    opts = "".join('<option value="%s">%s</option>' % (c, CATEGORY_LABELS[c]) for c in CATEGORY_LABELS)
+    body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → Статьи</div>
+<h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Все статьи</h1>
+<p style="color:#5b7080">Простые объяснения нейросетей, безопасности, денег, здоровья и государственных услуг.</p>
+<div class="toolbar">
+  <input id="catSearch" type="search" placeholder="Поиск: например, защита аккаунта" aria-label="Поиск по статьям">
+  <select id="catSelect" aria-label="Тема"><option value="">Все темы</option>%s</select>
+  <span id="catStatus" class="search-status" aria-live="polite"></span>
+</div>
+<div class="grid" id="catGrid">%s</div>
+<script>
+const cards=[].slice.call(document.querySelectorAll('#catGrid .card'));
+const st=document.getElementById('catStatus');
+function norm(v){return String(v||'').toLocaleLowerCase('ru-RU').replace(/ё/g,'е').trim();}
+function upd(){
+  const q=norm(document.getElementById('catSearch').value);
+  const c=norm(document.getElementById('catSelect').value);
+  let n=0;
+  cards.forEach(cd=>{
+    const hay=norm(cd.dataset.title+' '+cd.dataset.tags);
+    const ok=(!q||hay.includes(q))&&(!c||cd.dataset.tags.split(',').indexOf(c)>=0);
+    cd.style.display=ok?'':'none';
+    if(ok)n++;
+  });
+  st.textContent='Найдено: '+n;
+}
+document.getElementById('catSearch').addEventListener('input',upd);
+document.getElementById('catSelect').addEventListener('change',upd);
+upd();
+</script>
+""" % (BASE_URL, opts, "".join(cards))
+    out = page("Все статьи — Нейросети для жизни",
+               "Каталог статей о нейросетях, цифровой безопасности, деньгах, здоровье и госуслугах простыми словами.",
+               body, BASE_URL + "articles/")
+    (ROOT / "articles" / "index.html").write_text(out, encoding="utf-8")
+
+
+# ---------- Инструменты ----------
+
+TOOLS_CSS = """
+.tool-card{display:block;background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:22px 24px;margin:14px 0;box-shadow:0 2px 10px rgba(20,40,60,.08);color:#1f2d3a}
+.tool-card:hover{text-decoration:none;border-color:#0e7c66}
+.tool-card h2{margin:0 0 8px;color:#0e7c66;font-size:21px}
+.tool-card p{margin:0;color:#5b7080}
+"""
+
+
+def build_tools():
+    (ROOT / "tools").mkdir(parents=True, exist_ok=True)
+    (ROOT / "tools" / "prompt-builder").mkdir(parents=True, exist_ok=True)
+    (ROOT / "tools" / "sms-checker").mkdir(parents=True, exist_ok=True)
+    card_prompt = """
+<a class="tool-card" href="prompt-builder/">
+  <h2>Конструктор запросов к нейросети</h2>
+  <p>Соберите понятный промпт по шагам: задача, роль, исходные данные, формат ответа. Готовый текст можно скопировать.</p>
+</a>"""
+    card_sms = """
+<a class="tool-card" href="sms-checker/">
+  <h2>Проверка подозрительного сообщения</h2>
+  <p>Ответьте на несколько вопросов про звонок или сообщение — и получите понятную памятку, как действовать.</p>
+</a>"""
+    body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → Инструменты</div>
+<h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Инструменты</h1>
+<p style="color:#5b7080">Простые помощники, которые работают прямо в браузере. Никакие данные не отправляются на сервер.</p>
+%s%s
+""" % (BASE_URL, card_prompt, card_sms)
+    out = page("Инструменты — Нейросети для жизни", "Конструктор промптов и проверка подозрительных сообщений — бесплатные инструменты на сайте.", body, BASE_URL + "tools/", "<style>%s</style>" % TOOLS_CSS)
+    (ROOT / "tools" / "index.html").write_text(out, encoding="utf-8")
+
+    # ---- prompt-builder ----
+    pb_body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → <a href="%stools/">Инструменты</a> → Конструктор запросов</div>
+<div class="tool-page">
+<h1>Конструктор запросов к нейросети</h1>
+<p style="color:#5b7080">Выберите задачу, опишите исходные данные и получите готовый промпт. Скопируйте его в любую нейросеть (GigaChat, Алиса, ChatGPT и другие).</p>
+
+<label for="pbTask">Что нужно сделать?</label>
+<select id="pbTask">
+  <option value="объясни">Объяснить простыми словами</option>
+  <option value="напиши">Написать текст (письмо, поздравление, заявление)</option>
+  <option value="проверь">Проверить документ или текст на ошибки</option>
+  <option value="план">Составить план или список шагов</option>
+  <option value="переведи">Перевести и объяснить</option>
+</select>
+
+<label for="pbData">Что известно? Опишите своими словами</label>
+<textarea id="pbData" placeholder="Например: нужно объяснить соседке, что такое нейросеть, простыми словами, с примером из огорода"></textarea>
+
+<label for="pbAudience">Для кого ответ?</label>
+<select id="pbAudience">
+  <option value="для меня, человека старшего возраста, простыми словами, без сложных терминов">Для меня (простыми словами, без терминов)</option>
+  <option value="для новичка, первого знакомства">Для новичка, первого знакомства</option>
+  <option value="без ограничений">Без ограничений</option>
+</select>
+
+<label for="pbFormat">Какой формат ответа нужен?</label>
+<select id="pbFormat">
+  <option value="короткий понятный ответ">Короткий понятный ответ</option>
+  <option value="пошаговая инструкция">Пошаговая инструкция</option>
+  <option value="список из 5 пунктов">Список из 5 пунктов</option>
+  <option value="пример текста">Пример текста</option>
+</select>
+
+<button class="btn" id="pbMake" type="button">Собрать запрос</button>
+<div class="out" id="pbOut">Здесь появится готовый запрос.</div>
+<button class="btn" id="pbCopy" type="button" style="display:none;background:#1565a8">Скопировать</button>
+<p style="font-size:14px;color:#5b7080;margin-top:18px">Важно: не сообщайте нейросети пароли, коды из СМС, номера карт и паспортные данные. Проверяйте важные ответы по официальным источникам.</p>
+</div>
+<script>
+const pbTask=document.getElementById('pbTask'),pbData=document.getElementById('pbData'),
+pbAudience=document.getElementById('pbAudience'),pbFormat=document.getElementById('pbFormat'),
+pbOut=document.getElementById('pbOut'),pbCopy=document.getElementById('pbCopy');
+document.getElementById('pbMake').addEventListener('click',()=>{
+  const t=pbTask.value,d=pbData.value.trim(),a=pbAudience.value,f=pbFormat.value;
+  if(!d){pbOut.textContent='Пожалуйста, опишите, что вам нужно — одним-двумя предложениями.';pbCopy.style.display='none';return;}
+  const taskText={объясни:'Объясни',напиши:'Напиши',проверь:'Проверь',план:'Составь план',переведи:'Переведи'}[t]||'Сделай';
+  const pr='РОЛЬ: Ты — терпеливый и доброжелательный собеседник.\n\nЗАДАЧА: '+taskText+' следующее '+a+'.\n\nСОДЕРЖИМОЕ: '+d+'\n\nФОРМАТ ОТВЕТА: '+f+'. Не выдумывай факты. Если чего-то не знаешь — скажи честно. Не спрашивай лишнего, сразу приступай к делу.';
+  pbOut.textContent=pr;pbCopy.style.display='inline-block';
+});
+pbCopy.addEventListener('click',()=>{navigator.clipboard.writeText(pbOut.textContent).then(()=>{pbCopy.textContent='Скопировано!';setTimeout(()=>pbCopy.textContent='Скопировать',1800);});});
+</script>
+""" % (BASE_URL, BASE_URL)
+    page("Конструктор запросов — Нейросети для жизни", "Соберите понятный запрос к нейросети по шагам и скопируйте его.", pb_body, BASE_URL + "tools/prompt-builder/", "").__str__()
+    (ROOT / "tools" / "prompt-builder" / "index.html").write_text(page("Конструктор запросов — Нейросети для жизни", "Соберите понятный запрос к нейросети по шагам и скопируйте его.", pb_body, BASE_URL + "tools/prompt-builder/"), encoding="utf-8")
+
+    # ---- sms-checker ----
+    sc_body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → <a href="%stools/">Инструменты</a> → Проверка сообщения</div>
+<div class="tool-page">
+<h1>Проверка подозрительного сообщения</h1>
+<p style="color:#5b7080">Отметьте, что происходит, — и получите памятку. Это подсказка для размышления, а не точный диагноз.</p>
+<div id="scChecks">
+<label><input type="checkbox" class="sc" value="srochno"> Вас торопят: «срочно», «прямо сейчас», «иначе будет поздно»</label>
+<label><input type="checkbox" class="sc" value="money"> Просят перевести деньги или назвать данные карты</label>
+<label><input type="checkbox" class="sc" value="code"> Просят назвать код из СМС или пароль</label>
+<label><input type="checkbox" class="sc" value="link"> Прислали ссылку и просят перейти по ней</label>
+<label><input type="checkbox" class="sc" value="relative"> Говорят, что они родственник, сотрудник банка или госоргана</label>
+<label><input type="checkbox" class="sc" value="secret"> Просят никому не рассказывать о разговоре</label>
+</div>
+<button class="btn" id="scGo" type="button">Показать памятку</button>
+<div class="out" id="scOut" style="display:none"></div>
+</div>
+<script>
+document.getElementById('scGo').addEventListener('click',()=>{
+  const vals=[].slice.call(document.querySelectorAll('.sc:checked')).map(x=>x.value);
+  const o=document.getElementById('scOut');
+  let lines=[];
+  if(vals.length===0){lines.push('По отмеченным признакам сообщение выглядит обычным.');}
+  else{
+    lines.push('Вы отметили признаков риска: '+vals.length+'. Это повод остановиться и проверить.');
+    if(vals.includes('srochno')||vals.includes('secret'))lines.push('• Торопят и просят молчать — главный признак давления. Настоящие банки и госорганы так не делают.');
+    if(vals.includes('code'))lines.push('• Код из СМС — это доступ к вашим деньгам и аккаунтам. Его нельзя называть никому и никогда.');
+    if(vals.includes('money'))lines.push('• Не переводите деньги и не называйте данные карты. Перезвоните сами по официальному номеру.');
+    if(vals.includes('link'))lines.push('• Не переходите по ссылкам из подозрительных сообщений. Откройте сайт сами через поиск.');
+    if(vals.includes('relative'))lines.push('• Если «родственник» просит денег — позвоните ему на тот номер, который вы знаете, и задайте вопрос, ответ на который знаете только вы двое.');
+  }
+  lines.push('', 'Что делать: 1) Не спешите. 2) Посоветуйтесь с близкими. 3) Сами позвоните в банк или организацию по номеру с официального сайта. 4) Не сообщайте коды и пароли.', 'Если вам кажется, что это мошенники, — расскажите родным и сообщите в банк.');
+  o.style.display='block';o.textContent=lines.join('\\n');
+});
+</script>
+""" % (BASE_URL, BASE_URL)
+    (ROOT / "tools" / "sms-checker" / "index.html").write_text(page("Проверка подозрительного сообщения — Нейросети для жизни", "Интерактивная памятка: как распознать мошенническое сообщение и что делать.", sc_body, BASE_URL + "tools/sms-checker/"), encoding="utf-8")
+
+
+# ---------- Обучение ----------
+
+def build_learning():
+    (ROOT / "learning").mkdir(parents=True, exist_ok=True)
+    routes = [
+        ("beginner", "Я только знакомлюсь с ИИ", "Самый мягкий старт: что такое нейросеть, как с ней поговорить и не испугаться. 7 коротких шагов.",
+         ["Чек-лист «10 вечеров»", "Что такое промпт и зачем он нужен", "Как правильно задавать вопросы нейросети"]),
+        ("daily-tasks", "Хочу решать повседневные задачи", "Написать поздравление, проверить документ, перевести текст, спланировать день.",
+         ["Списали деньги за приложение", "Госуслуги: выплаты и льготы", "Двухфакторная защита"]),
+        ("advanced", "Хочу создавать свои материалы", "Открытки, тексты, видео, книги — с помощью нейросетей и своих навыков.",
+         ["Как написать книгу своими словами", "Мемуары с нейросетью", "Открытки на заказ"]),
+    ]
+    blocks = []
+    for rid, title, desc, items in routes:
+        lis = "".join("<li>%s</li>" % html.escape(x) for x in items)
+        blocks.append("""
+<div class="tool-card" style="cursor:default">
+  <h2>%s</h2>
+  <p>%s</p>
+  <ul style="margin:12px 0 0;padding-left:22px">%s</ul>
+</div>""" % (html.escape(title), html.escape(desc), lis))
+    body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → Обучение</div>
+<h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Учебные маршруты</h1>
+<p style="color:#5b7080">Выберите, что вам ближе, — и двигайтесь по шагам. Каждый маршрут собран из понятных материалов.</p>
+%s
+""" % (BASE_URL, "".join(blocks))
+    out = page("Обучение — Нейросети для жизни", "Три учебных маршрута: знакомство с ИИ, повседневные задачи и создание своих материалов.", body, BASE_URL + "learning/", "<style>%s</style>" % TOOLS_CSS)
+    (ROOT / "learning" / "index.html").write_text(out, encoding="utf-8")
+
+
+# ---------- Главная ----------
+
+def build_home():
+    jsonld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Нейросети для жизни",
+        "inLanguage": "ru",
+        "description": "Нейросети, цифровая безопасность и полезные интернет-сервисы простыми словами для людей старшего возраста.",
+        "url": BASE_URL,
+        "author": {"@type": "Person", "name": AUTHOR}
+    }, ensure_ascii=False)
+    extra = '<script type="application/ld+json">%s</script>' % jsonld
+    cards = []
+    for a in ARTICLES:
+        cat = CATEGORY_LABELS.get(a["tags"][0], a["tags"][0])
+        cards.append("""
+<div class="card">
+  <a href="%sarticles/%s/"><img src="articles/%s/%s.png" alt="%s" loading="lazy"></a>
+  <div class="body">
+    <span class="tag">%s</span>
+    <h3><a href="%sarticles/%s/">%s</a></h3>
+    <p>%s</p>
+    <a class="btn-read" href="%sarticles/%s/">Читать статью</a>
+  </div>
+</div>""" % (BASE_URL, a["slug"], a["slug"], a["slug"], html.escape(a["title"]),
+             html.escape(cat), BASE_URL, a["slug"], html.escape(a["title"]),
+             html.escape(a["desc"]), BASE_URL, a["slug"]))
+    body = HEADER_HOME + """
+<div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:18px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)">
+  <h2 style="margin-top:0;color:#0e7c66">Здравствуйте, дорогие мои!</h2>
+  <p>Меня зовут <strong>Татьяна Зенина</strong>, я живу в Астрахани, мне за шестьдесят. Этот сайт — про нейросети, но написано здесь совсем не научно: простыми словами, с примерами из жизни. Здесь я отвечаю на вопросы, которые чаще всего задают люди в возрасте.</p>
+  <p>Мои книги — «Нейросети для жизни» в четырёх томах — можно получить, написав мне в Telegram: <a href="https://t.me/tatzenbot">@tatzenbot</a>. Подписывайтесь на <a href="https://t.me/neuro_retree">канал</a>, чтобы не потеряться.</p>
+</div>
+<h2 style="color:#133a33">Что я пишу</h2>
+<div class="grid">%s</div>
+""" % "".join(cards)
+    out = page("Нейросети для жизни — Татьяна Зенина, Астрахань",
+               "Нейросети простыми словами для людей в возрасте: статьи, советы, личный опыт. Татьяна Зенина, Астрахань.",
+               body, BASE_URL, extra)
+    (ROOT / "index.html").write_text(out, encoding="utf-8")
+
+
+# ---------- sitemap, rss, articles.json ----------
+
+def build_aux():
+    (ROOT / "data").mkdir(parents=True, exist_ok=True)
+    urls = ["", "articles/", "tools/", "tools/prompt-builder/", "tools/sms-checker/", "learning/"]
+    urls += ["articles/%s/" % a["slug"] for a in ARTICLES]
+    sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u in urls:
+        sitemap.append("  <url><loc>%s%s</loc></url>" % (BASE_URL, u))
+    sitemap.append("</urlset>")
+    (ROOT / "sitemap.xml").write_text("\n".join(sitemap) + "\n", encoding="utf-8")
+
+    rss_items = []
+    for a in ARTICLES:
+        rss_items.append("""    <item>
+      <title>%s</title>
+      <link>%sarticles/%s/</link>
+      <guid>%sarticles/%s/</guid>
+      <description>%s</description>
+    </item>""" % (html.escape(a["title"]), BASE_URL, a["slug"], BASE_URL, a["slug"], html.escape(a["desc"])))
+    rss = """<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Нейросети для жизни — Татьяна Зенина</title>
+    <link>%s</link>
+    <description>Нейросети, цифровая безопасность и полезные интернет-сервисы простыми словами для людей старшего возраста.</description>
+    <language>ru</language>
+    <atom:link href="%srss.xml" rel="self" type="application/rss+xml"/>
+%s  </channel>
+</rss>
+""" % (BASE_URL, BASE_URL, "\n".join(rss_items))
+    (ROOT / "rss.xml").write_text(rss, encoding="utf-8")
+
+    registry = {"schema_version": 1, "generated": BUILD_DATE, "articles": []}
+    for a in ARTICLES:
+        registry["articles"].append({
+            "slug": a["slug"], "title": a["title"], "tags": a["tags"],
+            "description": a["desc"], "url": "%sarticles/%s/" % (BASE_URL, a["slug"]),
+            "sources_md": "%s%s.md" % (BASE_URL, a["slug"]),
+            "category": a["tags"][0], "status": "published"
+        })
+    (ROOT / "data" / "articles.json").write_text(json.dumps(registry, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def main():
+    sys.stdout.reconfigure(encoding="utf-8")
+    for a in ARTICLES:
+        md_file = ROOT / (a["slug"] + ".md")
+        if not md_file.exists():
+            print("MISS:", a["slug"])
+            continue
+        build_article(a, md_file.read_text(encoding="utf-8"))
+        print("статья:", a["slug"])
+    build_catalog()
+    build_tools()
+    build_learning()
+    build_home()
+    build_aux()
+    print("Готово. Страницы собраны в", ROOT)
+
+
+if __name__ == "__main__":
+    main()

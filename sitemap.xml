@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://neuro-retree.github.io/site/</loc>
-  </url>
+  <url><loc>https://neuro-retree.github.io/site/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/tools/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/tools/prompt-builder/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/tools/sms-checker/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/learning/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_2fa_zashchita/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_33_dipfeyki/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_gosuslugi_vyplaty/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_spisali_za_prilozhenie/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_152fz_dannye/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_statiny_6_mifov/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_bady_riski/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_davlenie_posle_60/</loc></url>
+  <url><loc>https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/</loc></url>
 </urlset>

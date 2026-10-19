@@ -7,58 +7,57 @@
     <language>ru</language>
     <atom:link href="https://neuro-retree.github.io/site/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Чек-лист «10 вечеров»: бесплатный старт в нейросетях</title>
-      <link>https://neuro-retree.github.io/site/#article_20_cheklist_10_vecherov</link>
-      <guid>https://neuro-retree.github.io/site/#article_20_cheklist_10_vecherov</guid>
-      <description>Простые первые шаги: как за десять вечеров подружиться с нейросетью и не испугаться.</description>
-    </item>
-    <item>
-      <title>Давление после 60: какая норма и как контролировать</title>
-      <link>https://neuro-retree.github.io/site/#article_davlenie_posle_60</link>
-      <guid>https://neuro-retree.github.io/site/#article_davlenie_posle_60</guid>
-      <description>Понятно о цифрах тонометра, дневнике измерений и визите к врачу.</description>
-    </item>
-    <item>
-      <title>БАДы: правда и риски, чтобы не навредить себе</title>
-      <link>https://neuro-retree.github.io/site/#article_bady_riski</link>
-      <guid>https://neuro-retree.github.io/site/#article_bady_riski</guid>
-      <description>Как читать состав, где искать проверенную информацию и почему БАДы не заменяют лекарства.</description>
-    </item>
-    <item>
-      <title>Статины: 6 мифов, о которых важно знать</title>
-      <link>https://neuro-retree.github.io/site/#article_statiny_6_mifov</link>
-      <guid>https://neuro-retree.github.io/site/#article_statiny_6_mifov</guid>
-      <description>Разбираем самые распространённые страхи про препараты, снижающие холестерин.</description>
-    </item>
-    <item>
-      <title>152-ФЗ: ваши данные, ваши права — просто о главном</title>
-      <link>https://neuro-retree.github.io/site/#article_152fz_dannye</link>
-      <guid>https://neuro-retree.github.io/site/#article_152fz_dannye</guid>
-      <description>Что компаниям можно делать с вашими данными и как потребовать их удалить.</description>
-    </item>
-    <item>
-      <title>Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё</title>
-      <link>https://neuro-retree.github.io/site/#article_spisali_za_prilozhenie</link>
-      <guid>https://neuro-retree.github.io/site/#article_spisali_za_prilozhenie</guid>
-      <description>Пошагово: где найти подписку, как её отключить и попробовать вернуть деньги.</description>
-    </item>
-    <item>
-      <title>Госуслуги: как узнать, какие выплаты и льготы вам положены</title>
-      <link>https://neuro-retree.github.io/site/#article_gosuslugi_vyplaty</link>
-      <guid>https://neuro-retree.github.io/site/#article_gosuslugi_vyplaty</guid>
-      <description>Какие сведения доступны на Госуслугах и в ЕГИССО и что делать дальше.</description>
+      <title>Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг</title>
+      <link>https://neuro-retree.github.io/site/articles/article_2fa_zashchita/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_2fa_zashchita/</guid>
+      <description>Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов.</description>
     </item>
     <item>
       <title>Поддельный голос внука: как распознать дипфейк и не отдать деньги</title>
-      <link>https://neuro-retree.github.io/site/#article_33_dipfeyki</link>
-      <guid>https://neuro-retree.github.io/site/#article_33_dipfeyki</guid>
+      <link>https://neuro-retree.github.io/site/articles/article_33_dipfeyki/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_33_dipfeyki/</guid>
       <description>Как проверить подозрительный звонок и защитить близких от мошенников с новыми технологиями.</description>
     </item>
     <item>
-      <title>Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг</title>
-      <link>https://neuro-retree.github.io/site/#article_2fa_zashchita</link>
-      <guid>https://neuro-retree.github.io/site/#article_2fa_zashchita</guid>
-      <description>Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов.</description>
+      <title>Госуслуги: как узнать, какие выплаты и льготы вам положены</title>
+      <link>https://neuro-retree.github.io/site/articles/article_gosuslugi_vyplaty/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_gosuslugi_vyplaty/</guid>
+      <description>Какие сведения доступны на Госуслугах и в ЕГИССО и что делать дальше.</description>
     </item>
-  </channel>
+    <item>
+      <title>Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё</title>
+      <link>https://neuro-retree.github.io/site/articles/article_spisali_za_prilozhenie/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_spisali_za_prilozhenie/</guid>
+      <description>Пошагово: где найти подписку, как её отключить и попробовать вернуть деньги.</description>
+    </item>
+    <item>
+      <title>152-ФЗ: ваши данные, ваши права — просто о главном</title>
+      <link>https://neuro-retree.github.io/site/articles/article_152fz_dannye/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_152fz_dannye/</guid>
+      <description>Что компаниям можно делать с вашими данными и как потребовать их удалить.</description>
+    </item>
+    <item>
+      <title>Статины: 6 мифов, о которых важно знать</title>
+      <link>https://neuro-retree.github.io/site/articles/article_statiny_6_mifov/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_statiny_6_mifov/</guid>
+      <description>Разбираем самые распространённые страхи про препараты, снижающие холестерин.</description>
+    </item>
+    <item>
+      <title>БАДы: правда и риски, чтобы не навредить себе</title>
+      <link>https://neuro-retree.github.io/site/articles/article_bady_riski/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_bady_riski/</guid>
+      <description>Как читать состав, где искать проверенную информацию и почему БАДы не заменяют лекарства.</description>
+    </item>
+    <item>
+      <title>Давление после 60: какая норма и как контролировать</title>
+      <link>https://neuro-retree.github.io/site/articles/article_davlenie_posle_60/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_davlenie_posle_60/</guid>
+      <description>Понятно о цифрах тонометра, дневнике измерений и визите к врачу.</description>
+    </item>
+    <item>
+      <title>Чек-лист «10 вечеров»: бесплатный старт в нейросетях</title>
+      <link>https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/</link>
+      <guid>https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/</guid>
+      <description>Простые первые шаги: как за десять вечеров подружиться с нейросетью и не испугаться.</description>
+    </item>  </channel>
 </rss>
