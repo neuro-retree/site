@@ -15,7 +15,7 @@
 
 ## Как сообщить о проблеме доступности
 
-Напишите нам: **neuro-retree@yandex.ru** (тема: «Проблема доступности») или через форму в канале Telegram [t.me/neuro_retree](https://t.me/neuro_retree).
+Напишите нам: **tat2enina@yandex.ru** (тема: «Проблема доступности») или через форму в канале Telegram [t.me/neuro_retree](https://t.me/neuro_retree).
 
 Укажите, пожалуйста:
 - где возникла проблема (страница, раздел);

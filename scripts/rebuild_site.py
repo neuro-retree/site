@@ -225,7 +225,7 @@ def page(title, desc, body, canonical, extra_head=""):
 <main><div class="wrap">
 %s
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro-retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
 </body>
 </html>""" % (
@@ -643,7 +643,7 @@ def build_home():
   <h2 style="margin-top:0;color:#0e7c66">Книги «Нейросети для жизни» — четыре тома</h2>
   <p>Выберите, как вам удобнее получить книги:</p>
   <p style="display:flex;gap:10px;flex-wrap:wrap">
-    <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:neuro-retree@yandex.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
+    <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:tat2enina@yandex.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
     <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://t.me/tatzenbot">Получить в Telegram</a>
     <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://vk.com/club242405739">Получить во ВКонтакте</a>
   </p>
@@ -659,7 +659,7 @@ def build_home():
     <li>Бот для книг: <a href="https://t.me/tatzenbot">@tatzenbot</a></li>
     <li>ВКонтакте: <a href="https://vk.com/club242405739">vk.com/club242405739</a></li>
     <li>Поддержка на Boosty: <a href="https://boosty.to/tatzen">boosty.to/tatzen</a></li>
-    <li>Почта: <a href="mailto:neuro-retree@yandex.ru">neuro-retree@yandex.ru</a></li>
+    <li>Почта: <a href="mailto:tat2enina@yandex.ru">tat2enina@yandex.ru</a></li>
   </ul>
   <p><strong>Я никогда не прошу</strong> номер карты, коды из СМС, паспортные данные или «срочный перевод». Если кто-то пишет от моего имени и просит такое — это мошенники.</p>
 </div>

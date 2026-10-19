@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг — Нейросети для жизни</title>
+<meta name="description" content="Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов.">
+<meta name="theme-color" content="#0b5c4f">
+<link rel="canonical" href="https://neuro-retree.github.io/site/articles/article_2fa_zashchita/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Нейросети для жизни">
+<meta property="og:title" content="Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг — Нейросети для жизни">
+<meta property="og:description" content="Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов.">
+<meta property="og:url" content="https://neuro-retree.github.io/site/articles/article_2fa_zashchita/">
+<meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="https://neuro-retree.github.io/site/rss.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг", "inLanguage": "ru", "description": "Как включить подтверждение входа по коду и зачем это нужно для ваших денег и документов.", "author": {"@type": "Person", "name": "Татьяна Зенина"}, "publisher": {"@type": "Organization", "name": "Нейросети для жизни"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://neuro-retree.github.io/site/articles/article_2fa_zashchita/"}}</script>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f4f7f9;--card:#fff;--ink:#1f2d3a;--accent:#0e7c66;--accent2:#1565a8;--soft:#5b7080;--line:#e2e9ee;--shadow:0 2px 10px rgba(20,40,60,.08);--fs:1.1875rem}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff;--shadow:none}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:var(--fs)}
+a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+header .title{font-size:24px;margin:0;color:#fff}
+header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
+.breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
+main{padding:10px 0 60px}
+.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card img{width:100%%;height:100%%;object-fit:cover;object-position:center;display:block}
+.card .cov{width:100%%;aspect-ratio:16/9;overflow:hidden;background:#dfe9e4;display:flex;align-items:center;justify-content:center}
+.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
+.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
+.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-read:hover{background:#0b6a58;text-decoration:none}
+.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
+.article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
+.article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
+.article h3{margin:22px 0 8px;color:#153a4d;font-size:20px}
+.article p{margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:26px}
+.article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
+.article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
+.article img{max-width:100%%;height:auto}
+.toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
+.toc b{color:#153a4d}
+.toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.tools-bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.tools-bar button{padding:10px 16px;font-size:15px;border:1px solid #e2e9ee;border-radius:10px;background:#f4f7f9;color:#1f2d3a;cursor:pointer;min-height:44px}
+.tools-bar button:hover{background:#e7eef2}
+.related{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:14px 18px;margin-top:24px}
+.related a{display:block;margin:6px 0}
+.cta{background:#e7f4f0;border-left:4px solid #0e7c66;padding:12px 16px;border-radius:8px;margin-top:24px}
+.footer{border-top:1px solid #e2e9ee;margin-top:40px;padding:18px 0;color:#5b7080;font-size:14px}
+.a11ybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px;max-width:1080px;margin:0 auto;font-size:15px;color:var(--soft)}
+.a11ybar button{min-height:44px;min-width:44px;font-size:16px;font-weight:600;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:8px;cursor:pointer;padding:6px 12px}
+.a11ybar button:hover{background:#eef2f5}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:8px;top:8px;background:#fff;padding:10px 14px;z-index:60;border:2px solid var(--accent);border-radius:8px}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.search-status{color:#5b7080;font-size:14px}
+.tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
+.tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page textarea{min-height:120px}
+.tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
+.btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
+.btn:hover{background:#0b6a58}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content" style="position:absolute;left:-999px">Перейти к тексту</a>
+<div class="a11ybar" id="a11y-toolbar" aria-label="Настройки чтения"></div>
+<header><div class="wrap inline">
+  <div class="title">Нейросети для жизни</div>
+  <div class="links">
+    <a href="https://neuro-retree.github.io/site/">Главная</a>
+    <a href="https://neuro-retree.github.io/site/articles/">Статьи</a>
+    <a href="https://neuro-retree.github.io/site/tools/">Инструменты</a>
+    <a href="https://neuro-retree.github.io/site/learning/">Обучение</a>
+    <a href="https://neuro-retree.github.io/site/slovar/">Словарь</a>
+  </div>
+</div></header>
+<main><div class="wrap">
+
+<div class="breadcrumbs"><a href="https://neuro-retree.github.io/site/">Главная</a> → <a href="https://neuro-retree.github.io/site/articles/">Статьи</a> → Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг</div>
+<div class="article">
+  <span class="tag">Безопасность</span>
+  <h1>Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг</h1>
+  <div class="meta">Проект «Нейросети для жизни» · Татьяна Зенина, Астрахань · проверено 2026-10-19</div>
+  <div class="tools-bar">
+    <button type="button" onclick="window.print()">Печать</button>
+    <button type="button" onclick="copyLink()">Скопировать ссылку</button>
+  </div>
+  <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Почему одного пароля мало</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Что такое двухфакторная защита, если объяснять по-человечески</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Где это нужнее всего</a></li><li style="margin-left:0px;list-style:disc"><a href="#h4">Включаем своими руками, по шагам</a></li><li style="margin-left:0px;list-style:disc"><a href="#h5">Одна привычка, которая важнее всех кнопок</a></li><li style="margin-left:0px;list-style:disc"><a href="#h6">Пусть нейросеть объяснит и напомнит</a></li><li style="margin-left:0px;list-style:disc"><a href="#h7">Какой второй ключ выбрать: код из СМС или приложение</a></li><li style="margin-left:0px;list-style:disc"><a href="#h8">Если код пришёл, а вы не входили</a></li><li style="margin-left:0px;list-style:disc"><a href="#h9">Что может пойти не так</a></li><li style="margin-left:0px;list-style:disc"><a href="#h10">Что сделать сегодня</a></li><li style="margin-left:0px;list-style:disc"><a href="#h11">Источники</a></li></ul></div>
+  <p>Когда мне первый раз сказали про подтверждение входа по коду из СМС, я честно подумала: ну вот, опять придумали для молодых да умных. Пароль у меня есть, и слава богу. Зачем мне ещё какие-то коды, я и так их вечно забываю. А потом в гостях у Людмилы я услышала историю, после которой переменила мнение за один вечер.</p>
+<p>У её соседки по подъезду пришло письмо от банка — красивое, с правильными словами. Просили подтвердить данные и войти по ссылке. Она вошла, логин и пароль ввела сама, своими руками. Денег в ту минуту не сняли, ничего не случилось. Прошло три недели, и с карты ушло на чужой счёт восемнадцать тысяч.</p>
+<p>Вот здесь и кроется то, о чём мы почти не задумываемся. Пароль похож на ключ от квартиры, который можно незаметно скопировать. Ключ унесли, а дверь осталась прежней, и вы ничего не заметили.</p>
+<h2 id="h1">Почему одного пароля мало</h2>
+<p>Мы привыкли считать пароль большой тайной. На деле он живёт не только в вашей голове. Он лежит в базе магазина, где вы когда-то покупали; в сервисе, куда вы регистрировались ради одной открытки; в письме, которое вы сами себе отправили. Если базу взломали, пароль уходит в чужие руки, и продают его за копейки пачками.</p>
+<p>И тут начинается самое досадное. Пароль от почты мы часто делаем таким же, как от банка или Госуслуг. Запомнить так проще, а вор получает ключи от всех дверей сразу. Бывает, что пароль подбирают по дате рождения, по кличке собаки, по номеру квартиры. Такое подбирается за минуты машинного перебора.</p>
+<p>Вывод у меня получился простой и неутешительный: пароль может утечь так, что вы об этом не узнаете. И пока он единственный, спокойно спать нельзя.</p>
+<h2 id="h2">Что такое двухфакторная защита, если объяснять по-человечески</h2>
+<p>Двухфакторная защита работает как второй замок к тому же замку. Не один длинный ключ, а именно две разные вещи.</p>
+<p>Первый фактор: то, что вы знаете. Это ваш пароль.</p>
+<p>Второй фактор: то, что у вас есть в руках. Чаще всего это телефон, на который приходит короткий код.</p>
+<p>Вор может украсть пароль, но телефон-то у вас в кармане. И без кода он войдёт в аккаунт как чужой человек у запертой двери: ключ, может, и есть, а нужного слова из конверта нет. Поэтому два фактора надёжнее одного пароля в разы, а не на чуть-чуть.</p>
+<p>Есть и второй вариант: приложение-аутентификатор. Это отдельная программа, которая сама придумывает новые коды каждые тридцать секунд, и они не ходят по сети. Способ надёжный, но мороки больше: скачать, привязать, разобраться с настройками. Для нас с вами, новичков, разумно начать с кода из СМС. Нам нужен покой, а не экзамен по настройкам.</p>
+<h2 id="h3">Где это нужнее всего</h2>
+<p>Врач в первую очередь лечит сердце и голову. Вот и у нас свои важные органы — деньги и документы. Беречь их надо в таком порядке.</p>
+<p>Первое место: банк, мобильное приложение и онлайн-кабинет. Там лежат пенсия, сбережения, оплата за свет и газ.</p>
+<p>Второе место: Госуслуги. Там ваши документы, справки, выплаты, запись к врачу.</p>
+<p>Третье: почта. Через неё восстанавливают пароли от всего остального, поэтому почта ценный ключ.</p>
+<p>Четвёртое: социальные сети и мессенджеры. Оттуда мошенники пишут вашим родным от вашего имени и просят денег.</p>
+<p>Начать достаточно с банка и Госуслуг. Это уже половина дела и почти весь ваш покой.</p>
+<h2 id="h4">Включаем своими руками, по шагам</h2>
+<p>Самая большая трудность — не сами кнопки, а их названия. Заходишь в настройки, а там «Настройки аутентификации», «Управление сессиями». Руки опускаются. Скажу вам так: эти страшные слова читать не нужно. Ваша задача — найти входную дверь, а не выучить чертёж замка.</p>
+<ol>
+<li>Откройте приложение своего банка. Найдите значок с вашим лицом или инициалами, он обычно в уголке. Нажали — ищите слова «Профиль», «Безопасность» или «Пароль и вход». Смело заходите, вы ничего не удаляете, только добавляете защиту.</li>
+<li>Внутри ищите строчку про подтверждение входа или про вход по коду из СМС. Там будет бегающая кнопка-ползунок, её ещё называют тумблером. Его и включаем.</li>
+<li>Теперь Госуслуги. В приложении или на сайте нажмите на своё имя вверху страницы, зайдите в «Профиль», оттуда в раздел «Безопасность». Там будет та же кнопка про вход с подтверждением. Включаем.</li>
+<li>Почта. У Яндекса и Mail.ru такие настройки лежат в разделе «Безопасность» или «Все настройки» — ищите слова «двухфакторная аутентификация» или «пароль для приложений». Если совсем запутались во вкладках, попросите рядом внука или соседа. Живой человек рядом лучше любой инструкции.</li>
+<li>Проверьте себя тем же вечером. Выйдите из аккаунта и войдите снова. Если после пароля телефон звякнул и запросил код — значит, защита работает, и вы всё сделали правильно.</li>
+</ol>
+<p>Это и есть те самые пять минут, о которых говорят, что защита включается быстро. Главное — не растягивать эти минуты на полгода.</p>
+<h2 id="h5">Одна привычка, которая важнее всех кнопок</h2>
+<p>Принцип у меня один, и я ему следую строго: кнопки нажимаю только я сама, своими руками, на своём телефоне. Если кто-то звонит и говорит: «Сейчас мы вам поможем, продиктуйте код» — трубку кладите сразу, не объясняясь.</p>
+<p>Код из СМС и есть второй замок. Отдадите его чужому голосу в трубке, и замка не станет. Банк никогда не просит код по телефону. Сотрудники Госуслуг не звонят и не спрашивают коды. Ни один настоящий помощник не попросит то, что защищает вас от него самого.</p>
+<h2 id="h6">Пусть нейросеть объяснит и напомнит</h2>
+<p>Признаюсь, мне в этом деле очень помогла нейросеть. Я пишу цикл статей для людей нашего возраста, чтобы каждый понял: это не страшно. Нейросеть работает как умный собеседник внутри телефона или браузера. Открыть её легко: в Яндекс Браузере есть кнопка «Нейро», у Алисы можно спросить голосом, есть GigaChat. Она ответит на вопрос и напишет текст за вас.</p>
+<p>Вот с таким запросом я и начинала разбираться:</p>
+<p>«Объясни моей соседке тёте Вале простыми словами, зачем нужен второй код из СМС при входе в банк, и напиши по шагам, где включить такую защиту на Госуслугах».</p>
+<p>А второй запрос пригодился, когда я решила сменить пароли:</p>
+<p>«Помоги придумать пароль не короче двенадцати знаков, который легко запомнить бабушке, и объясни, почему короткие пароли плохие».</p>
+<p>Заметьте, как я это делаю. Если написать сухо — «дайте определение двухфакторной аутентификации» — придёт стена незнакомых слов, читать скучно и бесполезно. А если попросить по-человечески, со своей кухни, ответ приходит понятный. Моя подруга Людмила так и научилась: не поняла термин, написала «объясни проще», и получила ответ про код, который банк присылает в СМС, чтобы убедиться, что деньги снимаете вы.</p>
+<p>Только две вещи помните твёрдо. Первое: нейросети не диктуйте коды, пароли, номера карт и паспортные данные. Тексты писать пожалуйста, а тайны держите при себе. Второе: она может ошибиться и назвать не ту кнопку. Поэтому важное сверяйте на сайте банка или в справке Госуслуг.</p>
+<h2 id="h7">Какой второй ключ выбрать: код из СМС или приложение</h2>
+<p>Есть два способа получать второй код, и у каждого свой характер.</p>
+<p>Код в СМС. Приходит сообщением на телефон. Просто, привычно, ничего не надо ставить. Минус один: если телефон потерян или сеть пропала, войти не получится.</p>
+<p>Приложение-аутентификатор. Это отдельная программа на телефоне, которая сама придумывает новые цифры каждые тридцать секунд. Работает даже без интернета, и код нигде не ходит по сети. Надёжнее, но требует привычки: сначала открыть программу, потом переписать шесть цифр.</p>
+<p>Мой совет для нас, новичков: сначала включите код из СМС, а через месяц, когда привыкнете, попробуйте аутентификатор в одном месте, например в почте. Где нужнее всего, в банке, можно оставить СМС: приложения банков сами умеют подтверждать вход.</p>
+<h2 id="h8">Если код пришёл, а вы не входили</h2>
+<p>Это самый громкий сигнал, какой только бывает. Значит, кто-то знает ваш пароль и пытается войти. Что делать:</p>
+<ol>
+<li>Не вводите код и никому его не говорите.</li>
+<li>Срочно смените пароль от этого аккаунта, и делать это лучше дома, в своей сети.</li>
+<li>Проверьте, куда привязан телефон и почта: чужой номер надо убрать.</li>
+<li>Зайдите в банк и посмотрите историю операций за последние дни.</li>
+<li>Если это почта, предупредите близких: с неё могут писать от вашего имени.</li>
+</ol>
+<h2 id="h9">Что может пойти не так</h2>
+<p><strong>Код не приходит.</strong> Это самая частая заминка. Дайте телефону две-три минуты: сеть иногда запаздывает, особенно на даче за банками с огурцами. Посмотрите на полоски сигнала вверху экрана. Если одна или крестик — подойдите к окну или выйдите на балкон, часто сообщение приходит через полминуты.</p>
+<p><strong>Кода нет и через десять минут.</strong> Загляните в «Сообщения» и проверьте вкладки «Опции» или «Спам»: умные телефоны иногда прячут полезные письма от мусора. Ещё одна причина — забитая память. Представьте старый кошелёк, набитый бумажками: новая квитанция торчит сбоку и теряется. Освободите немного места в памяти телефона. И перезагрузите его, старый добрый способ ещё никого не подводил.</p>
+<p><strong>Вы сменили номер телефона.</strong> Тогда второй фактор привяжется не к тому номеру, и войти будет трудно. Сразу после смены номера зайдите в банк и на Госуслуги и обновите данные. Если не получается, идите в отделение с паспортом, там помогут.</p>
+<p><strong>Потеряли телефон.</strong> Не паникуйте, дверь не осталась нараспашку: без пароля войти всё равно не смогут. Позвоните в банк по номеру с обратной стороны карты и попросите приостановить доступ. Потом восстановите сим-карту у оператора.</p>
+<p><strong>Вам звонят и торопят.</strong> «Срочно назовите код, иначе спишут деньги» — это не защита, это кража. Настоящая помощь никогда не торопит и не требует кодов. Перезвоните сами по номеру из документов или идите в отделение.</p>
+<h2 id="h10">Что сделать сегодня</h2>
+<p>Сделайте одно дело прямо сейчас, не откладывая на понедельник. Возьмите телефон, откройте приложение банка и включите подтверждение входа по коду. Пять минут, и второй замок на месте. Сегодня же загляните в «Безопасность» на Госуслугах и сделайте то же там.</p>
+<p>Если запутаетесь в кнопках, откройте нейросеть и напишите: «Объясни по шагам, где на Госуслугах включается вход с подтверждением, как будто мне 68 и я первый раз вижу этот сайт». Она подскажет, а вы просто повторите. А код из СМС не диктуйте никому. Никогда и ни под каким предлогом.</p>
+<hr>
+<p><strong>Милые вы мои, напоследок.</strong></p>
+<p>В книге «Нейросети для жизни» я разбираю это ещё подробнее — с картинками, упражнениями и примерами из жизни. Напишите мне @tatzenbot — пришлю тома и отвечу на вопросы.</p>
+<p>А больше простых историй про нейросети — в моём канале: t.me/neuro_retree. Подпишитесь, чтобы не потерять.</p>
+<p>Только помните главное: <strong>ИИ, как и человек, может ошибаться.</strong> Если нейросеть не знает ответа и у неё нет под рукой проверенных источников, она начинает придумывать — это называют галлюцинациями. Так же и человек, когда чего-то не знает, начинает додумывать. Чтобы избежать ошибок, всегда сначала находите проверенные источники информации, а потом просите нейросеть проводить веб-поиск на каждом шагу: уточнять, находить источники, дополнять уже имеющуюся информацию новыми данными. Так выводы получаются точными и верными.</p>
+<h2 id="h11">Источники</h2>
+<ul>
+<li>Банк России о безопасном использовании банковских карт и защите от мошенников: https://www.cbr.ru/information_security/</li>
+<li>Госуслуги, раздел безопасности и подтверждения входа: https://www.gosuslugi.ru/help</li>
+<li>Справка Google, как работает двухфакторная аутентификация: https://support.google.com/accounts/answer/185839?hl=ru</li>
+<li>Что такое двухфакторная аутентификация, объяснение для начинающих: https://cloud.vk.ru/blog/dvuhfaktornaya-autentifikatsiya-kak-rabotaet-i-kak-nastroit/</li>
+<li>Как работает подтверждение по СМС: https://fintal.ru/wiki/dvuhfaktornaya-autentifikatsiya-chto-eto-i-kak-rabotaet</li>
+</ul>
+  <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_33_dipfeyki/">Поддельный голос внука: как распознать дипфейк и не отдать деньги</a></div>
+  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
+</div>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+
+</div></main>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<script src="/a11y-toggle.js" defer></script>
+</body>
+</html>
