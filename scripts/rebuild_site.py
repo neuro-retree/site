@@ -372,12 +372,18 @@ def build_tools():
   <h2>Проверка подозрительного сообщения</h2>
   <p>Ответьте на несколько вопросов про звонок или сообщение — и получите понятную памятку, как действовать.</p>
 </a>"""
+    card_memo = """
+<a class="tool-card" href="tools/pamiatka/">
+  <h2>Генератор памятки из статьи</h2>
+  <p>Выберите статью — получите короткую памятку «пять главных шагов» для печати или отправки близким.</p>
+</a>"""
+
     body = """
 <div class="breadcrumbs"><a href="%s">Главная</a> → Инструменты</div>
 <h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Инструменты</h1>
 <p style="color:#5b7080">Простые помощники, которые работают прямо в браузере. Никакие данные не отправляются на сервер.</p>
-%s%s
-""" % (BASE_URL, card_prompt, card_sms)
+%s%s%s
+""" % (BASE_URL, card_prompt, card_sms, card_memo)
     out = page("Инструменты — Нейросети для жизни", "Конструктор промптов и проверка подозрительных сообщений — бесплатные инструменты на сайте.", body, BASE_URL + "tools/", "<style>%s</style>" % TOOLS_CSS)
     (ROOT / "tools" / "index.html").write_text(out, encoding="utf-8")
 
@@ -476,21 +482,87 @@ document.getElementById('scGo').addEventListener('click',()=>{
     (ROOT / "tools" / "sms-checker" / "index.html").write_text(page("Проверка подозрительного сообщения — Нейросети для жизни", "Интерактивная памятка: как распознать мошенническое сообщение и что делать.", sc_body, BASE_URL + "tools/sms-checker/"), encoding="utf-8")
 
 
+
+
+def build_memo():
+    (ROOT / "tools" / "pamiatka").mkdir(parents=True, exist_ok=True)
+    _lines = []
+    for _a in ARTICLES:
+        _lines.append('ART[%s]={title:%s};' % (json.dumps(_a["slug"]), json.dumps(_a["title"], ensure_ascii=False)))
+    json_articles = "\n".join(_lines)
+    opts = ""
+    for a in ARTICLES:
+        opts += '<option value="%s">%s</option>' % (a["slug"], html.escape(a["title"]))
+    body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → <a href="%stools/">Инструменты</a> → Генератор памятки</div>
+<div class="tool-page">
+<h1>Генератор памятки из статьи</h1>
+<p style="color:#5b7080">Выберите статью — ниже появится короткая памятка: пять главных шагов, что сделать сегодня и как проверить результат. Можно распечатать или отправить близким.</p>
+<label for="memoArt">Статья</label>
+<select id="memoArt">%s</select>
+<button class="btn" id="memoGo" type="button">Показать памятку</button>
+<div class="out" id="memoOut" style="display:none"></div>
+<button class="btn" id="memoPrint" type="button" style="display:none;background:#1565a8">Печать памятки</button>
+</div>
+<script>
+const memoArt=document.getElementById('memoArt'),memoOut=document.getElementById('memoOut'),memoPrint=document.getElementById('memoPrint');
+const ART={};
+%s
+document.getElementById('memoGo').addEventListener('click',async()=>{
+  const slug=memoArt.value;
+  if(!ART[slug])return;
+  const resp=await fetch('../../'+slug+'.md');
+  if(!resp.ok){memoOut.textContent='Не удалось загрузить статью.';memoOut.style.display='block';return;}
+  const md=await resp.text();
+  const body=md.split(/[#
+]+\s*/);
+  const steps=[];
+  for(const ln of md.split('\n')){
+    const s=ln.trim();
+    if(/^\d+[.)]/.test(s)&&s.length<180)steps.push(s.replace(/^\d+[.)]\s+/,''));
+    if(steps.length>=5)break;
+  }
+  const out=['ПАМЯТКА: '+ART[slug].title,'','Пять шагов:']+steps.slice(0,5).map((x,i)=>(i+1)+'. '+x)+['','Что сделать сегодня: открыть статью и выполнить первый шаг.','Как проверить результат: следовать инструкциям в статье, сверяться с источниками.','','Полная статья: https://neuro-retree.github.io/site/articles/'+slug+'/'];
+  memoOut.style.display='block';memoOut.textContent=out.join('\n');
+  memoPrint.style.display='inline-block';
+});
+memoPrint.addEventListener('click',()=>{window.print();});
+</script>
+""" % (BASE_URL, BASE_URL, opts, json_articles)
+    # json_articles подставим ниже
+    page("Генератор памятки — Нейросети для жизни", "Короткая памятка из любой статьи: пять шагов, что сделать сегодня, как проверить. Печать и отправка близким.", body, BASE_URL + "tools/pamiatka/").__str__()
+    (ROOT / "tools" / "pamiatka" / "index.html").write_text(page("Генератор памятки — Нейросети для жизни", "Короткая памятка из любой статьи: пять шагов, что сделать сегодня, как проверить. Печать и отправка близким.", body, BASE_URL + "tools/pamiatka/"), encoding="utf-8")
+
+
 # ---------- Обучение ----------
 
 def build_learning():
     (ROOT / "learning").mkdir(parents=True, exist_ok=True)
     routes = [
-        ("beginner", "Я только знакомлюсь с ИИ", "Самый мягкий старт: что такое нейросеть, как с ней поговорить и не испугаться. 7 коротких шагов.",
-         ["Чек-лист «10 вечеров»", "Что такое промпт и зачем он нужен", "Как правильно задавать вопросы нейросети"]),
-        ("daily-tasks", "Хочу решать повседневные задачи", "Написать поздравление, проверить документ, перевести текст, спланировать день.",
-         ["Списали деньги за приложение", "Госуслуги: выплаты и льготы", "Двухфакторная защита"]),
-        ("advanced", "Хочу создавать свои материалы", "Открытки, тексты, видео, книги — с помощью нейросетей и своих навыков.",
-         ["Как написать книгу своими словами", "Мемуары с нейросетью", "Открытки на заказ"]),
+        ("level0", "Уровень 0 — Без нейросетей. Фундамент", "Что полезно знать каждому: защита аккаунтов, деньги, здоровье, госуслуги. Нейросети тут не нужны — только спокойные инструкции.",
+         [("Списали деньги за приложение", "article_spisali_za_prilozhenie"),
+          ("Двухфакторная защита", "article_2fa_zashchita"),
+          ("Куда записать пароль", "article_kuda_zapisat_parol")]),
+        ("level1", "Уровень 1 — Первое знакомство с нейросетью", "Что такое нейросеть, как её открыть и не испугаться. Первые 10 вечеров.",
+         [("Чек-лист «10 вечеров»", "article_20_cheklist_10_vecherov"),
+          ("Как объяснить соседке", "article_obyasni_sosedke"),
+          ("Первый запрос вместе", "article_otkrytyj_urok")]),
+        ("level2", "Уровень 2 — Нейросети в быту", "Помощник в обычных делах: поздравления, тексты, переводы, озвучка, отдых и творчество.",
+         [("Нейросеть в быту: 10 дел", "article_10_scenariev_byta"),
+          ("Нейросеть-собеседник", "article_nejroset_sobesednik"),
+          ("Нейросеть-художник", "article_nejroset_hudozhnik")]),
+        ("level3", "Уровень 3 — Промты: как просить правильно", "Мастерство запросов: формула промта, готовые шаблоны, как не попасться на выдумки.",
+         [("Что такое промт", "article_chto_takoe_promt"),
+          ("Промт — не страшно", "article_promt_ne_strashno"),
+          ("Готовые промты для заработка", "article_15_promty_dlya_zarabotka")]),
+        ("level4", "Уровень 4 — Агенты и автоматизация", "Нейросети, которые работают сами: уровни автоматизации, агенты, проверка галлюцинаций, заработок.",
+         [("5 уровней автоматизации", "article_5_urovnej_avtomatizacii"),
+          ("Агенты — работают сами", "article_agenty_rabotayut_sami"),
+          ("Галлюцинации нейросети", "article_gallyucinacii")]),
     ]
     blocks = []
     for rid, title, desc, items in routes:
-        lis = "".join("<li>%s</li>" % html.escape(x) for x in items)
+        lis = "".join('<li><a href="%sarticles/%s/">%s</a></li>' % (BASE_URL, slug, html.escape(name)) for name, slug in items)
         blocks.append("""
 <div class="tool-card" style="cursor:default">
   <h2>%s</h2>
@@ -500,10 +572,10 @@ def build_learning():
     body = """
 <div class="breadcrumbs"><a href="%s">Главная</a> → Обучение</div>
 <h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Учебные маршруты</h1>
-<p style="color:#5b7080">Выберите, что вам ближе, — и двигайтесь по шагам. Каждый маршрут собран из понятных материалов.</p>
+<p style="color:#5b7080">Пять уровней — от «без нейросетей» до «нейросети работают сами». Каждый уровень опирается на предыдущий: начните с нуля и двигайтесь вверх по лестнице.</p>
 %s
 """ % (BASE_URL, "".join(blocks))
-    out = page("Обучение — Нейросети для жизни", "Три учебных маршрута: знакомство с ИИ, повседневные задачи и создание своих материалов.", body, BASE_URL + "learning/", "<style>%s</style>" % TOOLS_CSS)
+    out = page("Обучение — Нейросети для жизни", "Пять учебных уровней: от основ безопасности и денег до нейросетей, промтов и агентов.", body, BASE_URL + "learning/", "<style>%s</style>" % TOOLS_CSS)
     (ROOT / "learning" / "index.html").write_text(out, encoding="utf-8")
 
 
@@ -606,6 +678,7 @@ def main():
         print("статья:", a["slug"])
     build_catalog()
     build_tools()
+    build_memo()
     build_learning()
     build_home()
     build_aux()
