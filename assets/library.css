@@ -23,13 +23,7 @@ body.lib-mode{
 body.lib-mode a{color:var(--gold)}
 body.lib-mode button{font-family:Georgia,serif}
 
-/* ---- Фон-подложка полки: текстура деревянной полки (лёгкая, поверх градиента) ---- */
-.lib-scene::before{
-  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-  background-image:url("library/wood_shelf.jpg");
-  background-size:cover;background-position:center 70%;
-  opacity:.10;mix-blend-mode:screen;
-}
+/* ---- Фон-подложка полки: чистый тёмный градиент (без деревянной текстуры) ---- */
 .lib-scene{position:relative;min-height:100svh;display:grid;place-items:end center;perspective:1200px;perspective-origin:50% 72%;padding-bottom:3vh}
 .lib-shelf{width:min(1120px,94vw);transform:rotateX(8deg) translateY(2vh);transform-style:preserve-3d}
 .lib-row{display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,1.1vw,16px);padding:26px 16px 0}
