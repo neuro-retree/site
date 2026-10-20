@@ -128,7 +128,11 @@
       book.appendChild(el("div", "ornament"));
       var sp = el("div", "spine", b.title);
       book.appendChild(sp);
-      book.appendChild(el("div", "lib-cover", b.title));
+      // 3D-структура книги: передняя/задняя обложки + блок страниц
+      var front = el("div", "cover-front", b.title);
+      var back = el("div", "cover-back");
+      var pages = el("div", "pages");
+      book.appendChild(front); book.appendChild(back); book.appendChild(pages);
       book.addEventListener("click", function () { openBook(i); });
       book.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openBook(i); }

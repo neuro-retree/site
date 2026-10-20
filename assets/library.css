@@ -79,8 +79,41 @@ body.lib-mode button{font-family:Georgia,serif}
 /* ---- Анимация вытягивания/раскрытия ---- */
 .lib-book.pulling{transform:translateZ(130px) translateY(-44px) rotateY(7deg);transition:transform .7s cubic-bezier(.3,.7,.2,1),box-shadow .7s;box-shadow:-10px 14px 22px rgba(0,0,0,.6),0 0 30px var(--warm-light)}
 .lib-book.opening{transform:translateZ(250px) translateY(-34px) scale(1.3) rotateY(0);transition:transform .9s cubic-bezier(.25,.8,.3,1);box-shadow:-12px 18px 34px rgba(0,0,0,.7),0 0 46px var(--warm-light)}
-.lib-book.opening .lib-cover{display:grid}
-.lib-cover{display:none;position:absolute;inset:3px 3px 3px 13px;background:var(--bc,#56372b);border-radius:2px 7px 7px 2px;place-items:center;color:var(--paper);font-size:22px;text-align:center;padding:14px;box-shadow:inset 0 0 30px rgba(0,0,0,.45)}
+/* ---- 3D-структура книги: створки обложек и блок страниц ---- */
+.lib-book{transform-style:preserve-3d}
+.lib-book .cover-front,.lib-book .cover-back,.lib-book .pages{
+  position:absolute;top:0;bottom:0;border-radius:2px 6px 6px 2px;
+  transform-style:preserve-3d;backface-visibility:hidden;
+}
+.lib-book .cover-front{
+  left:3px;right:13px;background:
+    linear-gradient(90deg,rgba(0,0,0,.25),transparent 12%,rgba(255,255,255,.08) 70%,rgba(0,0,0,.3)),
+    url("library/book_cover_old.jpg"),var(--bc,#56372b);
+  background-size:cover,cover,auto;background-position:center;background-blend-mode:multiply;
+  display:grid;place-items:center;color:var(--paper);font-size:20px;text-align:center;padding:14px;
+  box-shadow:inset 0 0 26px rgba(0,0,0,.4);z-index:4;
+  transform-origin:left center;transition:transform .7s cubic-bezier(.3,.8,.3,1);
+}
+.lib-book .cover-back{
+  left:3px;right:13px;background:
+    linear-gradient(270deg,rgba(0,0,0,.28),transparent 15%,rgba(255,255,255,.06) 70%,rgba(0,0,0,.3)),
+    url("library/book_cover_old.jpg"),var(--bc,#56372b);
+  background-size:cover,cover,auto;background-position:center;background-blend-mode:multiply;
+  box-shadow:inset 0 0 26px rgba(0,0,0,.45);z-index:4;
+  transform-origin:right center;transition:transform .7s cubic-bezier(.3,.8,.3,1);
+}
+.lib-book .pages{
+  left:3px;right:13px;z-index:3;overflow:hidden;
+  background:
+    repeating-linear-gradient(to right,transparent 0 26px,rgba(120,90,40,.06) 26px 27px),
+    linear-gradient(90deg,#f6eeda,#efe4c8 45%,#f6eeda);
+  box-shadow:inset 0 0 18px rgba(60,40,10,.25);
+}
+/* при открытии обложки распахиваются, страницы остаются */
+.lib-book.opening .cover-front{transform:rotateY(-88deg)}
+.lib-book.opening .cover-back{transform:rotateY(88deg)}
+.lib-book.opening .pages{display:grid;place-items:center}
+.lib-book.opening .pages::before{content:"📖";font-size:30px;color:#8a7a60}
 .lib-book.zooming{transform:translateZ(380px) scale(1.8);transition:transform .8s cubic-bezier(.25,.8,.3,1)}
 
 /* ---- Читалка (разворот) ---- */
