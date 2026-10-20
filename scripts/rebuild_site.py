@@ -786,7 +786,7 @@ def build_home():
 </div>
 
 <div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)" id="verify">
-  <h2 style="margin-top:0;color:#0e7c66">Как убедиться, что это действительно я</h2>
+  <h2 style="margin-top:0;color:#0e7c66">Это действительно я, и меня можно поддержать</h2>
   <p>Мошенники копируют страницы авторов и «продают» курсы от их имени. Мои настоящие адреса — только эти:</p>
   <ul>
     <li>Этот сайт: <strong>neuro-retree.github.io/site</strong></li>
@@ -802,19 +802,14 @@ def build_home():
     <li>Поддержка на Boosty: <a href="https://boosty.to/tatzen">boosty.to/tatzen</a></li>
     <li>Почта: <a href="mailto:neuro_retree@yandex.ru">neuro_retree@yandex.ru</a></li>
   </ul>
-  <p><strong>Я никогда не прошу</strong> номер карты, коды из СМС, паспортные данные или «срочный перевод». Если кто-то пишет от моего имени и просит такое — это мошенники.</p>
-</div>
-
-<div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)" id="support">
-  <h2 style="margin-top:0;color:#0e7c66">Поддержать автора</h2>
-  <p>Материалы на сайте бесплатны. Если захотите сказать спасибо, можете угостить меня чашкой чая — это лучшее признание. Возможно, в будущем появятся платные курсы; о них я буду писать отдельно и честно.</p>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #e2e9ee">
     <a href="https://boosty.to/tatzen" style="background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Поддержать на Boosty</a>
     <a href="https://vk.com/club242405739" style="background:var(--accent2);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в VK-сообщество</a>
     <a href="https://ok.ru/group/70000060482048" style="background:#f60;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в Одноклассники</a>
     <a href="https://dzen.ru/tatz" style="background:#e8433b;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Канал в Дзене</a>
   </div>
-  <p style="color:#5b7080;font-size:14px;margin-top:12px">Перевод по СБП или QR-коду появятся позже — как только разберусь с оформлением. Пока что Boosty и VK — самые простые пути.</p>
+  <p style="color:#5b7080;font-size:14px;margin-top:12px">Материалы на сайте бесплатны. Если захотите сказать спасибо — угостите чашкой чая на Boosty. Перевод по СБП или QR-коду появятся позже.</p>
+  <p style="margin-top:12px"><strong>Я никогда не прошу</strong> номер карты, коды из СМС, паспортные данные или «срочный перевод». Если кто-то пишет от моего имени и просит такое — это мошенники.</p>
 </div>
 """ % "".join(cards)
     out = page("Нейросети для жизни — Татьяна Зенина, Астрахань",
