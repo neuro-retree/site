@@ -30,20 +30,20 @@ body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;
 a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
 a:hover{text-decoration-thickness:2px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%,#1565a8);color:#fff;padding:28px 0 24px}
 header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
 header .title{font-size:24px;margin:0;color:#fff}
 header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
 .breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
 main{padding:10px 0 60px}
-.card{background:#fdfaf3;border:1px solid #e2d9c4;border-radius:4px 14px 14px 4px;box-shadow:0 10px 26px rgba(60,40,10,.16), inset 6px 0 10px -8px rgba(60,40,10,.22);overflow:hidden;display:flex;flex-direction:column;height:100%%;position:relative;transition:transform .15s ease,box-shadow .15s ease}
+.card{background:#fdfaf3;border:1px solid #e2d9c4;border-radius:4px 14px 14px 4px;box-shadow:0 10px 26px rgba(60,40,10,.16), inset 6px 0 10px -8px rgba(60,40,10,.22);overflow:hidden;display:flex;flex-direction:column;height:100%;position:relative;transition:transform .15s ease,box-shadow .15s ease}
 .card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(60,40,10,.22), inset 6px 0 10px -8px rgba(60,40,10,.22)}
 /* «корешок книги» слева: тёмная полоса с поперечными прожилками переплёта */
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,#5f4a2b,#8d7250 55%,#c9b183);border-radius:5px 0 0 5px;box-shadow:inset -5px 0 7px rgba(40,25,5,.55), 3px 0 8px rgba(60,40,10,.3);z-index:3;pointer-events:none;
 background-image:repeating-linear-gradient(to bottom,rgba(255,255,255,.16) 0 1px,transparent 1px 4px),linear-gradient(90deg,#5f4a2b,#8d7250 55%,#c9b183)}
 /* гребень листов между корешком и обложкой */
-.card .cov::after{content:"";position:absolute;left:20px;top:0;height:100%%;width:8px;background:repeating-linear-gradient(to bottom,#e8dfc9 0 2px,#f7f0dd 2px 5px,#d9cba8 5px 7px);opacity:1;pointer-events:none;z-index:3}
-.card .cov{position:relative;width:100%%;aspect-ratio:16/9;overflow:hidden;background:#e9e2d4;display:flex;align-items:center;justify-content:center}
+.card .cov::after{content:"";position:absolute;left:20px;top:0;height:100%;width:8px;background:repeating-linear-gradient(to bottom,#e8dfc9 0 2px,#f7f0dd 2px 5px,#d9cba8 5px 7px);opacity:1;pointer-events:none;z-index:3}
+.card .cov{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#e9e2d4;display:flex;align-items:center;justify-content:center}
 /* уголок страницы + бумажная текстура (одно правило) */
 .card::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(120,90,40,.04) 1px,transparent 1px),linear-gradient(315deg,transparent 40%,#dccfa8 41%,#dccfa8 52%,#e8dfc9 53%);background-size:5px 5px,100% 100%;background-position:0 0,100% 100%;pointer-events:none;z-index:1;box-shadow:-3px -3px 7px rgba(60,40,10,.14)}
 .card .body{padding:14px 16px 18px 22px;flex:1;display:flex;flex-direction:column;position:relative;z-index:3}
@@ -65,7 +65,7 @@ background-image:repeating-linear-gradient(to bottom,rgba(255,255,255,.16) 0 1px
 .article ul,.article ol{margin:10px 0;padding-left:26px}
 .article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
 .article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
-.article img{max-width:100%%;height:auto}
+.article img{max-width:100%;height:auto}
 .toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
 .toc b{color:#153a4d}
 .toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
@@ -90,12 +90,12 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
 .tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
 .tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
 .tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
-.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
 .tool-page textarea{min-height:120px}
 .tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
 .btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
 .btn:hover{background:#0b6a58}
-@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
 @media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
 </style>
 </head>
