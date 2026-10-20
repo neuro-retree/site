@@ -80,30 +80,31 @@ body.lib-mode button{font-family:Georgia,serif}
 }
 
 /* ---- Анимация вытягивания/раскрытия ---- */
-/* ---- Анимация вытягивания/раскрытия (одностороннее) ----
+/* ---- Анимация вытягивания/раскрытия (поворот на 180°) ----
    Книга на полке стоит корешком к зрителю.
-   1) pulling: книга приподнимается и поворачивается на ~97° (корешок уходит влево,
-      передняя обложка обращается к зрителю — НЕ переворот на 180° «обратной стороной»).
-   2) opening: передняя обложка откидывается влево вокруг корешка (как обложка журнала),
-      открывая блок страниц; задник остаётся на месте.
-   3) zooming: книга выходит на весь экран, полка затемняется. */
+   1) pulling: книга приподнимается и поворачивается на 90° (корешок уходит влево).
+   2) opening: книга доворачивается до 180° (обложка обращается к зрителю
+      «обратной стороной»), передняя обложка откидывается вокруг корешка.
+   3) zooming: книга выходит на весь экран, поворот 180° сохраняется, полка затемняется. */
 .lib-book.pulling{
-  transform:translateZ(180px) translateY(-52px) rotateY(97deg);
+  transform:translateZ(180px) translateY(-52px) rotateY(90deg);
   transition:transform 1.6s cubic-bezier(.3,.7,.2,1),box-shadow 1.6s;
   box-shadow:-10px 14px 22px rgba(0,0,0,.6),0 0 30px var(--warm-light);
   z-index:40;
 }
 .lib-book.opening{
-  transform:translateZ(360px) translateY(-12vh) rotateY(97deg) scale(1.35);
+  transform:translateZ(360px) translateY(-12vh) rotateY(180deg) scale(1.35);
   transition:transform 1.8s cubic-bezier(.25,.8,.3,1);
   box-shadow:-12px 18px 34px rgba(0,0,0,.7),0 0 50px var(--warm-light);
   z-index:50;
 }
 /* книга выходит на весь экран: сцена затемняется, книга на переднем плане */
 .lib-scene.is-opening{overflow:visible}
-.lib-scene.is-opening .lib-shelf{opacity:.22;transition:opacity 1.4s}
+/* затемняем ТОЛЬКО соседние книги и доску; сама книга остаётся непрозрачной */
+.lib-scene.is-opening .lib-book:not(.pulling):not(.opening){opacity:.22;transition:opacity 1.4s}
+.lib-scene.is-opening .lib-board{opacity:.22;transition:opacity 1.4s}
 .lib-book.zooming{
-  transform:translateZ(900px) translateY(0) scale(8);
+  transform:translateZ(900px) translateY(0) rotateY(180deg) scale(8);
   transition:transform 1.6s cubic-bezier(.25,.8,.3,1);
   box-shadow:-18px 30px 70px rgba(0,0,0,.85),0 0 100px var(--warm-light);
   z-index:60;
