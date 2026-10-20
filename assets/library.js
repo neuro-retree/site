@@ -186,6 +186,7 @@
     setTimeout(function () {
       if (state !== "pulling") return;
       go("opening");
+      scene.classList.add("is-opening");
       Sound.play("open", .45);
       book.classList.add("opening");
       setTimeout(function () {
@@ -208,6 +209,7 @@
     reader.classList.remove("open");
     var book = row.children[sel];
     book.style.visibility = "";
+    scene.classList.remove("is-opening");
     setTimeout(function () {
       book.classList.remove("zooming");
       if (!canNext(state, "returning")) return;
