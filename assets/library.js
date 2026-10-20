@@ -7,12 +7,12 @@
   "use strict";
   var BASE = "https://neuro-retree.github.io/site/";
   var CONFIG = {
-    books: [
-      { id: "articles", title: "Статьи",   color: "#5b3a2e", h: 330, tag: "сборник публикаций" },
-      { id: "learning", title: "Обучение", color: "#2f4a3a", h: 300, tag: "учебник" },
-      { id: "book",     title: "Книга",    color: "#4a3a69", h: 350, tag: "четыре тома" },
-      { id: "video",    title: "Видео",    color: "#3a4a69", h: 280, tag: "видеоальбом" },
-      { id: "author",   title: "Об авторе",color: "#6a4a2e", h: 310, tag: "личный том" }
+books: [
+{ id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
+{ id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
+{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold", tex: "library/tex/leather-book.svg" },
+{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" },
+{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
     ],
     anim: { pull: 1400, open: 1800, zoom: 1600, close: 1800, ret: 1400 }
   };
@@ -104,7 +104,32 @@
     };
   })();
 
-  /* ================= ЭЛЕМЕНТЫ ================= */
+  /* ================= ДИНАМИЧЕСКОЕ ЗАТЕНЕНИЕ =================
+   Источник света условно сверху-справа от камеры. Каждые ~80мс пересчитываем
+   затенение книг (градиент в темноту), взаимные тени и тень на полке. */
+  var lightTimer = null, shadowMap = new WeakMap();
+  function computeShadow(i, x) {
+    // x — горизонтальная позиция книги (0..1); свет сверху-справа
+    var dir = (x - 0.5) * 2;            // -1..1
+    var shade = Math.max(0.18, 0.5 - dir * 0.22); // чем левее — тем темнее
+    var book = row.children[i];
+    if (!book) return;
+    book.style.setProperty("--shade", shade.toFixed(3));
+    var sh = shadowMap.get(book);
+    if (sh) sh.style.transform = "translateX(" + (dir * 6) + "px)";
+  }
+  function startLightLoop() {
+    if (lightTimer) return;
+    lightTimer = setInterval(function () {
+      var books = row.children;
+      for (var i = 0; i < books.length; i++) {
+        var r = books[i].getBoundingClientRect();
+        var cx = (r.left + r.width / 2) - (window.innerWidth / 2);
+        computeShadow(i, cx / (window.innerWidth / 2) * 0.5 + 0.5);
+      }
+    }, 80);
+  }
+  function stopLightLoop() { if (lightTimer) { clearInterval(lightTimer); lightTimer = null; } }
   var scene, shelf, row, reader, spread, pL, pR, bar, lens;
   function q(s) { return document.querySelector(s); }
   function el(tag, cls, html) {
@@ -122,6 +147,13 @@
       var book = el("div", "lib-book");
       book.style.setProperty("--bc", b.color);
       book.style.setProperty("--bh", b.h + "px");
+      if (b.font) book.style.setProperty("--book-font", b.font);
+      if (b.tone) book.style.setProperty("--book-tone", b.tone);
+      if (b.tex) book.style.setProperty("--tex", "url(" + BASE + "assets/" + b.tex + ")");
+      // тень на полку (элемент для динамического смещения в computeShadow)
+      var sh = el("div", "lib-box-shadow");
+      shadowMap.set(book, sh);
+      book.appendChild(sh);
       book.tabIndex = 0;
       book.setAttribute("role", "button");
       book.setAttribute("aria-label", "Открыть книгу " + b.title);
@@ -399,6 +431,7 @@
     buildShelf();
     lensLoad();
     Sound.load();
+    startLightLoop();
     // синхронизируем кнопки с загруженными настройками
     if (lensOn) {
       document.body.classList.add("lib-lens-on");

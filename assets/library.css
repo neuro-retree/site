@@ -2,6 +2,7 @@
    Стилизованная под фотореализм 3D-сцена старинной библиотеки:
    камера снизу спереди, тёмное дерево, классические переплёты, тёплый свет.
    Состояния: shelf -> pulling -> opening -> zooming -> reading -> closing -> returning. */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@400;600&family=Libre+Baskerville:ital@0;1&family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap');
 :root{
   --lib-dark:#120c08;
   --wood-dark:#241710;
@@ -36,7 +37,7 @@ body.lib-mode button{font-family:Georgia,serif}
 
 /* ---- Книга на полке ---- */
 .lib-book{
-  position:relative;flex:0 1 175px;min-width:0;height:var(--bh,310px);cursor:pointer;
+  position:relative;flex:0 1 233px;min-width:0;height:var(--bh,413px);cursor:pointer;
   border:1px solid rgba(230,200,145,.4);border-radius:3px 8px 8px 3px;
   background:
     linear-gradient(90deg,rgba(0,0,0,.5),transparent 14%,rgba(255,255,255,.09) 72%,rgba(0,0,0,.35)),
@@ -137,25 +138,43 @@ body.lib-mode button{font-family:Georgia,serif}
 /* ---------- П3 ЛЕВАЯ / П4 ПРАВАЯ ОБЛОЖКИ ---------- */
 .lib-book .bd-cover-l{align-items:flex-end;transform:translateZ(calc(var(--spine-w,26px)/2))}
 .lib-book .bd-cover-r{align-items:flex-end;transform:translateZ(calc(var(--spine-w,26px)/2))}
-/* Общее: 6 граней параллелепипеда (рисуем видимые камере) */
+/* сплошная заливка + динамическое затенение (--shade от источника света сверху-справа) */
 .lib-book .face{
-  position:absolute;background:var(--bc,#56372b);
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,var(--shade,.42)) 130%);
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
 }
+/* взаимная тень книги на полке (сдвиг против света) */
+.lib-box-shadow{position:absolute;left:2%;right:2%;bottom:-14px;height:14px;border-radius:50%;background:radial-gradient(50% 60% at 50% 100%,rgba(0,0,0,.5),transparent 70%);transition:transform .2s;pointer-events:none}
 /* фронт/бэк (широкие стороны) — страницы и обложки */
 .lib-book .bd-pages-block .face-pg,
 .lib-book .bd-single-page .face-pg{background:#f4ecda}
 .lib-book .bd-cover-l .face-cv,
-.lib-book .bd-cover-r .face-cv{background:#4a3524}
+.lib-book .bd-cover-r .face-cv{
+  background-color:#4a3524;
+  background-image:var(--tex),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
+  background-size:cover,auto;background-position:center;
+}
 /* осветляющий градиент 15% к краям НЕ на стыках (стыки — левый край для обложек/страниц) */
-.lib-book .face-pg{background-image:linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%)}
+.lib-book .bd-pages-block .face-pg,
+.lib-book .bd-single-page .face-pg{
+  background-image:url("library/tex/paper.svg"),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
+  background-size:cover,auto;background-position:center;
+}
 .lib-book .face-cv{background-image:linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%)}
-/* подпись названия книги на П4 (правая обложка) */
+/* подпись названия книги на П4 (правая обложка): свой шрифт, золото/серебро, центрировано по корешку */
 .lib-book .bd-cover-r .title{
-  position:absolute;left:12%;right:12%;top:10%;text-align:center;
-  color:rgba(255,240,220,.95);font-size:clamp(14px,1.4vw,20px);text-shadow:0 1px 3px #000;
+  position:absolute;left:14%;right:14%;top:50%;transform:translateY(-50%);
+  text-align:center;writing-mode:vertical-rl;text-orientation:mixed;
+  font-family:var(--book-font,'EB Garamond',serif);
+  font-size:clamp(18px, calc(var(--bh,413px) * .055), 30px);
+  letter-spacing:.10em;font-weight:600;line-height:1.15;
+  text-shadow:0 1px 3px rgba(0,0,0,.65),0 0 12px rgba(0,0,0,.35);
   transition:opacity .6s ease;
 }
+.lib-book .bd-cover-r[data-tone="gold"] .title,
+.lib-book[style*="gold"] .bd-cover-r .title{background:linear-gradient(180deg,#f6e27a,#caa84e 45%,#f2d76b);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.lib-book .bd-cover-r[data-tone="silver"] .title,
+.lib-book[style*="silver"] .bd-cover-r .title{background:linear-gradient(180deg,#f2f4f6,#b9c0c6 45%,#dde2e6);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .lib-book.pulling .bd-cover-r .title{opacity:0}
 .lib-book.opening .bd-cover-r .title{opacity:0}
 
@@ -197,7 +216,7 @@ body.lib-lens-on{cursor:zoom-in}
 
 /* ---- Адаптив ---- */
 @media (max-width:720px){
-  .lib-book{flex:0 1 118px}
+  .lib-book{flex:0 1 157px}
   .lib-book .spine{font-size:12px}
   .lib-page{font-size:15px;padding:20px 18px}
   .lib-spread{flex-direction:column;overflow-y:auto}
