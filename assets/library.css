@@ -37,7 +37,7 @@ body.lib-mode button{font-family:Georgia,serif}
 
 /* ---- Книга на полке ---- */
 .lib-book{
-  position:relative;flex:0 1 233px;min-width:0;height:var(--bh,413px);cursor:pointer;
+  position:relative;flex:0 1 var(--bw,64px);min-width:0;height:var(--bh,413px);cursor:pointer;
   border:1px solid rgba(230,200,145,.4);border-radius:3px 8px 8px 3px;
   background:
     linear-gradient(90deg,rgba(0,0,0,.5),transparent 14%,rgba(255,255,255,.09) 72%,rgba(0,0,0,.35)),
@@ -216,7 +216,7 @@ body.lib-lens-on{cursor:zoom-in}
 
 /* ---- Адаптив ---- */
 @media (max-width:720px){
-  .lib-book{flex:0 1 157px}
+  .lib-book{flex:0 1 var(--bw,56px);min-height:0}
   .lib-book .spine{font-size:12px}
   .lib-page{font-size:15px;padding:20px 18px}
   .lib-spread{flex-direction:column;overflow-y:auto}

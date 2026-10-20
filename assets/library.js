@@ -8,11 +8,11 @@
   var BASE = "https://neuro-retree.github.io/site/";
   var CONFIG = {
 books: [
-{ id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
-{ id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
-{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold", tex: "library/tex/leather-book.svg" },
-{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" },
-{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
+{ id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, w: 66, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
+{ id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, w: 58, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
+{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, w: 84, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold", tex: "library/tex/leather-book.svg" },
+{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, w: 52, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" },
+{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
     ],
     anim: { pull: 1400, open: 1800, zoom: 1600, close: 1800, ret: 1400 }
   };
@@ -147,6 +147,7 @@ books: [
       var book = el("div", "lib-book");
       book.style.setProperty("--bc", b.color);
       book.style.setProperty("--bh", b.h + "px");
+      book.style.setProperty("--bw", (b.w || 64) + "px");
       if (b.font) book.style.setProperty("--book-font", b.font);
       if (b.tone) book.style.setProperty("--book-tone", b.tone);
       if (b.tex) book.style.setProperty("--tex", "url(" + BASE + "assets/" + b.tex + ")");
