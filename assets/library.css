@@ -25,7 +25,7 @@ body.lib-mode button{font-family:Georgia,serif}
 /* ---- Фон-подложка полки: текстура деревянной полки (лёгкая, поверх градиента) ---- */
 .lib-scene::before{
   content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
-  background-image:url("assets/library/wood_shelf.jpg");
+  background-image:url("library/wood_shelf.jpg");
   background-size:cover;background-position:center 70%;
   opacity:.10;mix-blend-mode:screen;
 }
@@ -40,7 +40,7 @@ body.lib-mode button{font-family:Georgia,serif}
   border:1px solid rgba(230,200,145,.4);border-radius:3px 8px 8px 3px;
   background:
     linear-gradient(90deg,rgba(0,0,0,.5),transparent 14%,rgba(255,255,255,.09) 72%,rgba(0,0,0,.35)),
-    url("assets/library/book_cover_old.jpg"),var(--bc,#56372b);
+    url("library/book_cover_old.jpg"),var(--bc,#56372b);
   background-size:cover,cover,auto;background-position:center;background-blend-mode:multiply;
   box-shadow:-6px 7px 11px rgba(0,0,0,.5),0 14px 24px rgba(0,0,0,.35);
   transform-origin:center bottom;
