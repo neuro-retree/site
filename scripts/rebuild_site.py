@@ -795,6 +795,7 @@ def build_home():
     <li>ВКонтакте: <a href="https://vk.com/club242405739">vk.com/club242405739</a></li>
     <li>Одноклассники: <a href="https://ok.ru/group/70000060482048">ok.ru/group/70000060482048</a></li>
     <li>Дзен: <a href="https://dzen.ru/tatyana_zenina">dzen.ru/tatyana_zenina</a></li>
+    <li>MAX (чат с ботом): <a href="https://max.ru/se14718976_bot">@se14718976_bot в MAX</a></li>
     <li>Поддержка на Boosty: <a href="https://boosty.to/tatzen">boosty.to/tatzen</a></li>
     <li>Почта: <a href="mailto:neuro_retree@yandex.ru">neuro_retree@yandex.ru</a></li>
   </ul>
