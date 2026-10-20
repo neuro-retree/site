@@ -350,14 +350,17 @@ def page(title, desc, body, canonical, extra_head=""):
 <main><div class="wrap">
 %s
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="%sassets/book.css">
+<script src="%sassets/book.js" defer></script>
+<script src="%sassets/magnifier.js" defer></script>
 </body>
 </html>""" % (
         html.escape(title), html.escape(desc[:190]), canonical,
         html.escape(title), html.escape(desc[:190]), canonical, BASE_URL,
         BASE_URL, extra_head, CSS, BASE_URL, BASE_URL, BASE_URL, BASE_URL, BASE_URL,
-        body, AUTHOR, BASE_URL
+        body, AUTHOR, BASE_URL, BASE_URL, BASE_URL, BASE_URL
     )
 
 
@@ -368,6 +371,7 @@ HEADER_HOME = """
   <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="articles/">Все статьи</a>
   <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="tools/">Инструменты</a>
   <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="learning/">Обучение</a>
+  <a style="background:#8a6f4e;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="books/">Книги</a>
 </div>
 """
 
@@ -405,12 +409,18 @@ def build_article(a, md_text):
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   %s
   %s
   %s
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 """ % (BASE_URL, BASE_URL, html.escape(a["title"]), html.escape(cat), html.escape(a["title"]),
        AUTHOR, BUILD_DATE, toc_html, body_html, related_block(a["slug"], a["tags"]))
 
@@ -768,7 +778,7 @@ def build_home():
   <h2 style="margin-top:0;color:#0e7c66">Книги «Нейросети для жизни» — четыре тома</h2>
   <p>Выберите, как вам удобнее получить книги:</p>
   <p style="display:flex;gap:10px;flex-wrap:wrap">
-    <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:tat2enina@yandex.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
+    <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:neuro_retree@yandex.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
     <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://t.me/tatzenbot">Получить в Telegram</a>
     <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://vk.com/club242405739">Получить во ВКонтакте</a>
   </p>
@@ -783,8 +793,10 @@ def build_home():
     <li>Telegram-канал: <a href="https://t.me/neuro_retree">t.me/neuro_retree</a></li>
     <li>Бот для книг: <a href="https://t.me/tatzenbot">@tatzenbot</a></li>
     <li>ВКонтакте: <a href="https://vk.com/club242405739">vk.com/club242405739</a></li>
+    <li>Одноклассники: <a href="https://ok.ru/group/70000060482048">ok.ru/group/70000060482048</a></li>
+    <li>Дзен: <a href="https://dzen.ru/tatyana_zenina">dzen.ru/tatyana_zenina</a></li>
     <li>Поддержка на Boosty: <a href="https://boosty.to/tatzen">boosty.to/tatzen</a></li>
-    <li>Почта: <a href="mailto:tat2enina@yandex.ru">tat2enina@yandex.ru</a></li>
+    <li>Почта: <a href="mailto:neuro_retree@yandex.ru">neuro_retree@yandex.ru</a></li>
   </ul>
   <p><strong>Я никогда не прошу</strong> номер карты, коды из СМС, паспортные данные или «срочный перевод». Если кто-то пишет от моего имени и просит такое — это мошенники.</p>
 </div>
@@ -795,6 +807,8 @@ def build_home():
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
     <a href="https://boosty.to/tatzen" style="background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Поддержать на Boosty</a>
     <a href="https://vk.com/club242405739" style="background:var(--accent2);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в VK-сообщество</a>
+    <a href="https://ok.ru/group/70000060482048" style="background:#f60;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в Одноклассники</a>
+    <a href="https://dzen.ru/tatyana_zenina" style="background:#e8433b;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Канал в Дзене</a>
   </div>
   <p style="color:#5b7080;font-size:14px;margin-top:12px">Перевод по СБП или QR-коду появятся позже — как только разберусь с оформлением. Пока что Boosty и VK — самые простые пути.</p>
 </div>
@@ -909,6 +923,34 @@ def build_glossary():
     (ROOT / "slovar" / "index.html").write_text(html_out, encoding="utf-8")
 
 
+# ---------- Книги: листающаяся книга (флипбук) ----------
+
+def build_books():
+    (ROOT / "books").mkdir(parents=True, exist_ok=True)
+    body = """
+<div class="breadcrumbs"><a href="%s">Главная</a> → Книги</div>
+<h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Книги «Нейросети для жизни»</h1>
+<p style="color:#5b7080">Четыре тома простыми словами. Листайте как настоящую книгу: перелистывание со звуком,
+ведение курсором — как шуршание бумаги. Кнопка «Лупа» увеличивает текст под курсором.</p>
+<div class="book-toolbar" id="bookToolbar">
+  <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+  <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+</div>
+<div class="book-spread" id="bookSpread"></div>
+<div class="book-toolbar" id="bookNav"></div>
+<script>function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='Звуки: нет';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
+<script data-tomes src="%sassets/books.js" defer></script>
+""" % (BASE_URL, BASE_URL)
+    out = page("Книги — Нейросети для жизни",
+               "Четыре тома книги «Нейросети для жизни» Татьяны Зениной: листайте онлайн как настоящую книгу.",
+               body, BASE_URL + "books/")
+    (ROOT / "books" / "index.html").write_text(out, encoding="utf-8")
+    # страница тома — для перелинковки
+    home_books = '<div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)" id="booksPre"><h2 style="margin-top:0;color:#0e7c66">Книги онлайн</h2><p>Четыре тома теперь можно листать прямо на сайте, как настоящую книгу — со звуком перелистывания и лупой.</p><p><a class="btn-read" href="%sbooks/">Открыть книги</a></p></div>' % BASE_URL
+    print("книги: books/index.html")
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     for a in ARTICLES:
@@ -923,6 +965,7 @@ def main():
     build_memo()
     build_learning()
     build_glossary()
+    build_books()
     build_home()
     build_aux()
     print("Готово. Страницы собраны в", ROOT)

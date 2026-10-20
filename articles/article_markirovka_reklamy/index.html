@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Маркировка рекламы: памятка про «реклама», эrid и ОРД</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Маркировка рекламы для чайников, или Как я перестала бояться законов и подружилась с токенами</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Часть 1. Сметана на прилавке и честный ценник для поста</a></li><li style="margin-left:0px;list-style:disc"><a href="#h4">Часть 2. Куда прилепять эту честную табличку</a></li><li style="margin-left:0px;list-style:disc"><a href="#h5">Часть 3. Где грань: когда мы отвечаем перед законом, а когда — нет</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">Ситуация первая: вы просто поделились красотой</a></li><li style="margin-left:14px;list-style:none"><a href="#h7">Ситуация вторая: коммерческий звонок от подруги</a></li><li style="margin-left:0px;list-style:disc"><a href="#h8">Часть 4. ОРД и ОРВК: звери не такие страшные, как малюют</a></li><li style="margin-left:14px;list-style:none"><a href="#h9">Когда можно выдохнуть и вообще ничего не делать?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h10">Часть 5. Как получить заветный erid, если вы всё-таки решили подзаработать</a></li><li style="margin-left:14px;list-style:none"><a href="#h11">Способ для ленивых и умных (и самый лучший)</a></li><li style="margin-left:14px;list-style:none"><a href="#h12">Что делать, если вы договорились напрямую?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h13">Что сделать сегодня</a></li><li style="margin-left:0px;list-style:disc"><a href="#h14">Часть 6. Инструкция по применению нейросетей от моего внука</a></li></ul></div>
   <h2 id="h1">Маркировка рекламы: памятка про «реклама», эrid и ОРД</h2>
 <h2 id="h2">Маркировка рекламы для чайников, или Как я перестала бояться законов и подружилась с токенами</h2>
@@ -205,10 +209,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_152fz_dannye/">152-ФЗ: ваши данные, ваши права — просто о главном</a><a href="https://neuro-retree.github.io/site/articles/article_bloger_60_ii/">ИИ-помощник блогера 60+: 7 дел за 15 минут</a><a href="https://neuro-retree.github.io/site/articles/article_markirovka_reklamy_bloger/">Маркировка рекламы для блогера: просто о сложном</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>

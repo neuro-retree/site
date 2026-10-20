@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Можно ли заработать с нейросетями на пенсии?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Искусственный интеллект для пенсионеров: как перестать бояться технологий, подружиться с нейросетями и найти стабильную подработку на дому</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Введение: почему осваивать нейросети никогда не поздно</a></li><li style="margin-left:0px;list-style:disc"><a href="#h4">3 дела, которые приносят реальную пользу (и деньги) пенсионерам</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">Дело первое: добрые слова и тексты на заказ</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">Дело второе: помощь с объявлениями и продажами</a></li><li style="margin-left:14px;list-style:none"><a href="#h7">Дело третьи: составление официальных писем и претензий</a></li><li style="margin-left:0px;list-style:disc"><a href="#h8">Дополнительные возможности: оцифровка семейной памяти</a></li><li style="margin-left:0px;list-style:disc"><a href="#h9">Что может пойти не так</a></li><li style="margin-left:0px;list-style:disc"><a href="#h10">Как оформить всё по закону и спать спокойно: самозанятость за 15 минут</a></li><li style="margin-left:14px;list-style:none"><a href="#h11">Пошаговая инструкция по оформлению самозанятости:</a></li><li style="margin-left:14px;list-style:none"><a href="#h12">Как правильно работать и платить налоги</a></li><li style="margin-left:0px;list-style:disc"><a href="#h13">Что сделать сегодня</a></li></ul></div>
   <h2 id="h1">Можно ли заработать с нейросетями на пенсии?</h2>
 <h2 id="h2">Искусственный интеллект для пенсионеров: как перестать бояться технологий, подружиться с нейросетями и найти стабильную подработку на дому</h2>
@@ -208,10 +212,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_spisali_za_prilozhenie/">Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё</a><a href="https://neuro-retree.github.io/site/articles/article_14_samozanyatost/">Самозанятость: «Мой налог» за 5 минут и без страха</a><a href="https://neuro-retree.github.io/site/articles/article_ii_agent_passiv/">Пассивный доход на ИИ-агенте»: разбор мифа</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>

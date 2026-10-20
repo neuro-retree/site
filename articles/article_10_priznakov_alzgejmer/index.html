@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Альцгеймер: 10 признаков и когда пора к врачу</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Тревожные сигналы памяти и поведения: как заметить изменения и когда обращаться к врачу</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">На какие изменения стоит обратить внимание</a></li><li style="margin-left:14px;list-style:none"><a href="#h4">1. Ухудшение кратковременной памяти</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">2. Трудности с привычными делами</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">3. Проблемы с планированием и числами</a></li><li style="margin-left:14px;list-style:none"><a href="#h7">4. Дезориентация во времени и пространстве</a></li><li style="margin-left:14px;list-style:none"><a href="#h8">5. Ухудшение зрительно-пространственного восприятия</a></li><li style="margin-left:14px;list-style:none"><a href="#h9">6. Проблемы с речью</a></li><li style="margin-left:14px;list-style:none"><a href="#h10">7. Склонность оставлять вещи в непривычных местах</a></li><li style="margin-left:14px;list-style:none"><a href="#h11">8. Снижение критичности</a></li><li style="margin-left:14px;list-style:none"><a href="#h12">9. Отказ от работы и хобби</a></li><li style="margin-left:14px;list-style:none"><a href="#h13">10. Резкие изменения настроения и личности</a></li><li style="margin-left:0px;list-style:disc"><a href="#h14">Почему не стоит ставить диагноз самостоятельно</a></li><li style="margin-left:0px;list-style:disc"><a href="#h15">Когда и как обращаться за медицинской помощью</a></li><li style="margin-left:14px;list-style:none"><a href="#h16">Плановый визит</a></li><li style="margin-left:14px;list-style:none"><a href="#h17">Экстренная помощь</a></li><li style="margin-left:0px;list-style:disc"><a href="#h18">Делаем по шагам</a></li><li style="margin-left:0px;list-style:disc"><a href="#h19">Что сделать сегодня</a></li><li style="margin-left:0px;list-style:disc"><a href="#h20">Что делать, если диагноз подтвержден</a></li><li style="margin-left:14px;list-style:none"><a href="#h21">Организация безопасного пространства дома</a></li><li style="margin-left:14px;list-style:none"><a href="#h22">Забота о тех, кто ухаживает</a></li><li style="margin-left:0px;list-style:disc"><a href="#h23">Главное</a></li></ul></div>
   <h2 id="h1">Альцгеймер: 10 признаков и когда пора к врачу</h2>
 <h2 id="h2">Тревожные сигналы памяти и поведения: как заметить изменения и когда обращаться к врачу</h2>
@@ -198,10 +202,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_statiny_6_mifov/">Статины: 6 мифов, о которых важно знать</a><a href="https://neuro-retree.github.io/site/articles/article_bady_riski/">БАДы: правда и риски, чтобы не навредить себе</a><a href="https://neuro-retree.github.io/site/articles/article_davlenie_posle_60/">Давление после 60: какая норма и как контролировать</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>

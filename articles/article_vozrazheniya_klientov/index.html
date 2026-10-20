@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Как отвечать на возражения клиентов: 5 ответов</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Искусство слышать: как работать с возражениями клиентов и не терять продажи</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Часть 1. Анатомия возражений: что на самом деле говорят клиенты</a></li><li style="margin-left:14px;list-style:none"><a href="#h4">1. Что прячется за словом «дорого»?</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">2. «Я подумаю»: вежливое «нет» или крик о помощи?</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">3. «Нам ничего не нужно»: две стороны одной медали</a></li><li style="margin-left:0px;list-style:disc"><a href="#h7">Часть 2. Делаем по шагам</a></li><li style="margin-left:0px;list-style:disc"><a href="#h8">Часть 3. Пять золотых фраз-мостиков вместо глупых споров</a></li><li style="margin-left:14px;list-style:none"><a href="#h9">Мостик №1. Ответ на «Дорого»</a></li><li style="margin-left:14px;list-style:none"><a href="#h10">Мостик №2. Ответ на «Я подумаю»</a></li><li style="margin-left:14px;list-style:none"><a href="#h11">Мостик №3. Ответ на «У конкурентов дешевле»</a></li><li style="margin-left:14px;list-style:none"><a href="#h12">Мостик №4. Ответ на «Нам сейчас ничего не нужно»</a></li><li style="margin-left:14px;list-style:none"><a href="#h13">Мостик №5. Спасательная фраза для паузы</a></li><li style="margin-left:0px;list-style:disc"><a href="#h14">Часть 4. Голос, интонации и магия пауз</a></li><li style="margin-left:14px;list-style:none"><a href="#h15">Главное правило первой минуты: никакой паники</a></li><li style="margin-left:14px;list-style:none"><a href="#h16">Почему нельзя перебивать</a></li><li style="margin-left:0px;list-style:disc"><a href="#h17">Часть 5. Использование искусственного интеллекта в работе с возражениями</a></li><li style="margin-left:0px;list-style:disc"><a href="#h18">Что может пойти не так</a></li><li style="margin-left:14px;list-style:none"><a href="#h19">1. Механическое согласие без эмпатии</a></li><li style="margin-left:14px;list-style:none"><a href="#h20">2. Избыток аргументов и давление</a></li><li style="margin-left:14px;list-style:none"><a href="#h21">3. Слишком ранняя продажа скидок</a></li><li style="margin-left:0px;list-style:disc"><a href="#h22">Что сделать сегодня</a></li></ul></div>
   <h2 id="h1">Как отвечать на возражения клиентов: 5 ответов</h2>
 <h2 id="h2">Искусство слышать: как работать с возражениями клиентов и не терять продажи</h2>
@@ -213,10 +217,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/">Чек-лист «10 вечеров»: бесплатный старт в нейросетях</a><a href="https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/">Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</a><a href="https://neuro-retree.github.io/site/articles/article_02_promt_ne_strashno_kanon/">Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>

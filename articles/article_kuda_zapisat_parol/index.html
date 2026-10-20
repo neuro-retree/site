@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Куда записать пароль: памятка для начинающих</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Замок для телефона: как защитить свою цифровую жизнь, не становясь программистом</a></li><li style="margin-left:14px;list-style:none"><a href="#h3">Шаг 1: Биометрия — ваш личный ключ, который не потеряешь</a></li><li style="margin-left:14px;list-style:none"><a href="#h4">Шаг 2: Менеджер паролей — ваша «шкатулка с секретом»</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">Шаг 3: Автозаполнение — магия, которая бережет глаза</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">Что делать, если телефон пропал?</a></li><li style="margin-left:14px;list-style:none"><a href="#h7">Искусство хранения паролей: «сосед с ключами»</a></li><li style="margin-left:14px;list-style:none"><a href="#h8">Ревизия «цифрового хлама»</a></li><li style="margin-left:14px;list-style:none"><a href="#h9">Синхронизация и «главный ключ»</a></li><li style="margin-left:14px;list-style:none"><a href="#h10">Правила безопасности на чужой территории</a></li><li style="margin-left:14px;list-style:none"><a href="#h11">Двухфакторная аутентификация: двойной замок</a></li><li style="margin-left:14px;list-style:none"><a href="#h12">Делаем по шагам</a></li><li style="margin-left:14px;list-style:none"><a href="#h13">Что сделать сегодня</a></li><li style="margin-left:14px;list-style:none"><a href="#h14">Как это делает нейросеть</a></li><li style="margin-left:14px;list-style:none"><a href="#h15">Заключение: безопасность — это привычка</a></li></ul></div>
   <h2 id="h1">Куда записать пароль: памятка для начинающих</h2>
 <h2 id="h2">Замок для телефона: как защитить свою цифровую жизнь, не становясь программистом</h2>
@@ -170,10 +174,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_2fa_zashchita/">Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг</a><a href="https://neuro-retree.github.io/site/articles/article_33_dipfeyki/">Поддельный голос внука: как распознать дипфейк и не отдать деньги</a><a href="https://neuro-retree.github.io/site/articles/article_fishing_kak_raspoznat/">Фишинг: письмо от банка — как распознать обман</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>

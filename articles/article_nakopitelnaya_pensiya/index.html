@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Накопительная пенсия: как посчитать свои накопления</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Пенсионные накопления: как найти «спрятанные» деньги и не заблудиться в Госуслугах</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Главный документ — выписка из ИЛС СФР</a></li><li style="margin-left:14px;list-style:none"><a href="#h4">Как попасть в личный кабинет?</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">Как получить справку (пошаговая инструкция)</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">Читаем «портянку» текста: куда смотреть?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h7">Если деньги в НПФ: где их искать и как проверить?</a></li><li style="margin-left:14px;list-style:none"><a href="#h8">Ищем «хозяина» денег</a></li><li style="margin-left:14px;list-style:none"><a href="#h9">Как «сходить в гости» к частному фонду?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h10">Из чего складывается итоговая сумма: простая формула</a></li><li style="margin-left:14px;list-style:none"><a href="#h11">Почему сумма может меняться?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h12">Что делать, если вы нашли «потерю»?</a></li><li style="margin-left:0px;list-style:disc"><a href="#h13">Как это делает нейросеть</a></li><li style="margin-left:0px;list-style:disc"><a href="#h14">Что сделать сегодня</a></li><li style="margin-left:0px;list-style:disc"><a href="#h15">Дополнительные советы для финансовой грамотности</a></li><li style="margin-left:0px;list-style:disc"><a href="#h16">Итог: вы под контролем</a></li></ul></div>
   <h2 id="h1">Накопительная пенсия: как посчитать свои накопления</h2>
 <h2 id="h2">Пенсионные накопления: как найти «спрятанные» деньги и не заблудиться в Госуслугах</h2>
@@ -203,10 +207,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_spisali_za_prilozhenie/">Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё</a><a href="https://neuro-retree.github.io/site/articles/article_11_zarabotok_na_pensii/">Можно ли заработать с нейросетями на пенсии?</a><a href="https://neuro-retree.github.io/site/articles/article_14_samozanyatost/">Самозанятость: «Мой налог» за 5 минут и без страха</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>

@@ -108,6 +108,10 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
     <button type="button" onclick="window.print()">Печать</button>
     <button type="button" onclick="copyLink()">Скопировать ссылку</button>
   </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
   <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Как защитить свои персональные данные: полное руководство по взаимодействию с компаниями и операторами</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Важное предупреждение об использовании искусственного интеллекта</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">1. Узнайте, кто и зачем обрабатывает ваши данные</a></li><li style="margin-left:14px;list-style:none"><a href="#h4">Что именно можно узнать:</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">Как правильно направить запрос:</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">Пример формулировки запроса:</a></li><li style="margin-left:0px;list-style:disc"><a href="#h7">2. Если сведения неверны или устарели</a></li><li style="margin-left:14px;list-style:none"><a href="#h8">Алгоритм исправления данных:</a></li><li style="margin-left:0px;list-style:disc"><a href="#h9">3. Можно ли отозвать согласие и потребовать удалить данные?</a></li><li style="margin-left:14px;list-style:none"><a href="#h10">Пример формулировки запроса:</a></li><li style="margin-left:0px;list-style:disc"><a href="#h11">4. Какие сроки учитывать при взаимодействии с операторами</a></li><li style="margin-left:14px;list-style:none"><a href="#h12">Официальные сроки по закону № 152-ФЗ:</a></li><li style="margin-left:0px;list-style:disc"><a href="#h13">5. Если организация не отвечает или нарушает ваши права</a></li><li style="margin-left:14px;list-style:none"><a href="#h14">Пошаговый план при отсутствии ответа или неправомерном отказе:</a></li><li style="margin-left:14px;list-style:none"><a href="#h15">Правила цифровой гигиены:</a></li><li style="margin-left:0px;list-style:disc"><a href="#h16">Что может пойти не так</a></li><li style="margin-left:0px;list-style:disc"><a href="#h17">Что сделать сегодня</a></li><li style="margin-left:0px;list-style:disc"><a href="#h18">Главное</a></li><li style="margin-left:0px;list-style:disc"><a href="#h19">Источники:</a></li></ul></div>
   <h2 id="h1">Как защитить свои персональные данные: полное руководство по взаимодействию с компаниями и операторами</h2>
 <p>В эпоху цифровизации мы ежедневно оставляем следы в интернете: оформляем доставки, регистрируемся на сайтах, заполняем анкеты в магазинах и пользуемся банковскими приложениями. Все эти действия связаны с передачей персональных данных. Часто мы делаем это автоматически, не задумываясь, куда отправляется наша информация, кто её обрабатывает и как долго она хранится на чужих серверах.</p>
@@ -228,10 +232,15 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
   <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_bloger_60_ii/">ИИ-помощник блогера 60+: 7 дел за 15 минут</a><a href="https://neuro-retree.github.io/site/articles/article_markirovka_reklamy/">Маркировка рекламы: памятка про «реклама», эrid и ОРД</a><a href="https://neuro-retree.github.io/site/articles/article_markirovka_reklamy_bloger/">Маркировка рекламы для блогера: просто о сложном</a></div>
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
 </div>
-<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}</script>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:tat2enina@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
 </body>
 </html>
