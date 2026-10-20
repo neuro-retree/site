@@ -82,5 +82,12 @@ body.magnify-active{cursor:zoom-in}
 }
 /* Ведение курсором: лёгкое шуршание-подсветка */
 .book-spread.rustle{box-shadow:0 0 0 2px rgba(170,140,90,.4),var(--book-shadow)}
+
+/* Страница-обложка статьи в режиме «Статьи» */
+.article-page{display:flex;align-items:stretch}
+.article-page a{display:flex;flex-direction:column;gap:10px;width:100%;text-decoration:none;color:inherit}
+.article-page-tag{align-self:flex-start;background:#dcebe6;color:#0e6a57;font:600 12.5px/1 'Segoe UI',sans-serif;padding:4px 10px;border-radius:12px}
+.article-page-title{font:700 19px/1.35 'Segoe UI',sans-serif;color:var(--book-ink)}
+.article-page:hover{outline:2px solid rgba(14,124,102,.4);outline-offset:2px}
 @media (max-width:640px){ .magnify-lens{width:130px;height:130px} }
 @media print{ .book-toolbar,.magnify-lens{display:none !important} }

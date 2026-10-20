@@ -350,7 +350,7 @@ def page(title, desc, body, canonical, extra_head=""):
 <main><div class="wrap">
 %s
 </div></main>
-<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro_retree@yandex.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro-retree@ya.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
 <script src="/a11y-toggle.js" defer></script>
 <link rel="stylesheet" href="%sassets/book.css">
 <script src="%sassets/book.js" defer></script>
@@ -778,7 +778,7 @@ def build_home():
   <h2 style="margin-top:0;color:#0e7c66">Книги «Нейросети для жизни» — четыре тома</h2>
   <p>Выберите, как вам удобнее получить книги:</p>
   <p style="display:flex;gap:10px;flex-wrap:wrap">
-    <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:neuro_retree@yandex.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
+    <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:neuro-retree@ya.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
     <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://t.me/tatzenbot">Получить в Telegram</a>
     <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://vk.com/club242405739">Получить во ВКонтакте</a>
   </p>
@@ -800,7 +800,7 @@ def build_home():
     <li>VK Видео: <a href="https://vkvideo.ru/@neuro_retree">vkvideo.ru/@neuro_retree</a></li>
     <li>YouTube: <a href="https://www.youtube.com/channel/UCdviPlS-p5D8WMq5r18U8_A">канал на YouTube</a></li>
     <li>Поддержка на Boosty: <a href="https://boosty.to/tatzen">boosty.to/tatzen</a></li>
-    <li>Почта: <a href="mailto:neuro_retree@yandex.ru">neuro_retree@yandex.ru</a></li>
+    <li>Почта: <a href="mailto:neuro-retree@ya.ru">neuro-retree@ya.ru</a></li>
   </ul>
   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #e2e9ee">
     <a href="https://boosty.to/tatzen" style="background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Поддержать на Boosty</a>
