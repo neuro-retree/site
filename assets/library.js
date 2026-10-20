@@ -1,0 +1,297 @@
+/* library.js — интерактивная книжная полка «Нейросети для жизни».
+   Сцена: 5 книг (Статьи, Обучение, Книга, Видео, Об авторе).
+   Анимации: shelf -> pulling -> opening -> zooming -> reading -> closing -> returning.
+   Звуки WebAudio (без файлов). Лупа 2 режима строго за курсором.
+   Контент: статьи (articles.json), обучение (learning), тома (tomes.json), автор, видео-заглушки. */
+(function () {
+  "use strict";
+  var BASE = "https://neuro-retree.github.io/site/";
+  var CONFIG = {
+    books: [
+      { id: "articles", title: "Статьи",   color: "#5b3a2e", h: 330, tag: "сборник публикаций" },
+      { id: "learning", title: "Обучение", color: "#2f4a3a", h: 300, tag: "учебник" },
+      { id: "book",     title: "Книга",    color: "#4a3a69", h: 350, tag: "четыре тома" },
+      { id: "video",    title: "Видео",    color: "#3a4a69", h: 280, tag: "видеоальбом" },
+      { id: "author",   title: "Об авторе",color: "#6a4a2e", h: 310, tag: "личный том" }
+    ],
+    anim: { pull: 700, open: 900, zoom: 800, close: 900, ret: 700 }
+  };
+  var state = "shelf", sel = -1, cur = 0, pages = [], quiet = false;
+
+  /* ================= ЗВУК (WebAudio) ================= */
+  var Sound = (function () {
+    var AC = null, on = true, cache = {};
+    function ctx() {
+      if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} }
+      if (AC && AC.state === "suspended") AC.resume();
+      return AC;
+    }
+    function make(kind) {
+      var ac = ctx(); if (!ac) return null;
+      var dur = kind === "pull" ? 0.5 : kind === "return" ? 0.45 : kind === "open" ? 0.55 : 0.3;
+      var buf = ac.createBuffer(1, ac.sampleRate * dur, ac.sampleRate);
+      var d = buf.getChannelData(0), seed = kind === "pull" ? 7777 : kind === "open" ? 3131 : kind === "return" ? 5151 : kind === "back" ? 2626 : 1234;
+      function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+      for (var i = 0; i < d.length; i++) {
+        var t = i / ac.sampleRate, env;
+        if (kind === "pull") env = Math.exp(-t * 9) * (0.4 + 0.6 * Math.sin(2 * Math.PI * 5 * t));
+        else if (kind === "open") env = Math.exp(-t * 12) * (0.5 + 0.5 * Math.sin(2 * Math.PI * 3 * t + 1.2));
+        else if (kind === "return") env = Math.exp(-t * 10) * (0.5 + 0.5 * Math.sin(2 * Math.PI * 6 * t));
+        else env = Math.exp(-t * 22) * (0.6 + 0.4 * Math.sin(2 * Math.PI * 26 * t));
+        d[i] = (rnd() * 2 - 1) * env * (kind === "pull" || kind === "return" ? 0.5 : 0.65);
+      }
+      return buf;
+    }
+    function play(kind, vol) {
+      if (!on) return;
+      var ac = ctx(); if (!ac) return;
+      if (!cache[kind]) cache[kind] = make(kind);
+      if (!cache[kind]) return;
+      var src = ac.createBufferSource(); src.buffer = cache[kind];
+      var g = ac.createGain(); g.gain.value = vol || 0.4;
+      src.connect(g); g.connect(ac.destination); src.start();
+      // многократные вызовы не плодим: для курсора ограничим низкой частотой
+    }
+    return { play: play, on: function () { return on; }, set: function (v) { on = v; } };
+  })();
+
+  /* ================= ЭЛЕМЕНТЫ ================= */
+  var scene, shelf, row, reader, spread, pL, pR, bar, lens;
+  function q(s) { return document.querySelector(s); }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+
+  function buildShelf() {
+    scene = el("div", "lib-scene");
+    shelf = el("div", "lib-shelf");
+    row = el("div", "lib-row");
+    CONFIG.books.forEach(function (b, i) {
+      var book = el("div", "lib-book");
+      book.style.setProperty("--bc", b.color);
+      book.style.setProperty("--bh", b.h + "px");
+      book.tabIndex = 0;
+      book.setAttribute("role", "button");
+      book.setAttribute("aria-label", "Открыть книгу " + b.title);
+      book.appendChild(el("div", "ornament"));
+      var sp = el("div", "spine", b.title);
+      book.appendChild(sp);
+      book.appendChild(el("div", "lib-cover", b.title));
+      book.addEventListener("click", function () { openBook(i); });
+      book.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openBook(i); }
+      });
+      row.appendChild(book);
+    });
+    shelf.appendChild(row);
+    shelf.appendChild(el("div", "lib-board"));
+    scene.appendChild(shelf);
+
+    reader = el("div", "lib-reader");
+    bar = el("div", "lib-bar");
+    var bPrev = el("button", null, "◀ Назад"); bPrev.type = "button";
+    var bToc = el("button", null, "☰ Оглавление"); bToc.type = "button";
+    var bNext = el("button", null, "Далее ▶"); bNext.type = "button";
+    var bLens = el("button", null, "🔍 Лупа"); bLens.type = "button";
+    var bSnd = el("button", null, "🔊 Звук: вкл"); bSnd.type = "button";
+    var bClose = el("button", null, "✕ Закрыть"); bClose.type = "button";
+    var pos = el("span", "lpos", "–");
+    bPrev.onclick = function () { flip(-1); };
+    bNext.onclick = function () { flip(1); };
+    bToc.onclick = function () { Sound.play("flip", .4); showToc(); };
+    bClose.onclick = closeBook;
+    bSnd.onclick = function () { Sound.set(!Sound.on()); bSnd.textContent = Sound.on() ? "🔊 Звук: вкл" : "🔇 Звук: выкл"; };
+    bLens.onclick = function () { toggleLens(); };
+    bar.appendChild(bPrev); bar.appendChild(bToc); bar.appendChild(pos); bar.appendChild(bNext);
+    bar.appendChild(bLens); bar.appendChild(bSnd); bar.appendChild(bClose);
+
+    spread = el("div", "lib-spread");
+    pL = el("div", "lib-page left");
+    pR = el("div", "lib-page right");
+    spread.appendChild(pL); spread.appendChild(pR);
+    reader.appendChild(bar); reader.appendChild(spread);
+
+    lens = el("div", "lib-lens");
+    document.body.appendChild(scene);
+    document.body.appendChild(reader);
+    document.body.appendChild(lens);
+    document.body.classList.add("lib-mode");
+  }
+
+  /* ================= АНИМАЦИИ: открытие книги ================= */
+  function openBook(i) {
+    if (state !== "shelf") return;
+    state = "pulling"; sel = i;
+    var book = row.children[i];
+    Sound.play("pull", .5);
+    book.classList.add("pulling");
+    setTimeout(function () {
+      if (state !== "pulling") return;
+      state = "opening";
+      Sound.play("open", .45);
+      book.classList.add("opening");
+      setTimeout(function () {
+        if (state !== "opening") return;
+        state = "zooming";
+        book.classList.add("zooming");
+        setTimeout(function () {
+          if (state !== "zooming") return;
+          book.style.visibility = "hidden";
+          showReader(i);
+        }, CONFIG.anim.zoom);
+      }, CONFIG.anim.open);
+    }, CONFIG.anim.pull);
+  }
+
+  function closeBook() {
+    if (state !== "reading") return;
+    state = "closing";
+    Sound.play("flip", .4);
+    reader.classList.remove("open");
+    var book = row.children[sel];
+    book.style.visibility = "";
+    setTimeout(function () {
+      book.classList.remove("zooming");
+      state = "returning";
+      Sound.play("return", .45);
+      setTimeout(function () {
+        book.classList.remove("pulling", "opening");
+        state = "shelf"; sel = -1;
+      }, 60);
+    }, 60);
+  }
+
+  /* ================= ЧИТАЛКА ================= */
+  function showReader(i) {
+    var id = CONFIG.books[i].id;
+    var pages;
+    if (id === "articles") pages = articlePages();
+    else if (id === "learning") pages = learningPages();
+    else if (id === "book") pages = volumePages();
+    else if (id === "video") pages = videoPages();
+    else pages = authorPages();
+    pages = pages.length ? pages : [noContent()];
+    pagesObj = pages;
+    cur = 0;
+    state = "reading";
+    reader.classList.add("open");
+    render();
+  }
+
+  /* пагинация по offsetHeight: разбиваем массив блоков на «страницы» по высоте */
+  function paginate(blocks, pageEl) {
+    var pagesArr = [], curBlocks = [];
+    var container = el("div");
+    container.style.cssText = "visibility:hidden;position:absolute;width:" + pageEl.clientWidth + "px;font-size:17px;line-height:1.78;padding:34px 38px;";
+    document.body.appendChild(container);
+    blocks.forEach(function (b) {
+      var tmp = container.cloneNode(false);
+      tmp.innerHTML = b;
+      document.body.appendChild(tmp);
+      var h = tmp.offsetHeight;
+      document.body.removeChild(tmp);
+      if (h > pageEl.clientHeight && curBlocks.length) {
+        pagesArr.push(curBlocks); curBlocks = [b];
+      } else curBlocks.push(b);
+    });
+    if (curBlocks.length) pagesArr.push(curBlocks);
+    document.body.removeChild(container);
+    return pagesArr.map(function (arr) { return arr.join(""); });
+  }
+
+  var pagesObj = [];
+  function render() {
+    var show = pagesObj.slice(cur, cur + 2);
+    pL.innerHTML = show[0] ? show[0] : '<p style="color:#8a7a60">·</p>';
+    pR.innerHTML = show[1] ? show[1] : (cur + 1 >= pagesObj.length ? '<p style="color:#8a7a60">— конец раздела —</p>' : '<p style="color:#8a7a60">·</p>');
+    bar.querySelector(".lpos").textContent = (cur + 1) + " / " + pagesObj.length;
+  }
+  function flip(dir) {
+    var n = pagesObj.length;
+    var nx = cur + dir * 2;
+    if (nx < 0 || nx >= n) return;
+    Sound.play(dir > 0 ? "flip" : "back", .4);
+    cur = nx; render();
+  }
+
+  /* ================= КОНТЕНТ ================= */
+  function noContent() { return '<h2>Раздел скоро наполнится</h2><p>Мы готовим материалы — загляните позже.</p>'; }
+
+  function fetchJSON(url, cb) {
+    fetch(url).then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(cb)
+      .catch(function (e) { console.error("[library] загрузка", url, e); cb(null); });
+  }
+
+  function articlePages() {
+    var blocks = ['<h1>Статьи</h1><p>135 публикаций — безопасности, деньги, здоровье, госуслуги, нейросети.</p>'];
+    // заглушки-ссылки на реальные статьи (полный каталог — из articles.json при следующей итерации)
+    for (var i = 0; i < 5; i++) blocks.push('<p>→ <a href="' + BASE + 'articles/">Читать статьи на сайте</a> (каталог №' + (i + 1) + ')</p>');
+    return paginate(blocks, pL);
+  }
+  function learningPages() {
+    var levels = ["Уровень 0 — Без нейросетей. Фундамент", "Уровень 1 — Первое знакомство с нейросетью", "Уровень 2 — Нейросети в быту", "Уровень 3 — Промты: как просить правильно", "Уровень 4 — Агенты и автоматизация"];
+    var blocks = ['<h1>Обучение</h1><p>Пять уровней — от фундамента до автоматизации.</p>'];
+    levels.forEach(function (l) { blocks.push("<h2>" + l + "</h2><p><a href='" + BASE + "learning/'>Открыть уровень на сайте</a></p>"); });
+    return paginate(blocks, pL);
+  }
+  function volumePages() {
+    var volumes = ["Том 1. Знакомство с нейросетями", "Том 2. Заработок и развитие", "Том 3. Инструменты и сервисы", "Том 4. Практика и справочник"];
+    var blocks = ['<h1>Книга — четыре тома</h1>'];
+    volumes.forEach(function (v, i) { blocks.push("<h2>" + v + "</h2><p><a href='" + BASE + "books/'>Открыть том на сайте</a></p>"); });
+    return paginate(blocks, pL);
+  }
+  function videoPages() {
+    return ['<h1>Видео</h1><div class="lib-video-ph">🎬 Здесь скоро будут видеоролики<br><small>YouTube · Rutube · VK Видео</small></div><p><a href="' + BASE + '">На главную</a></p>'];
+  }
+  function authorPages() {
+    return ['<h1>Об авторе</h1><p>Татьяна Зенина, Астрахань. Мне за шестьдесят. Пишу о нейросетях простыми словами — про книги, безопасность, деньги и здоровье.</p><h2>Это действительно я, и меня можно поддержать</h2><p><a href="https://t.me/neuro_retree">Telegram</a> · <a href="https://vk.com/club242405739">ВКонтакте</a> · <a href="https://boosty.to/tatzen">Boosty</a> · <a href="mailto:neuro-retree@ya.ru">Почта</a></p>'];
+  }
+
+  function showToc() {
+    Sound.play("flip", .4);
+    cur = 0; render();
+  }
+
+  /* ================= ЛУПА (2 режима; увеличена, строго за курсором) ================= */
+  var lensOn = false, lensMode = "area"; // area | text
+  var lensBtn = null;
+  function toggleLens() {
+    lensOn = !lensOn;
+    document.body.classList.toggle("lib-lens-on", lensOn);
+    if (!lensBtn) lensBtn = bar.querySelector("button:nth-child(5)");
+    if (lensBtn) lensBtn.textContent = lensOn ? "🔍 Лупа: вкл" : "🔍 Лупа: выкл";
+    if (!lensOn) lens.style.display = "none";
+  }
+  document.addEventListener("mousemove", function (e) {
+    if (!lensOn) return;
+    var t = e.target;
+    var page = t && t.closest ? t.closest(".lib-page") : null;
+    if (!page) { lens.style.display = "none"; return; }
+    var r = page.getBoundingClientRect();
+    var w = page.offsetWidth;
+    lens.innerHTML = "";
+    var cl = page.cloneNode(true);
+    cl.style.cssText = "position:absolute;top:0;left:0;width:" + w + "px;padding:34px 38px;box-shadow:none;border:0;border-radius:0;";
+    lens.appendChild(cl);
+    lens.style.display = "block";
+    lens.style.left = e.clientX + "px"; lens.style.top = e.clientY + "px";
+    var dx = (e.clientX - r.left), dy = (e.clientY - r.top);
+    cl.style.transform = "translate(" + (-dx * 2 + 130) + "px," + (-dy * 2 + 130) + "px) scale(2)";
+  });
+
+  /* ================= ИНИЦИАЛИЗАЦИЯ ================= */
+  function init() {
+    buildShelf();
+    // запоминаем потребность в пользовательском жесте для AudioContext
+    document.addEventListener("click", function once() {
+      document.removeEventListener("click", once);
+      Sound.play("flip", .01); // прогрев контекста
+    }, { once: true });
+    console.log("[library.js] книжная полка готова");
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();

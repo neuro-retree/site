@@ -1,0 +1,99 @@
+/* library.css — интерактивная книжная полка «Нейросети для жизни».
+   Стилизованная под фотореализм 3D-сцена старинной библиотеки:
+   камера снизу спереди, тёмное дерево, классические переплёты, тёплый свет.
+   Состояния: shelf -> pulling -> opening -> zooming -> reading -> closing -> returning. */
+:root{
+  --lib-dark:#120c08;
+  --wood-dark:#241710;
+  --wood-mid:#493021;
+  --paper:#f1e5c9;
+  --ink:#302319;
+  --gold:#b69a63;
+  --warm-light:rgba(255,211,132,.16);
+  --shelf-h:24px;
+}
+
+body.lib-mode{
+  margin:0;color:var(--paper);
+  background:radial-gradient(ellipse at 50% 6%,#493525 0%,#201610 58%,#100c09 100%);
+  font-family:Georgia,'Times New Roman',serif;
+  min-height:100vh;overflow-x:hidden;
+}
+body.lib-mode a{color:var(--gold)}
+body.lib-mode button{font-family:Georgia,serif}
+
+/* ---- Сцена и полка (камера снизу) ---- */
+.lib-scene{position:relative;min-height:100svh;display:grid;place-items:end center;perspective:1200px;perspective-origin:50% 72%;padding-bottom:3vh}
+.lib-shelf{width:min(1120px,94vw);transform:rotateX(8deg) translateY(2vh);transform-style:preserve-3d}
+.lib-row{display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,1.1vw,16px);padding:26px 16px 0}
+.lib-board{height:var(--shelf-h);background:linear-gradient(180deg,#775337,#392419 70%,#170f0a);box-shadow:0 16px 30px rgba(0,0,0,.6);border-radius:2px}
+
+/* ---- Книга на полке ---- */
+.lib-book{
+  position:relative;flex:0 1 175px;min-width:0;height:var(--bh,310px);cursor:pointer;
+  border:1px solid rgba(230,200,145,.4);border-radius:3px 8px 8px 3px;
+  background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 14%,rgba(255,255,255,.09) 72%,rgba(0,0,0,.35)),var(--bc,#56372b);
+  box-shadow:-6px 7px 11px rgba(0,0,0,.5),0 14px 24px rgba(0,0,0,.35);
+  transform-origin:center bottom;
+  transition:transform .45s ease,box-shadow .45s ease,filter .45s ease;
+}
+.lib-book:hover,.lib-book:focus-visible{
+  transform:translateY(-16px) translateZ(28px);
+  box-shadow:-9px 10px 16px rgba(0,0,0,.55),0 0 28px var(--warm-light);
+  filter:brightness(1.15);
+}
+.lib-book:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+.lib-book .spine{
+  height:100%;display:grid;place-items:center;padding:10px 8px;user-select:none;
+  writing-mode:vertical-rl;text-align:center;font-size:clamp(14px,1.4vw,20px);
+  letter-spacing:.05em;text-shadow:0 2px 3px #000;overflow:hidden;white-space:nowrap;
+}
+/* декоративные «волшебные» узоры на корешках */
+.lib-book .ornament{
+  position:absolute;left:6px;top:8px;bottom:8px;width:9px;opacity:.5;pointer-events:none;
+  background:repeating-linear-gradient(to bottom,transparent 0 6px,rgba(255,220,150,.5) 6px 8px,transparent 8px 16px);
+  border-radius:2px;
+}
+
+/* ---- Анимация вытягивания/раскрытия ---- */
+.lib-book.pulling{transform:translateZ(130px) translateY(-44px) rotateY(7deg);transition:transform .7s cubic-bezier(.3,.7,.2,1),box-shadow .7s;box-shadow:-10px 14px 22px rgba(0,0,0,.6),0 0 30px var(--warm-light)}
+.lib-book.opening{transform:translateZ(250px) translateY(-34px) scale(1.3) rotateY(0);transition:transform .9s cubic-bezier(.25,.8,.3,1);box-shadow:-12px 18px 34px rgba(0,0,0,.7),0 0 46px var(--warm-light)}
+.lib-book.opening .lib-cover{display:grid}
+.lib-cover{display:none;position:absolute;inset:3px 3px 3px 13px;background:var(--bc,#56372b);border-radius:2px 7px 7px 2px;place-items:center;color:var(--paper);font-size:22px;text-align:center;padding:14px;box-shadow:inset 0 0 30px rgba(0,0,0,.45)}
+.lib-book.zooming{transform:translateZ(380px) scale(1.8);transition:transform .8s cubic-bezier(.25,.8,.3,1)}
+
+/* ---- Читалка (разворот) ---- */
+.lib-reader{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(10,8,5,.9);perspective:2200px}
+.lib-reader.open{display:flex}
+.lib-spread{display:flex;max-width:min(1000px,95vw);max-height:88svh;border-radius:4px 10px 10px 4px;overflow:hidden;box-shadow:0 34px 90px rgba(0,0,0,.75);background:var(--paper)}
+.lib-page{flex:1;min-width:0;background:var(--paper);color:var(--ink);padding:34px 38px;font-size:17px;line-height:1.78;max-height:88svh;overflow:auto}
+.lib-page.left{border-radius:4px 0 0 4px;box-shadow:inset 16px 0 22px -18px rgba(60,40,10,.6)}
+.lib-page.right{border-radius:0 8px 8px 0;box-shadow:inset -16px 0 22px -18px rgba(60,40,10,.55)}
+.lib-page h1,.lib-page h2{color:#5a4630;margin:.2em 0 .5em}
+.lib-page ul,.lib-page ol{padding-left:24px}
+.lib-bar{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:70;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;background:rgba(22,15,9,.92);padding:10px 16px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.55);max-width:96vw}
+.lib-bar button{background:var(--gold);color:#241710;border:0;border-radius:8px;padding:8px 14px;font-size:15px;font-weight:600;cursor:pointer}
+.lib-bar button:hover{filter:brightness(1.1)}
+.lib-bar .lpos{color:#e8d9b8;font-size:14px}
+
+/* ---- Лупа (два режима, строго за курсором) ---- */
+.lib-lens{position:fixed;z-index:99;pointer-events:none;display:none;width:260px;height:260px;border-radius:50%;border:3px solid rgba(255,255,255,.85);box-shadow:0 0 0 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.55),inset 0 0 44px rgba(30,20,5,.4);overflow:hidden;transform:translate(-50%,-50%)}
+.lib-lens::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 42px rgba(30,20,5,.4)}
+body.lib-lens-on{cursor:zoom-in}
+
+/* ---- Кнопка-заглушка видео ---- */
+.lib-video-ph{margin:12px 0;background:#eae0c8;border:2px dashed #b69a63;border-radius:10px;padding:22px;text-align:center;color:#6d5f47}
+
+/* ---- Адаптив ---- */
+@media (max-width:720px){
+  .lib-book{flex:0 1 118px}
+  .lib-book .spine{font-size:12px}
+  .lib-page{font-size:15px;padding:20px 18px}
+  .lib-spread{flex-direction:column;overflow-y:auto}
+  .lib-page{max-height:none}
+  .lib-bar{position:absolute;top:8px}
+  .lib-reader{overflow-y:auto}
+}
+@media (prefers-reduced-motion: reduce){
+  .lib-book,.lib-book.pulling,.lib-book.opening,.lib-book.zooming{transition-duration:.01ms !important}
+}
