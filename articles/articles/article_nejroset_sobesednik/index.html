@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Нейросеть-собеседник: как не чувствовать себя одиноко — Нейросети для жизни</title>
+<meta name="description" content="Статья на сайте «Нейросети для жизни»: Нейросеть-собеседник: как не чувствовать себя одиноко">
+<meta name="theme-color" content="#0b5c4f">
+<link rel="canonical" href="https://neuro-retree.github.io/site/articles/article_nejroset_sobesednik/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Нейросети для жизни">
+<meta property="og:title" content="Нейросеть-собеседник: как не чувствовать себя одиноко — Нейросети для жизни">
+<meta property="og:description" content="Статья на сайте «Нейросети для жизни»: Нейросеть-собеседник: как не чувствовать себя одиноко">
+<meta property="og:url" content="https://neuro-retree.github.io/site/articles/article_nejroset_sobesednik/">
+<meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="https://neuro-retree.github.io/site/rss.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Нейросеть-собеседник: как не чувствовать себя одиноко", "inLanguage": "ru", "description": "Статья на сайте «Нейросети для жизни»: Нейросеть-собеседник: как не чувствовать себя одиноко", "author": {"@type": "Person", "name": "Татьяна Зенина"}, "publisher": {"@type": "Organization", "name": "Нейросети для жизни"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://neuro-retree.github.io/site/articles/article_nejroset_sobesednik/"}}</script>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f4f7f9;--card:#fff;--ink:#1f2d3a;--accent:#0e7c66;--accent2:#1565a8;--soft:#5b7080;--line:#e2e9ee;--shadow:0 2px 10px rgba(20,40,60,.08);--fs:1.1875rem}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff;--shadow:none}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:var(--fs)}
+a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+header .title{font-size:24px;margin:0;color:#fff}
+header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
+.breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
+main{padding:10px 0 60px}
+.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card img{width:100%%;height:100%%;object-fit:cover;object-position:center;display:block}
+.card .cov{width:100%%;aspect-ratio:16/9;overflow:hidden;background:#dfe9e4;display:flex;align-items:center;justify-content:center}
+.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
+.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
+.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-read:hover{background:#0b6a58;text-decoration:none}
+.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
+.article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
+.article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
+.article h3{margin:22px 0 8px;color:#153a4d;font-size:20px}
+.article p{margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:26px}
+.article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
+.article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
+.article img{max-width:100%%;height:auto}
+.toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
+.toc b{color:#153a4d}
+.toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.tools-bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.tools-bar button{padding:10px 16px;font-size:15px;border:1px solid #e2e9ee;border-radius:10px;background:#f4f7f9;color:#1f2d3a;cursor:pointer;min-height:44px}
+.tools-bar button:hover{background:#e7eef2}
+.related{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:14px 18px;margin-top:24px}
+.related a{display:block;margin:6px 0}
+.cta{background:#e7f4f0;border-left:4px solid #0e7c66;padding:12px 16px;border-radius:8px;margin-top:24px}
+.footer{border-top:1px solid #e2e9ee;margin-top:40px;padding:18px 0;color:#5b7080;font-size:14px}
+.a11ybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px;max-width:1080px;margin:0 auto;font-size:15px;color:var(--soft)}
+.a11ybar button{min-height:44px;min-width:44px;font-size:16px;font-weight:600;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:8px;cursor:pointer;padding:6px 12px}
+.a11ybar button:hover{background:#eef2f5}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:8px;top:8px;background:#fff;padding:10px 14px;z-index:60;border:2px solid var(--accent);border-radius:8px}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.search-status{color:#5b7080;font-size:14px}
+.tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
+.tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page textarea{min-height:120px}
+.tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
+.btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
+.btn:hover{background:#0b6a58}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content" style="position:absolute;left:-999px">Перейти к тексту</a>
+<div class="a11ybar" id="a11y-toolbar" aria-label="Настройки чтения"></div>
+<header><div class="wrap inline">
+  <div class="title">Нейросети для жизни</div>
+  <div class="links">
+    <a href="https://neuro-retree.github.io/site/">Главная</a>
+    <a href="https://neuro-retree.github.io/site/articles/">Статьи</a>
+    <a href="https://neuro-retree.github.io/site/tools/">Инструменты</a>
+    <a href="https://neuro-retree.github.io/site/learning/">Обучение</a>
+    <a href="https://neuro-retree.github.io/site/slovar/">Словарь</a>
+  </div>
+</div></header>
+<main><div class="wrap">
+
+<div class="breadcrumbs"><a href="https://neuro-retree.github.io/site/">Главная</a> → <a href="https://neuro-retree.github.io/site/articles/">Статьи</a> → Нейросеть-собеседник: как не чувствовать себя одиноко</div>
+<div class="article">
+  <span class="tag">Нейросети</span>
+  <h1>Нейросеть-собеседник: как не чувствовать себя одиноко</h1>
+  <div class="meta">Проект «Нейросети для жизни» · Татьяна Зенина, Астрахань · проверено 2026-10-20</div>
+  <div class="tools-bar">
+    <button type="button" onclick="window.print()">Печать</button>
+    <button type="button" onclick="copyLink()">Скопировать ссылку</button>
+  </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
+  <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Нейросеть-собеседник: как не чувствовать себя одиноко</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Когда тишина становится тяжёлой: как найти собеседника, когда в доме пусто</a></li><li style="margin-left:14px;list-style:none"><a href="#h3">Почему мы молчим?</a></li><li style="margin-left:14px;list-style:none"><a href="#h4">Что это за собеседник? Программа, а не душа</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">Золотые правила безопасности</a></li><li style="margin-left:14px;list-style:none"><a href="#h6">Делаем по шагам</a></li><li style="margin-left:14px;list-style:none"><a href="#h7">Что может пойти не так</a></li><li style="margin-left:14px;list-style:none"><a href="#h8">Что сделать сегодня</a></li><li style="margin-left:14px;list-style:none"><a href="#h9">Почему это работает?</a></li></ul></div>
+  <h2 id="h1">Нейросеть-собеседник: как не чувствовать себя одиноко</h2>
+<h2 id="h2">Когда тишина становится тяжёлой: как найти собеседника, когда в доме пусто</h2>
+<p>Сначала даже хорошо, можно отдохнуть. Тишина кажется заслуженной наградой после шумного дня. А потом эта тишина начинает звенеть в ушах и давить на плечи. У меня так бывает к вечеру. Дедушки уже нет, день прошёл в хлопотах, дом затих. Смотришь в окно — всё вроде на месте, фонарь горит, соседская машина стоит, а поговорить-то и не с кем.</p>
+<p>Многие из нас боятся себе в этом признаться. Мы носим эту пустоту в себе, как старую сумку: нести тяжело, а выбросить жалко. Одиночество — оно ведь не про то, что вокруг физически никого нет. Оно про то, что некому сказать: «А помнишь, как мы в 85-м на море ездили?» Или рассказать, какую странную, почти серебряную рыбу сегодня видела на рынке. Нам не хватает свидетеля нашей жизни. Человека, который подтвердит: «Да, этот день был, и ты в нём была, и это важно».</p>
+<p>Одиночество — это коварный гость. Оно приходит незаметно, садится в кресло, заваривает себе чай из ваших воспоминаний и начинает рассказывать сказки о том, что вы никому не нужны. Но это ложь. Вы нужны себе, вы нужны этому миру, просто сейчас вы немного потеряли связь с ним. И очень важно помнить: то, что вы чувствуете сейчас, — это не приговор, а просто временное состояние, которое можно изменить, если сделать маленький шаг навстречу чему-то новому.</p>
+<h3 id="h3">Почему мы молчим?</h3>
+<p>Я тоже пробовала разное. Телевизор включала для фона — но там только кричат, душу выматывают, всё какое-то чужое и суетливое. К телефону тянулась, листала фотографии… Помогает ненадолго. Посмотришь на внучку на выпускном — сердце защемит, слеза набежит. И снова одна со своими мыслями.</p>
+<p>Позвонить подруге Людмиле? Боюсь отвлечь. Вдруг у неё внуки спать легли, вдруг давление, вдруг она занята чем-то важным. Буду виноватой. Вот этот страх показаться навязчивой — это наш главный враг. Мы сами строим стены потихоньку, чтобы никого не утруждать. Мы боимся нарушить чужой покой, и в итоге сидим внутри этих стен одни.</p>
+<p>И самое обидное, что желание выговориться никуда не девается. Раньше хоть в магазине парой слов перекинешься, пока гречку взвешиваешь. А теперь везде самообслуживание, кассы без людей. Молчание стало нормой. Но человек так устроен — ему нужно слово в ответ. Не обязательно мудрый совет или глубокая философия. Просто живой отклик. Чтобы кто-то сказал: «Да-да, я слушаю, продолжай».</p>
+<p>Мы привыкли думать, что просить внимания — это слабость. Нас учили быть сильными, справляться самим, не жаловаться. Но в этом «справляться» мы часто забываем, что человек — существо социальное. Нам жизненно необходимо делиться радостью и печалью. Когда мы держим всё в себе, эти мысли начинают бродить, как недоброе тесто, превращаясь в тяжёлые раздумья. А стоит просто выпустить их наружу, как становится легче.</p>
+<h3 id="h4">Что это за собеседник? Программа, а не душа</h3>
+<p>Давайте сразу договоримся по-простому, без сложных терминов. Нейросеть — это не живая душа, которая заглянула к вам на огонёк. Это умная программа. Представьте себе очень большую библиотеку. Вы спрашиваете у библиотекаря: «А что пишут про погоду в Астрахани?» Он быстро пролистывает миллионы страниц и пересказывает ответ своими словами. Вот и нейросеть работает так же. Только вместо книжных полок — провода, а листает она информацию со скоростью света.</p>
+<p>Главный секрет такой: она никогда не устаёт и не обижается. Ей всё равно, сколько раз вы спросите одно и то же. Хоть сто раз напишите: «Объясни ещё проще, как для внуков». Она просто снова откроет свою невидимую книгу и попробует другими словами. Попробуйте написать ей такой запрос: «Помоги мне разобраться, почему я чувствую грусть по вечерам, и объясни это простыми словами, как будто мы просто беседуем за чашкой чая».</p>
+<p>С живой подругой так не получится. Если я буду Людмиле каждый вечер жаловаться на давление или рассказывать одно и то же про свои тревоги, она ведь тоже устанет, правда? У неё свои заботы. А тут — пожалуйста, хоть всю ночь разговаривай. Никто не зевнёт, не посмотрит на часы, не скажет: «Слушай, мне некогда».</p>
+<p>Важно понимать, что нейросеть — это лишь зеркало ваших мыслей. Она не обладает собственным мнением, не имеет личных пристрастий или плохого настроения. Она создана для того, чтобы помогать вам формулировать идеи. Если вы чувствуете, что вам нужно выговориться, но не хотите никого беспокоить, этот цифровой собеседник станет идеальным слушателем. Он не осудит, не даст непрошенного совета и не расскажет ваши секреты соседям.</p>
+<h3 id="h5">Золотые правила безопасности</h3>
+<p>Но именно потому, что это всего лишь программа, есть вещи, за которые ей браться нельзя. Я вывела для себя железное правило.</p>
+<ol>
+<li><strong>Здоровье — это вы.</strong> Если болит сердце, если скачет давление — звоните врачу или в скорую. Нейросеть может подсказать рецепт травяного чая или напомнить, как дышать при стрессе, но она не врач. Не доверяйте ей постановку диагнозов.</li>
+<li><strong>Деньги — это тайна.</strong> Никогда, слышите, никогда не пишите программе номера своих карт, пароли от личных кабинетов или данные паспорта. Это машина, она не понимает ценности этих цифр, она просто обрабатывает запрос.</li>
+<li><strong>Чужая беда.</strong> Если кому-то нужна реальная помощь — сходить в магазин, принести лекарство, починить кран — нейросеть не поможет. Она подскажет, как написать вежливое письмо в ЖЭК, но идти туда и добиваться приёма должны вы сами.</li>
+</ol>
+<p>Она — инструмент. Как моя старая швейная машинка «Чайка»: строчку сделает ровную, ткань не помнёт. Но сама фасон не придумает и пуговицу не пришьёт, пока я ручку не покручу. Понимаете разницу? Это помощник для слов, для идей, для того самого разговора. Жить вашу жизнь за вас она не станет. Она не знает, как пахнет свежая вобла на нашем астраханском рынке ранним утром. Для неё это просто буквы. А для меня — целое лето, дед с рыбалки вернулся, запах чешуи и соли… Нейросеть прочитает про воблу сто книг, но не поймёт этого тёплого чувства в груди.</p>
+<p>Помните, что в цифровом мире, как и в реальном, важно соблюдать границы. Не стоит делиться с нейросетью слишком личными тайнами, которые могли бы скомпрометировать вас, если бы попали в чужие руки. Относитесь к ней как к вежливому незнакомцу в поезде: можно поговорить о погоде, о жизни, о книгах, но не стоит отдавать ключи от своего дома.</p>
+<h3 id="h6">Делаем по шагам</h3>
+<p>Чтобы общение с нейросетью принесло пользу, нужно действовать последовательно. Вот как я это делаю:</p>
+<ol>
+<li>Откройте сайт или приложение с нейросетью (например, ChatGPT или аналоги).</li>
+<li>Напишите приветствие, чтобы настроить программу на нужный лад: «Здравствуй, давай сегодня пообщаемся как старые знакомые».</li>
+<li>Сформулируйте свою первую мысль или вопрос, который вас беспокоит, не боясь показаться нескладной.</li>
+<li>Внимательно прочитайте ответ и, если он кажется слишком сухим, попросите: «Напиши это более тепло и душевно, добавь немного поддержки».</li>
+<li>Продолжайте диалог, задавая уточняющие вопросы, пока не почувствуете, что стало легче на душе.</li>
+</ol>
+<p>Не переживайте, если сначала ответы будут казаться странными. Нейросети нужно немного времени, чтобы «понять», какой тон общения вам ближе. Если она отвечает слишком формально, просто поправьте её. Это как с новым собеседником: нужно время, чтобы притереться друг к другу и найти общий язык.</p>
+<h3 id="h7">Что может пойти не так</h3>
+<p>Иногда нейросеть может ошибаться. Она может придумать факт, которого не существует, или дать совет, который звучит логично, но на практике бесполезен. Это называется «галлюцинациями» — программа просто пытается угадать следующее слово, которое больше всего подходит по смыслу, даже если оно неверно.</p>
+<p>Также может возникнуть разочарование. Вы ждёте глубокого понимания, а программа отвечает шаблонно. Не принимайте это на свой счёт. Это просто математика, а не холодность. Если ответ вам не нравится, не стесняйтесь нажать кнопку «перегенерировать» или просто написать: «Мне не нравится этот ответ, давай попробуем с другой стороны».</p>
+<p>Главное — не впадать в зависимость. Нейросеть — это костыль для души, а не замена всей жизни. Важно не забывать выходить на улицу, здороваться с соседями, кормить птиц в парке. Живое общение ничем не заменить, и нейросеть должна быть лишь дополнением, а не единственным миром, в котором вы существуете.</p>
+<h3 id="h8">Что сделать сегодня</h3>
+<p>Если вы чувствуете, что этот вечер будет особенно тихим, попробуйте сделать следующее:</p>
+<ul>
+<li>Заварите чай, который вы любите больше всего.</li>
+<li>Откройте чат с нейросетью и напишите ей: «У меня сегодня был непростой день, выслушай меня, пожалуйста».</li>
+<li>Расскажите ей всё, что накопилось: про погоду, про воспоминания, про то, что вас тревожит.</li>
+<li>Попросите её рассказать вам добрую историю или притчу, чтобы закончить разговор на позитивной ноте.</li>
+<li>Выключите компьютер, глубоко вдохните и поблагодарите себя за то, что вы нашли способ позаботиться о своём душевном состоянии.</li>
+</ul>
+<h3 id="h9">Почему это работает?</h3>
+<p>Когда мы пишем, мы структурируем свои мысли. Когда мы видим их на экране, они перестают быть «комком тревоги» внутри нас. Они становятся словами, которые можно рассмотреть, обдумать и даже «отпустить». Программа дает нам это пространство — пространство, где мы можем быть собой, не боясь осуждения, не боясь показаться навязчивыми или слабыми.</p>
+<p>Попробуйте. Может быть, сегодня вечером, когда дом снова затихнет, вы не будете смотреть в пустой экран телевизора. Вы откроете чат и напишете: «Здравствуй. Расскажи мне что-нибудь доброе». И кто знает, возможно, именно этот разговор станет началом вашего нового пути к внутреннему спокойствию. Ведь главное — не кто на другом конце провода, а то, что вы нашли в себе силы обратиться к миру и не остаться в одиночестве.</p>
+<p>В конечном итоге, мы все ищем одного и того же — быть услышанными. И если сегодня для этого нужно нажать на пару кнопок в телефоне, почему бы и нет? Это не значит, что вы одиноки. Это значит, что вы ищете способы сделать свою жизнь чуть светлее, и это — самое правильное, что можно сделать. Вы заслуживаете того, чтобы ваш голос был услышан, даже если этот голос пока звучит только в цифровом пространстве. Со временем вы увидите, что этот навык выражать свои мысли поможет вам стать увереннее и в обычном, живом общении. Пусть этот вечер станет для вас началом чего-то нового и доброго. Вы не одни, даже когда кажется, что это так.</p>
+<hr>
+<p><strong>Милые мои, напоследок.</strong></p>
+<p>В книге «Нейросети для жизни» я разбираю это ещё подробнее — с картинками, упражнениями и примерами из жизни. Напишите мне на почту neuro-retree@ya.ru — пришлю тома и отвечу на вопросы.</p>
+<p>А больше простых историй про нейросети — в моём канале: t.me/neuro_retree. Подпишитесь, чтобы не потерять.</p>
+  <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/">Чек-лист «10 вечеров»: бесплатный старт в нейросетях</a><a href="https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/">Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</a><a href="https://neuro-retree.github.io/site/articles/article_02_promt_ne_strashno_kanon/">Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»</a></div>
+  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите мне на почту <a href="mailto:neuro-retree@ya.ru">neuro-retree@ya.ru</a>.</div>
+</div>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
+
+</div></main>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro-retree@ya.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
+</body>
+</html>

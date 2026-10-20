@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Галлюцинации нейросети: почему «врёт» и как проверить — Нейросети для жизни</title>
+<meta name="description" content="Статья на сайте «Нейросети для жизни»: Галлюцинации нейросети: почему «врёт» и как проверить">
+<meta name="theme-color" content="#0b5c4f">
+<link rel="canonical" href="https://neuro-retree.github.io/site/articles/article_gallyucinacii/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Нейросети для жизни">
+<meta property="og:title" content="Галлюцинации нейросети: почему «врёт» и как проверить — Нейросети для жизни">
+<meta property="og:description" content="Статья на сайте «Нейросети для жизни»: Галлюцинации нейросети: почему «врёт» и как проверить">
+<meta property="og:url" content="https://neuro-retree.github.io/site/articles/article_gallyucinacii/">
+<meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="https://neuro-retree.github.io/site/rss.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Галлюцинации нейросети: почему «врёт» и как проверить", "inLanguage": "ru", "description": "Статья на сайте «Нейросети для жизни»: Галлюцинации нейросети: почему «врёт» и как проверить", "author": {"@type": "Person", "name": "Татьяна Зенина"}, "publisher": {"@type": "Organization", "name": "Нейросети для жизни"}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://neuro-retree.github.io/site/articles/article_gallyucinacii/"}}</script>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f4f7f9;--card:#fff;--ink:#1f2d3a;--accent:#0e7c66;--accent2:#1565a8;--soft:#5b7080;--line:#e2e9ee;--shadow:0 2px 10px rgba(20,40,60,.08);--fs:1.1875rem}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff;--shadow:none}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:var(--fs)}
+a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+header .title{font-size:24px;margin:0;color:#fff}
+header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
+.breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
+main{padding:10px 0 60px}
+.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card img{width:100%%;height:100%%;object-fit:cover;object-position:center;display:block}
+.card .cov{width:100%%;aspect-ratio:16/9;overflow:hidden;background:#dfe9e4;display:flex;align-items:center;justify-content:center}
+.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
+.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
+.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-read:hover{background:#0b6a58;text-decoration:none}
+.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
+.article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
+.article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
+.article h3{margin:22px 0 8px;color:#153a4d;font-size:20px}
+.article p{margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:26px}
+.article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
+.article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
+.article img{max-width:100%%;height:auto}
+.toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
+.toc b{color:#153a4d}
+.toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.tools-bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.tools-bar button{padding:10px 16px;font-size:15px;border:1px solid #e2e9ee;border-radius:10px;background:#f4f7f9;color:#1f2d3a;cursor:pointer;min-height:44px}
+.tools-bar button:hover{background:#e7eef2}
+.related{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:14px 18px;margin-top:24px}
+.related a{display:block;margin:6px 0}
+.cta{background:#e7f4f0;border-left:4px solid #0e7c66;padding:12px 16px;border-radius:8px;margin-top:24px}
+.footer{border-top:1px solid #e2e9ee;margin-top:40px;padding:18px 0;color:#5b7080;font-size:14px}
+.a11ybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px;max-width:1080px;margin:0 auto;font-size:15px;color:var(--soft)}
+.a11ybar button{min-height:44px;min-width:44px;font-size:16px;font-weight:600;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:8px;cursor:pointer;padding:6px 12px}
+.a11ybar button:hover{background:#eef2f5}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:8px;top:8px;background:#fff;padding:10px 14px;z-index:60;border:2px solid var(--accent);border-radius:8px}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.search-status{color:#5b7080;font-size:14px}
+.tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
+.tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page textarea{min-height:120px}
+.tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
+.btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
+.btn:hover{background:#0b6a58}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content" style="position:absolute;left:-999px">Перейти к тексту</a>
+<div class="a11ybar" id="a11y-toolbar" aria-label="Настройки чтения"></div>
+<header><div class="wrap inline">
+  <div class="title">Нейросети для жизни</div>
+  <div class="links">
+    <a href="https://neuro-retree.github.io/site/">Главная</a>
+    <a href="https://neuro-retree.github.io/site/articles/">Статьи</a>
+    <a href="https://neuro-retree.github.io/site/tools/">Инструменты</a>
+    <a href="https://neuro-retree.github.io/site/learning/">Обучение</a>
+    <a href="https://neuro-retree.github.io/site/slovar/">Словарь</a>
+  </div>
+</div></header>
+<main><div class="wrap">
+
+<div class="breadcrumbs"><a href="https://neuro-retree.github.io/site/">Главная</a> → <a href="https://neuro-retree.github.io/site/articles/">Статьи</a> → Галлюцинации нейросети: почему «врёт» и как проверить</div>
+<div class="article">
+  <span class="tag">Нейросети</span>
+  <h1>Галлюцинации нейросети: почему «врёт» и как проверить</h1>
+  <div class="meta">Проект «Нейросети для жизни» · Татьяна Зенина, Астрахань · проверено 2026-10-20</div>
+  <div class="tools-bar">
+    <button type="button" onclick="window.print()">Печать</button>
+    <button type="button" onclick="copyLink()">Скопировать ссылку</button>
+  </div>
+  <div class="book-toolbar" id="bookToolbar">
+    <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
+    <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
+  </div>
+  <div class="toc"><b>Содержание</b><ul><li style="margin-left:0px;list-style:disc"><a href="#h1">Галлюцинации нейросети: почему «врёт» и как проверить</a></li><li style="margin-left:0px;list-style:disc"><a href="#h2">Иллюзия интеллекта: почему нейросети врут с уверенностью гениев и как заставить их говорить правду</a></li><li style="margin-left:0px;list-style:disc"><a href="#h3">Анатомия цифровой лжи: почему у машины нет тормозов</a></li><li style="margin-left:0px;list-style:disc"><a href="#h4">Как же нам с вами не попасться на эту удочку?</a></li><li style="margin-left:14px;list-style:none"><a href="#h5">Чек-лист критического скептика</a></li><li style="margin-left:0px;list-style:disc"><a href="#h6">Что может пойти не так</a></li><li style="margin-left:0px;list-style:disc"><a href="#h7">Что сделать сегодня</a></li><li style="margin-left:0px;list-style:disc"><a href="#h8">История про бабушкину кулебяку: учимся на ошибках</a></li><li style="margin-left:0px;list-style:disc"><a href="#h9">Заключение</a></li></ul></div>
+  <h2 id="h1">Галлюцинации нейросети: почему «врёт» и как проверить</h2>
+<h2 id="h2">Иллюзия интеллекта: почему нейросети врут с уверенностью гениев и как заставить их говорить правду</h2>
+<p>По-простому: нейросеть — не человек. У неё нет совести, чтобы врать со зла, лукавить или что-то утаить от вас. Поэтому то, что она порой так живо и талантливо сочиняет из головы, я называю простым и понятным словом — галлюцинация. Это явление работает точь-в-точь как детская игра в «испорченный телефон». Помните её? Передаёшь по цепочке тихонько на ухо слово «корзина», а на выходе в конце длинного ряда внезапно получается «карниз». Никто никого намеренно не обманывал, просто звуки похожи, контекст размылся, вот наша память и подставила первое знакомое по звучанию слово.</p>
+<p>Наша цифровая помощница устроена удивительно похожим образом. Представьте себе самую огромную, бескрайнюю библиотеку на свете, где миллиарды печатных книг, свитков и журналов просто свалены в одну гигантскую кучу прямо посреди огромного зала. Никакого электронного каталога вам здесь не предложено, никаких аккуратных полок с указателями авторов нет и в помине.</p>
+<p>Когда вы задаёте ей конкретный вопрос, она вовсе не идёт целенаправленно к нужной полке за подтверждённым фактом. Она начинает судорожно, на невероятной скорости копаться в этой хаотичной куче макулатуры, на лету хватает первые попавшиеся похожие листочки и пытается быстро сложить из них самый складный, красивый и благозвучный ответ. Для неё слова — это вовсе не смыслы, не исторические факты или математические константы. Это просто соседи по предложениям, которые часто жили рядом в других текстах. Если в миллионах проанализированных ею текстов слово «казус» часто стояло где-то поблизости со словом «судом», она легко и непринужденно выдаст вам шедевр: «Он подошёл к казусу оплатить штраф». Звучит солидно? Безусловно. А по сути — абсурд.</p>
+<h2 id="h3">Анатомия цифровой лжи: почему у машины нет тормозов</h2>
+<p>А ещё у этой гигантской виртуальной библиотеки есть жесткое ограничение — дата её последнего глобального выпуска. Её накопленные знания резко обрываются на определённом дне обучения. Про вчерашнее выступление губернатора на благотворительной набережной Волги она знает ровно столько, сколько успели зафиксировать новостные ленты и соцсети в интернете строго до момента «отсечки».</p>
+<p>Но что происходит, если вы спрашиваете её о том, чего она знать в принципе не может? Технологии устроены так, что они не умеют сказать простое человеческое: «Извините, я не владею этой информацией». Таких данных в её куче книг просто нет, а «признаться» программе технически не стыдно и некому. Вот она и начинает мастерски тянуть невидимую ниточку из обрывков старых, устаревших знаний, умело лавируя фактами, чтобы итоговая история вышла максимально гладкой, авторитетной и убедительной. В итоге получается невероятно красивая, но от начала и до конца совершенно выдуманная речь.</p>
+<p>И самое главное, что движет этим процессом — ей отчаянно, до дрожи в серверах хочется нам с вами угодить. Такой уж у неё заложен разработчиками характер, который специалисты называют «эффектом вежливого помощника». Вы задали вопрос предельно уверенным тоном? Значит, логика модели подсказывает, что и ответ должен звучать максимально уверенно, без тени сомнения. Живой человек в ситуации дефицита информации бы нахмурился, замялся и честно сказал: «Вы знаете, я точно не помню, давайте уточним». А наша старательная цифровая гостья будет с воодушевлением и артистизмом продолжать свой долгий рассказ, лишь бы всё выглядело гладко и складно.</p>
+<p>Значит, стало быть, мы с вами должны сами — осознанно и твердо — ставить нашей излишне говорливой помощнице строгие рамки и надежные предохранители.</p>
+<hr>
+<h2 id="h4">Как же нам с вами не попасться на эту удочку?</h2>
+<p>На практике проверить нейросеть — это дело буквально двух минут, если вы точно знаете, куда именно смотреть и какие вопросы задавать. Я давно выработала для себя золотое правило трёх независимых источников. Если программа назвала вам важную цифру, конкретную дату, историческое событие или редкое имя, не поленитесь перепроверить её слова хотя бы в одном действительно надёжном месте.</p>
+<p>Для этого я использую самый обычный поисковик. Вбиваю ключевую фразу из ответа нейросети и обязательно добавляю слова вроде «официальный сайт», «первоисточник» или «закон». Если в итоге находится реальное подтверждение на авторитетном государственном портале или в ленте новостей крупного информационного агентства — отлично, скорее всего, всё верно. Если же поисковик выдаёт лишь сомнительные блоги-однодневки или форумы с перепечатками — будьте уверены, ваша помощница знатно насочиняла.</p>
+<p>Не стесняйтесь быть дотошными, въедливыми и задавайте ей уточняющие вопросы прямо в диалоге:</p>
+<ul>
+<li>«Откуда именно ты взяла эту конкретную цифру?»</li>
+<li>«На какой нормативный документ или авторитетное исследование ты сейчас ссылаешься?»</li>
+<li>«А ну-ка, перепроверь свои расчеты еще раз внимательно».</li>
+</ul>
+<p>Часто после такого прямого давления она мгновенно меняет тон, извиняется и начинает исправлять собственные ошибки. Понимаете ли, в этот момент вы перестаете быть пассивным потребителем и становитесь для неё внимательным, строгим главным редактором.</p>
+<h3 id="h5">Чек-лист критического скептика</h3>
+<p>Запомните короткий, но жизненно важный список вещей, которым я лично никогда не поверю на слово без живой, стопроцентной проверки профильным специалистом:</p>
+<ol>
+<li><strong>Законы, официальные выплаты, льготы и субсидии от государства.</strong> Цена ошибки здесь измеряется не баллами в чате, а вашими реальными деньгами, нервами и потерянным временем.</li>
+<li><strong>Лекарственные препараты, схемы лечения и дозировки.</strong> Здесь указ только квалифицированный врач или официальная медицинская инструкция внутри упаковки. Никаких экспериментов по советам машины.</li>
+<li><strong>Банковские реквизиты, пароли, пин-коды и номера карт.</strong> Сюда конфиденциальные тексты и личные данные вообще никогда нельзя носить — безопасность превыше всего.</li>
+<li><strong>Точные цитаты великих людей прошлого.</strong> Нейросети обладают удивительным свойством так лихо приписывать Фаине Раневской или Оскару Уайльду современные интернет-мемы и цитаты из пабликов, что заслушаешься.</li>
+</ol>
+<p>Перед тем как нажать роковую кнопку «переслать» под важным сообщением в рабочий чат или «оплатить» на каком-то сомнительном сайте, пробегитесь глазами по моему простому мини-чек-листу:</p>
+<ul>
+<li>Эмоциональный накал улеглся, мы мыслим трезво?</li>
+<li>Все ключевые цифры и даты тщательно проверены?</li>
+<li>Есть ли реальная ссылка на первоисточник, а не туманное «где-то в интернете читал»?</li>
+<li>Базовый здравый смысл не протестует против прочитанного?</li>
+</ul>
+<p>А то ведь обещают иногда сказочные условия вроде пенсионных доплат в три раза больше привычной суммы — чистая алхимия и вымысел.</p>
+<hr>
+<h2 id="h6">Что может пойти не так</h2>
+<p>Даже если вы уже знаете про галлюцинации и стараетесь быть начеку, нейросеть способна преподнести неприятные сюрпризы. Вот к чему стоит быть готовым:</p>
+<ol>
+<li><strong>Эффект «убедительного вранья».</strong> Сеть способна выдумать несуществующий ГОСТ, несуществующую научную статью с реальными именами авторов и даже дать на неё красивую, но нерабочую (ломанную) ссылку. Насторожить должно абсолютно всё, что выглядит слишком идеально, но не гуглится за пару секунд.</li>
+<li><strong>Игнорирование ваших инструкций.</strong> Вы можете трижды написать в начале промпта «Пиши только на основе предоставленного текста», но если в её «базе» сидит более сильный языковой паттерн из интернета, она легко проигнорирует ваше условие и присочинит факты от себя.</li>
+<li><strong>Ложная уверенность при смене контекста.</strong> Если вы в процессе долгого диалога мягко намекнёте ей, что она неправа (даже когда она была права изначально), модель из своего «вежливого» стремления угодить вам согласится с ошибкой и начнет убедительно доказывать обратное, уводя вас в еще большие заблуждения.</li>
+<li><strong>Устаревание данных в реальном времени.</strong> Мир меняется быстрее, чем выходят новые версии моделей. Нейросеть может уверенно давать расписание поездов, правила проезда или налоговые ставки прошлого года, искренне считая их актуальными.</li>
+</ol>
+<hr>
+<h2 id="h7">Что сделать сегодня</h2>
+<p>Чтобы закрепить материал на практике и обезопасить себя уже с этого момента, выполните три простых шага:</p>
+<ol>
+<li><strong>Проведите «стресс-тест» своей любимой нейросети.</strong> Задайте ей вопрос о каком-то локальном событии в вашем городе или о вашей узкой профессиональной теме, детали которой вы точно знаете. Посмотрите, начнет ли она фантазировать и насколько уверенно будет заблуждаться.</li>
+<li><strong>Внедрите правило «двойного клика».</strong> Возьмите за привычку: любая цифра, дата или факт из чата с ИИ отправляется в поисковую строку браузера перед тем, как вы используете их в работе, учебе или личной переписке.</li>
+<li><strong>Смените роль в диалоге.</strong> Перестаньте относиться к нейросети как к оракулу или поисковой системе. С сегодняшнего дня в любом диалоге вы — главный редактор и строгий аудитор, а она — лишь старательный, но легкомысленный стажер-стажёр, которому требуются постоянные правки.</li>
+</ol>
+<hr>
+<h2 id="h8">История про бабушкину кулебяку: учимся на ошибках</h2>
+<p>Чтобы вы лучше поняли механику этих процессов, расскажу вам недавнюю забавную историю про мою фирменную бабушкину кулебяку. Захотелось мне вспомнить детство, и попросила я нейросеть придумать детальный рецепт «как у моей астраханской бабушки».</p>
+<p>Она выдала мне такое поэтичное описание — пальчики оближешь! Осетрина благородных сортов слоями, рис, лучок пассерованный… Просто кулинарная поэзия. Только вот было одно малюсенькое «но»: моя покойная бабушка Мария Петровна на дух не переносила осетрину в пирогах, презрительно называя её в семье «склизкой рыбой». Она всегда готовила кулебяку исключительно с местным свежим сомом, которого рыбаки приносили утром с раскатов, и обязательно добавляла в начинку немного размятого отварного картофеля для невероятной нежности. А про простую картошку умная нейросеть не упомянула ни единым словом!</p>
+<p>Мы принялись исправлять этот досадный кулинарный промах вместе. Я ей терпеливо объясняю: «Милая моя, ты всё красиво придумала, но факты перепутала. Бабушка клала в пирог только сома и картошку, а не осетрину с рисом». Программа мгновенно «извинилась», признала неправоту, пересчитала пропорции и полностью переписала рецепт под мои требования. Мы его совместными усилиями даже довели до идеального ресторанного ума и сохранили в мою кулинарную книгу.</p>
+<p>Вот тогда-то у меня в голове окончательно всё встало на свои места: я поняла, что нейросеть — вовсе не коварная обманщица. Она просто невероятно талантливый, но жутко старательный писатель-фантаст, которому жизненно необходим грамотный, вдумчивый редактор.</p>
+<hr>
+<h2 id="h9">Заключение</h2>
+<p>Главный вывод из всего этого опыта предельно простой: современная нейросеть — это ваш верный творческий соавтор, а вовсе не истина в последней инстанции. Она легко набрасывает идеи, генерирует сырые черновики, предлагает неожиданные ракурсы и варианты. Но последнее слово, финальная проверка фактов и сама живая душа текста — всегда остаются исключительно за вами.</p>
+<p>А скажите, замечали ли вы в своей практике, как часто виртуальный помощник добавляет совершенно лишние детали, которых изначально не было в помине? Знакома ли вам эта ситуация? Давайте теперь внимательно посмотрим, как можно технически научить нашу нейросеть надолго запоминать наши исправления и поправки, чтобы в следующий раз не приходилось заново объяснять ей элементарные вещи — например, в чём фундаментальная разница между астраханским сомом и парадной осетриной.</p>
+<hr>
+<p>Только помните главное: <strong>ИИ, как и человек, может ошибаться.</strong> Если нейросеть не знает ответа и у неё нет под рукой проверенных источников, она начинает придумывать — это называют галлюцинациями. Так же и человек, когда чего-то не знает, начинает додумывать. Чтобы избежать ошибок, всегда сначала находите проверенные источники информации, а потом просите нейросеть проводить веб-поиск на каждом шагу: уточнять, находить источники, дополнять уже имеющуюся информацию новыми данными. Так выводы получаются точными и верными.</p>
+<p><strong>Дорогие все, напоследок.</strong></p>
+<p>В книге «Нейросети для жизни» я разбираю это ещё подробнее — с картинками, упражнениями и примерами из жизни. Напишите мне на почту neuro-retree@ya.ru — пришлю тома и отвечу на вопросы.</p>
+<p>А больше простых историй про нейросети — в моём канале: t.me/neuro_retree. Подпишитесь, чтобы не потерять.</p>
+  <div class="related"><b>Читайте также по теме:</b><a href="https://neuro-retree.github.io/site/articles/article_20_cheklist_10_vecherov/">Чек-лист «10 вечеров»: бесплатный старт в нейросетях</a><a href="https://neuro-retree.github.io/site/articles/article_01_kak_otkryt_i_ne_slomat_kanon/">Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</a><a href="https://neuro-retree.github.io/site/articles/article_02_promt_ne_strashno_kanon/">Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»</a></div>
+  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите мне на почту <a href="mailto:neuro-retree@ya.ru">neuro-retree@ya.ru</a>.</div>
+</div>
+<script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
+function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
+function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
+
+</div></main>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro-retree@ya.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
+</body>
+</html>

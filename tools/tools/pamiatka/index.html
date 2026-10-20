@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Генератор памятки — Нейросети для жизни</title>
+<meta name="description" content="Короткая памятка из любой статьи: пять шагов, что сделать сегодня, как проверить. Печать и отправка близким.">
+<meta name="theme-color" content="#0b5c4f">
+<link rel="canonical" href="https://neuro-retree.github.io/site/tools/pamiatka/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Нейросети для жизни">
+<meta property="og:title" content="Генератор памятки — Нейросети для жизни">
+<meta property="og:description" content="Короткая памятка из любой статьи: пять шагов, что сделать сегодня, как проверить. Печать и отправка близким.">
+<meta property="og:url" content="https://neuro-retree.github.io/site/tools/pamiatka/">
+<meta property="og:image" content="https://neuro-retree.github.io/site/channel-avatar-neuro-retree.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/rss+xml" title="Нейросети для жизни — RSS" href="https://neuro-retree.github.io/site/rss.xml">
+
+<style>
+*{box-sizing:border-box}
+:root{--bg:#f4f7f9;--card:#fff;--ink:#1f2d3a;--accent:#0e7c66;--accent2:#1565a8;--soft:#5b7080;--line:#e2e9ee;--shadow:0 2px 10px rgba(20,40,60,.08);--fs:1.1875rem}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff;--shadow:none}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:var(--fs)}
+a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+header .title{font-size:24px;margin:0;color:#fff}
+header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
+.breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
+main{padding:10px 0 60px}
+.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
+.card img{width:100%%;height:100%%;object-fit:cover;object-position:center;display:block}
+.card .cov{width:100%%;aspect-ratio:16/9;overflow:hidden;background:#dfe9e4;display:flex;align-items:center;justify-content:center}
+.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
+.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
+.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-read:hover{background:#0b6a58;text-decoration:none}
+.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
+.article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
+.article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
+.article h3{margin:22px 0 8px;color:#153a4d;font-size:20px}
+.article p{margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:26px}
+.article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
+.article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
+.article img{max-width:100%%;height:auto}
+.toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
+.toc b{color:#153a4d}
+.toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.tools-bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+.tools-bar button{padding:10px 16px;font-size:15px;border:1px solid #e2e9ee;border-radius:10px;background:#f4f7f9;color:#1f2d3a;cursor:pointer;min-height:44px}
+.tools-bar button:hover{background:#e7eef2}
+.related{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:14px 18px;margin-top:24px}
+.related a{display:block;margin:6px 0}
+.cta{background:#e7f4f0;border-left:4px solid #0e7c66;padding:12px 16px;border-radius:8px;margin-top:24px}
+.footer{border-top:1px solid #e2e9ee;margin-top:40px;padding:18px 0;color:#5b7080;font-size:14px}
+.a11ybar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 16px;max-width:1080px;margin:0 auto;font-size:15px;color:var(--soft)}
+.a11ybar button{min-height:44px;min-width:44px;font-size:16px;font-weight:600;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:8px;cursor:pointer;padding:6px 12px}
+.a11ybar button:hover{background:#eef2f5}
+.skip{position:absolute;left:-999px;top:0}
+.skip:focus{left:8px;top:8px;background:#fff;padding:10px 14px;z-index:60;border:2px solid var(--accent);border-radius:8px}
+html[data-contrast="high"]{--bg:#000;--card:#111;--ink:#fff;--soft:#e6e6e6;--line:#666;--accent:#ffe14d;--accent2:#9fd8ff}
+button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3px}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+.toolbar input[type=search]{flex:1;min-width:220px;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.toolbar select{padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff}
+.search-status{color:#5b7080;font-size:14px}
+.tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+.tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
+.tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page textarea{min-height:120px}
+.tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
+.btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
+.btn:hover{background:#0b6a58}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content" style="position:absolute;left:-999px">Перейти к тексту</a>
+<div class="a11ybar" id="a11y-toolbar" aria-label="Настройки чтения"></div>
+<header><div class="wrap inline">
+  <div class="title">Нейросети для жизни</div>
+  <div class="links">
+    <a href="https://neuro-retree.github.io/site/">Главная</a>
+    <a href="https://neuro-retree.github.io/site/articles/">Статьи</a>
+    <a href="https://neuro-retree.github.io/site/tools/">Инструменты</a>
+    <a href="https://neuro-retree.github.io/site/learning/">Обучение</a>
+    <a href="https://neuro-retree.github.io/site/slovar/">Словарь</a>
+  </div>
+</div></header>
+<main><div class="wrap">
+
+<div class="breadcrumbs"><a href="https://neuro-retree.github.io/site/">Главная</a> → <a href="https://neuro-retree.github.io/site/tools/">Инструменты</a> → Генератор памятки</div>
+<div class="tool-page">
+<h1>Генератор памятки из статьи</h1>
+<p style="color:#5b7080">Выберите статью — ниже появится короткая памятка: пять главных шагов, что сделать сегодня и как проверить результат. Можно распечатать или отправить близким.</p>
+<label for="memoArt">Статья</label>
+<select id="memoArt"><option value="article_2fa_zashchita">Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг</option><option value="article_33_dipfeyki">Поддельный голос внука: как распознать дипфейк и не отдать деньги</option><option value="article_gosuslugi_vyplaty">Госуслуги: как узнать, какие выплаты и льготы вам положены</option><option value="article_spisali_za_prilozhenie">Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё</option><option value="article_152fz_dannye">152-ФЗ: ваши данные, ваши права — просто о главном</option><option value="article_statiny_6_mifov">Статины: 6 мифов, о которых важно знать</option><option value="article_bady_riski">БАДы: правда и риски, чтобы не навредить себе</option><option value="article_davlenie_posle_60">Давление после 60: какая норма и как контролировать</option><option value="article_20_cheklist_10_vecherov">Чек-лист «10 вечеров»: бесплатный старт в нейросетях</option><option value="article_01_kak_otkryt_i_ne_slomat_kanon">Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»</option><option value="article_02_promt_ne_strashno_kanon">Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»</option><option value="article_10_priznakov_alzgejmer">Альцгеймер: 10 признаков и когда пора к врачу</option><option value="article_10_scenariev_byta">Что нужно знать о «Нейросеть в быту: 10 дел за минуту»</option><option value="article_11_zarabotok_na_pensii">Можно ли заработать с нейросетями на пенсии?</option><option value="article_14_samozanyatost">Самозанятость: «Мой налог» за 5 минут и без страха</option><option value="article_15_promty_dlya_zarabotka">15 готовых промтов для первого заработка</option><option value="article_4_puti_zarabotka">Заработок на нейросетях: 4 пути для людей 50+</option><option value="article_5_urovnej_avtomatizacii">5 уровней автоматизации: от заметки до конвейера</option><option value="article_agenty_rabotayut_sami">Агенты — нейросети, которые работают сами</option><option value="article_ai_konsultant_sosedi">AI-консультант для соседей: как я помогаю и зарабатываю</option><option value="article_art_terapiya_60">Арт-терапия после 60: творчество продлевает жизнь</option><option value="article_audiokniga_iz_rukopisi">Аудиокнига из рукописи: путь для тех, кому трудно читать</option><option value="article_avatarka_nejroset">Как сделать аватарку нейросетью: 6 сервисов</option><option value="article_babushka_i_kot">Бабушка и кот: общий язык с нейросетью (моя история)</option><option value="article_bloger_60_ii">ИИ-помощник блогера 60+: 7 дел за 15 минут</option><option value="article_budushchee_ii">Что ждать пенсионерам от ИИ через 5 лет</option><option value="article_cena_konsultacii">Цена: сколько брать за консультацию и как её повышать</option><option value="article_chtenie_vsluh">Чтение вслух: 15 минут в день для ясного ума</option><option value="article_chto_takoe_promt">Что такое промт? Объясняю простыми словами</option><option value="article_demenciya_faktory">Деменция: 14 факторов риска, и 10 из них — в ваших руках</option><option value="article_dzen_2026_strategii">Заработок в Дзене в 2026: честный разбор стратегий</option><option value="article_ekonomiya_modeli">Как нейросети снижают расходы: выбираем модель</option><option value="article_fishing_kak_raspoznat">Фишинг: письмо от банка — как распознать обман</option><option value="article_gallyucinacii">Галлюцинации нейросети: почему «врёт» и как проверить</option><option value="article_gallyucinacii_u_suda">Нейросеть «придумала» судебный акт — оштрафовали</option><option value="article_gepatoprotektory">Гепатопротекторы: правда о «защите печени</option><option value="article_giperpersonalizaciya">Гиперперсонализация: как нейросеть «читает мысли</option><option value="article_glitsin_pravda">Глицин: правда из лаборатории</option><option value="article_hobbi_dohod">Заработок на хобби после 50: деньги, радость и здоровье</option><option value="article_ii_agent">ИИ-агент: умный бот, который работает за вас</option><option value="article_ii_agent_chast1">Ваш цифровой секретарь. Часть 1: где живёт помощник и как дать ему первое задание</option><option value="article_ii_agent_chast2">Ваш цифровой секретарь. Часть 2: инструменты, безопасность и первые шаги</option><option value="article_ii_agent_passiv">Пассивный доход на ИИ-агенте»: разбор мифа</option><option value="article_ii_dlya_zhizni">Нейросети для жизни: как перестать бояться «умных машин» и начать ими пользоваться</option><option value="article_ii_ne_zamenit_vracha">Нейросеть не заменит врача — но может помочь вам обоим</option><option value="article_ii_repetitor">Нейросеть как репетитор русского языка</option><option value="article_imuschestvo_v_brake">Имущество в браке: что ваше, а что делится</option><option value="article_ipoteka_pensioneram">Ипотека для пенсионеров: правила и камни</option><option value="article_kak_chitat_o_badah">Статьи о БАДах: 3 маркера рекламы под видом науки</option><option value="article_kak_nachat_i_ne_brosit">Как начать и не бросить: руководство по нейросетям</option><option value="article_kalendar_publikacij">Календарь публикаций: контент на месяц без стресса</option><option value="article_kishechnik_pochki">Кишечник и почки: неожиданная связь</option><option value="article_kniga_chestnye_pravila">Книга с нейросетью по-честному: 7 правил</option><option value="article_kniga_svoimi_slovami">Книга своими словами: нейросеть пишет, вы — душа</option><option value="article_komissii_ploshchadok">Комиссии площадок 2026: сколько реально останется у вас</option><option value="article_korotkie_teksty_socseti">Короткие тексты для соцсетей: что заказывают чаще всего</option><option value="article_kredit_pod_zalog_risk">Кредит под залог квартиры: 5 красных флагов</option><option value="article_kuda_zapisat_parol">Куда записать пароль: памятка для начинающих</option><option value="article_kursy_komp_gramotnosti">Курсы компьютерной грамотности для пенсионеров бесплатно</option><option value="article_kursy_po_ii">Как выбрать курс по нейросетям и не переплатить</option><option value="article_kwork_pervyj_zakaz">Первый заказ на Kwork: инструкция для 50+</option><option value="article_logotipy_s_nejrosetyu">Логотипы и аватарки с нейросетью: услуга</option><option value="article_lokalnye_nejroseti">Локальные нейросети: когда интернет не нужен</option><option value="article_markirovka_reklamy">Маркировка рекламы: памятка про «реклама», эrid и ОРД</option><option value="article_markirovka_reklamy_bloger">Маркировка рекламы для блогера: просто о сложном</option><option value="article_med_yur_promty">Медицинские и юридические промты: что можно, что нельзя</option><option value="article_melkaia_motorika">Как простые занятия с руками помогают мозгу отдохнуть и успокоиться</option><option value="article_memuary_s_nejrosetyu">Семейные мемуары с нейросетью: напишем, пока живы</option><option value="article_meteochuvstvitelnost">Метеочувствительность: как пережить перепады погоды</option><option value="article_moi_4_knigi">Мои 4 книги: что внутри и кому они помогут</option><option value="article_nakopitelnaya_pensiya">Накопительная пенсия: как посчитать свои накопления</option><option value="article_nakopitelnaya_pensiya_2026">Накопительная пенсия 2026: как получить сразу</option><option value="article_nakopitelnaya_pensiya_vyplata">Накопительная пенсия: деньги, доступные прямо сейчас</option><option value="article_nalogi_avtora">Налоги автора-блогера: НПД, донаты, реклама просто</option><option value="article_nalogi_blogera_2026">Если блог приносит деньги: налоги для автора в 2026</option><option value="article_nalogovyj_vychet_obuchenie">Налоговый вычет за обучение: до 19 500 рублей</option><option value="article_nalogovyj_vychet_obuchenie_2026">Налоговый вычет за обучение: верните до 14 300 ₽</option><option value="article_nejroset_hudozhnik">Нейросеть-художник: картины по описанию без навыков</option><option value="article_nejroset_sobesednik">Нейросеть-собеседник: как не чувствовать себя одиноко</option><option value="article_obuchenie_55">Где бесплатно выучиться нейросетям после 55</option><option value="article_obyasni_sosedke">Как объяснить соседке, что такое нейросеть</option><option value="article_oshibki_90_dnej">Ошибки первых 90 дней в заработке с нейросетями</option><option value="article_otkrytki_na_zakaz">Открытки на заказ: заработок без текстов</option><option value="article_otkrytyj_urok">Открытый урок: первый запрос вместе с вами</option><option value="article_otzyvy_kak_reklama">Отзывы как реклама: как просить и показывать</option><option value="article_ozvuchka_pozdravlenie">Озвучка: аудиопоздравление голосом диктора за 10 минут</option><option value="article_pamyat_9_uprazhnenij">Память после 60: 9 простых упражнений, которые работают</option><option value="article_pamyatka_bezopasnosti">Памятка безопасности для ваших клиентов (готовая)</option><option value="article_passiv_dohod_bezopasno">Пассивный доход: безопасные пути и опасные ловушки</option><option value="article_passivnyj_dohod_oshibki">Пассивный доход: 5 ошибок, на которых теряют деньги</option><option value="article_passivnyj_dohod_pravda">Пассивный доход»: правда, которую скрывают</option><option value="article_perevod_svoimi_slovami">Переводы и «пересказ своими словами»: простая услуга</option><option value="article_pisma_zhiloby_pozdravleniya">Напиши за меня»: письма, жалобы, поздравления</option><option value="article_platformy_dzen_boosty_vk">Дзен vs Boosty vs VK: что выбрать для своих текстов</option><option value="article_podagra_dieta">Подагра и мочевая кислота: что можно и что нельзя есть</option><option value="article_portfolio_za_vecher">Портфолио за вечер: 3 работы, и заказчики увидят</option><option value="article_pozdravlenie_ot_kota">Поздравления «от кота» и «от внучки»: необычная услуга</option><option value="article_pozdravlenie_s_promtom">Праздничное поздравление: тёплый текст через промт</option><option value="article_prajs_ne_prodeshevit">Прайс: как назвать цену и не продешевить</option><option value="article_promt_ne_strashno">Промт — не страшно: что писать нейросети</option><option value="article_promty_dlya_konsultacij">Промты для консультации: 5 готовых запросов</option><option value="article_prostoy_tekst">Пишите просто: 5 правил понятного текста</option><option value="article_proverka_dolgov_fssp">Как проверить себя на долги (ФССП) за 5 минут</option><option value="article_proverka_firmy_za_5_minut">Как проверить фирму за 5 минут: реестры и сервисы</option><option value="article_psillium">Как псиллиум помогает наладить пищеварение и избежать ошибок</option><option value="article_psillium_lekarstva">Псиллиум и лекарства: важный интервал в 2 часа</option><option value="article_public_wifi">Публичный Wi-Fi в кафе: что можно делать, а что нельзя</option><option value="article_rasshifrovka_video">Расшифровка видео в текст: услуга на каждый день</option><option value="article_rasteniya_60">Комнатные растения после 60: польза для тела и ума</option><option value="article_shemy_moshennikov_2026">Новые схемы мошенников 2026: не отдайте денег</option><option value="article_shkola_bloginga_55">Блогинг для 55+: почему он стал делом старшего поколения</option><option value="article_sluh_i_pamyat">Слух и память: недооценённая связь</option><option value="article_sluzhba_podpiski">Служба подписки: 3 консультации в месяц</option><option value="article_sockontrakt">Соцконтракт: деньги на ваше дело от государства</option><option value="article_solnechnye_paneli_balkon">Солнечные панели на балконе: сколько света и денег они дают</option><option value="article_sravnenie_ozvuchki">Озвучка текста: Zvukogram, ElevenLabs или Silero</option><option value="article_subtitry">Субтитры на русском: не только для слабослышащих</option><option value="article_tabldm_predskazanie">Как нейросеть предсказывает по таблицам: просто о сложном</option><option value="article_telegram_partnerki">Telegram-партнёрки: заработок на «Звёздах» без вложений</option><option value="article_upakui_za_vecher">Как за 4 вечера создать продающий пост, который привлечёт клиентов</option><option value="article_vajb_koding">Вайб-кодинг без программирования: свой инструмент</option><option value="article_video_iz_teksta">Видео из текста: от слайда к ролику без монтажёра</option><option value="article_volonterstvo_60">Волонтёрство после 60: польза для души и ума</option><option value="article_vordstat_temy">Вордстат: как подбирать темы для статей</option><option value="article_vozrazheniya_klientov">Как отвечать на возражения клиентов: 5 ответов</option><option value="article_vydumki_ii">Как не попасться на выдумки нейросети</option><option value="article_vyvod_s_boosty">Как выводить деньги с Boosty: без комиссии и без ошибок</option><option value="article_zamedlit_alzgejmer">Как замедлить Альцгеймер: 5 рычагов в ваших руках</option><option value="article_zamena_scheta_cb">Замените счёт в Центробанке» — схема мошенников</option><option value="article_zapor_sredstva">Запоры после 60: как выбрать безопасное слабительное</option><option value="article_zarabotok_ii_50">Заработок с нейросетью после 50: что реально</option><option value="article_zarabotok_na_botah">Заработок на чат-ботах с ИИ без программирования</option><option value="article_zhaloba_na_vracha">Халатность врача: куда жаловаться и как защитить себя</option><option value="article_zooterapiya">Зоотерапия после 60: 15 минут с питомцем творят чудеса</option><option value="article_zrenie_makula">Зрение после 60: макулярная дегенерация и тест Амслера</option></select>
+<button class="btn" id="memoGo" type="button">Показать памятку</button>
+<div class="out" id="memoOut" style="display:none"></div>
+<button class="btn" id="memoPrint" type="button" style="display:none;background:#1565a8">Печать памятки</button>
+</div>
+<script>
+const memoArt=document.getElementById('memoArt'),memoOut=document.getElementById('memoOut'),memoPrint=document.getElementById('memoPrint');
+const ART={};
+ART["article_2fa_zashchita"]={title:"Двухфакторная защита за 5 минут: второй замок для пенсии и Госуслуг"};
+ART["article_33_dipfeyki"]={title:"Поддельный голос внука: как распознать дипфейк и не отдать деньги"};
+ART["article_gosuslugi_vyplaty"]={title:"Госуслуги: как узнать, какие выплаты и льготы вам положены"};
+ART["article_spisali_za_prilozhenie"]={title:"Списали деньги за бесплатное приложение — как отключить подписку и вернуть своё"};
+ART["article_152fz_dannye"]={title:"152-ФЗ: ваши данные, ваши права — просто о главном"};
+ART["article_statiny_6_mifov"]={title:"Статины: 6 мифов, о которых важно знать"};
+ART["article_bady_riski"]={title:"БАДы: правда и риски, чтобы не навредить себе"};
+ART["article_davlenie_posle_60"]={title:"Давление после 60: какая норма и как контролировать"};
+ART["article_20_cheklist_10_vecherov"]={title:"Чек-лист «10 вечеров»: бесплатный старт в нейросетях"};
+ART["article_01_kak_otkryt_i_ne_slomat_kanon"]={title:"Что нужно знать о «Как открыть нейросеть и не сломать: первые 15 минут спокойного знакомства»"};
+ART["article_02_promt_ne_strashno_kanon"]={title:"Что нужно знать о «Промт — это не страшно: формула идеального запроса из пяти кирпичиков»"};
+ART["article_10_priznakov_alzgejmer"]={title:"Альцгеймер: 10 признаков и когда пора к врачу"};
+ART["article_10_scenariev_byta"]={title:"Что нужно знать о «Нейросеть в быту: 10 дел за минуту»"};
+ART["article_11_zarabotok_na_pensii"]={title:"Можно ли заработать с нейросетями на пенсии?"};
+ART["article_14_samozanyatost"]={title:"Самозанятость: «Мой налог» за 5 минут и без страха"};
+ART["article_15_promty_dlya_zarabotka"]={title:"15 готовых промтов для первого заработка"};
+ART["article_4_puti_zarabotka"]={title:"Заработок на нейросетях: 4 пути для людей 50+"};
+ART["article_5_urovnej_avtomatizacii"]={title:"5 уровней автоматизации: от заметки до конвейера"};
+ART["article_agenty_rabotayut_sami"]={title:"Агенты — нейросети, которые работают сами"};
+ART["article_ai_konsultant_sosedi"]={title:"AI-консультант для соседей: как я помогаю и зарабатываю"};
+ART["article_art_terapiya_60"]={title:"Арт-терапия после 60: творчество продлевает жизнь"};
+ART["article_audiokniga_iz_rukopisi"]={title:"Аудиокнига из рукописи: путь для тех, кому трудно читать"};
+ART["article_avatarka_nejroset"]={title:"Как сделать аватарку нейросетью: 6 сервисов"};
+ART["article_babushka_i_kot"]={title:"Бабушка и кот: общий язык с нейросетью (моя история)"};
+ART["article_bloger_60_ii"]={title:"ИИ-помощник блогера 60+: 7 дел за 15 минут"};
+ART["article_budushchee_ii"]={title:"Что ждать пенсионерам от ИИ через 5 лет"};
+ART["article_cena_konsultacii"]={title:"Цена: сколько брать за консультацию и как её повышать"};
+ART["article_chtenie_vsluh"]={title:"Чтение вслух: 15 минут в день для ясного ума"};
+ART["article_chto_takoe_promt"]={title:"Что такое промт? Объясняю простыми словами"};
+ART["article_demenciya_faktory"]={title:"Деменция: 14 факторов риска, и 10 из них — в ваших руках"};
+ART["article_dzen_2026_strategii"]={title:"Заработок в Дзене в 2026: честный разбор стратегий"};
+ART["article_ekonomiya_modeli"]={title:"Как нейросети снижают расходы: выбираем модель"};
+ART["article_fishing_kak_raspoznat"]={title:"Фишинг: письмо от банка — как распознать обман"};
+ART["article_gallyucinacii"]={title:"Галлюцинации нейросети: почему «врёт» и как проверить"};
+ART["article_gallyucinacii_u_suda"]={title:"Нейросеть «придумала» судебный акт — оштрафовали"};
+ART["article_gepatoprotektory"]={title:"Гепатопротекторы: правда о «защите печени"};
+ART["article_giperpersonalizaciya"]={title:"Гиперперсонализация: как нейросеть «читает мысли"};
+ART["article_glitsin_pravda"]={title:"Глицин: правда из лаборатории"};
+ART["article_hobbi_dohod"]={title:"Заработок на хобби после 50: деньги, радость и здоровье"};
+ART["article_ii_agent"]={title:"ИИ-агент: умный бот, который работает за вас"};
+ART["article_ii_agent_chast1"]={title:"Ваш цифровой секретарь. Часть 1: где живёт помощник и как дать ему первое задание"};
+ART["article_ii_agent_chast2"]={title:"Ваш цифровой секретарь. Часть 2: инструменты, безопасность и первые шаги"};
+ART["article_ii_agent_passiv"]={title:"Пассивный доход на ИИ-агенте»: разбор мифа"};
+ART["article_ii_dlya_zhizni"]={title:"Нейросети для жизни: как перестать бояться «умных машин» и начать ими пользоваться"};
+ART["article_ii_ne_zamenit_vracha"]={title:"Нейросеть не заменит врача — но может помочь вам обоим"};
+ART["article_ii_repetitor"]={title:"Нейросеть как репетитор русского языка"};
+ART["article_imuschestvo_v_brake"]={title:"Имущество в браке: что ваше, а что делится"};
+ART["article_ipoteka_pensioneram"]={title:"Ипотека для пенсионеров: правила и камни"};
+ART["article_kak_chitat_o_badah"]={title:"Статьи о БАДах: 3 маркера рекламы под видом науки"};
+ART["article_kak_nachat_i_ne_brosit"]={title:"Как начать и не бросить: руководство по нейросетям"};
+ART["article_kalendar_publikacij"]={title:"Календарь публикаций: контент на месяц без стресса"};
+ART["article_kishechnik_pochki"]={title:"Кишечник и почки: неожиданная связь"};
+ART["article_kniga_chestnye_pravila"]={title:"Книга с нейросетью по-честному: 7 правил"};
+ART["article_kniga_svoimi_slovami"]={title:"Книга своими словами: нейросеть пишет, вы — душа"};
+ART["article_komissii_ploshchadok"]={title:"Комиссии площадок 2026: сколько реально останется у вас"};
+ART["article_korotkie_teksty_socseti"]={title:"Короткие тексты для соцсетей: что заказывают чаще всего"};
+ART["article_kredit_pod_zalog_risk"]={title:"Кредит под залог квартиры: 5 красных флагов"};
+ART["article_kuda_zapisat_parol"]={title:"Куда записать пароль: памятка для начинающих"};
+ART["article_kursy_komp_gramotnosti"]={title:"Курсы компьютерной грамотности для пенсионеров бесплатно"};
+ART["article_kursy_po_ii"]={title:"Как выбрать курс по нейросетям и не переплатить"};
+ART["article_kwork_pervyj_zakaz"]={title:"Первый заказ на Kwork: инструкция для 50+"};
+ART["article_logotipy_s_nejrosetyu"]={title:"Логотипы и аватарки с нейросетью: услуга"};
+ART["article_lokalnye_nejroseti"]={title:"Локальные нейросети: когда интернет не нужен"};
+ART["article_markirovka_reklamy"]={title:"Маркировка рекламы: памятка про «реклама», эrid и ОРД"};
+ART["article_markirovka_reklamy_bloger"]={title:"Маркировка рекламы для блогера: просто о сложном"};
+ART["article_med_yur_promty"]={title:"Медицинские и юридические промты: что можно, что нельзя"};
+ART["article_melkaia_motorika"]={title:"Как простые занятия с руками помогают мозгу отдохнуть и успокоиться"};
+ART["article_memuary_s_nejrosetyu"]={title:"Семейные мемуары с нейросетью: напишем, пока живы"};
+ART["article_meteochuvstvitelnost"]={title:"Метеочувствительность: как пережить перепады погоды"};
+ART["article_moi_4_knigi"]={title:"Мои 4 книги: что внутри и кому они помогут"};
+ART["article_nakopitelnaya_pensiya"]={title:"Накопительная пенсия: как посчитать свои накопления"};
+ART["article_nakopitelnaya_pensiya_2026"]={title:"Накопительная пенсия 2026: как получить сразу"};
+ART["article_nakopitelnaya_pensiya_vyplata"]={title:"Накопительная пенсия: деньги, доступные прямо сейчас"};
+ART["article_nalogi_avtora"]={title:"Налоги автора-блогера: НПД, донаты, реклама просто"};
+ART["article_nalogi_blogera_2026"]={title:"Если блог приносит деньги: налоги для автора в 2026"};
+ART["article_nalogovyj_vychet_obuchenie"]={title:"Налоговый вычет за обучение: до 19 500 рублей"};
+ART["article_nalogovyj_vychet_obuchenie_2026"]={title:"Налоговый вычет за обучение: верните до 14 300 ₽"};
+ART["article_nejroset_hudozhnik"]={title:"Нейросеть-художник: картины по описанию без навыков"};
+ART["article_nejroset_sobesednik"]={title:"Нейросеть-собеседник: как не чувствовать себя одиноко"};
+ART["article_obuchenie_55"]={title:"Где бесплатно выучиться нейросетям после 55"};
+ART["article_obyasni_sosedke"]={title:"Как объяснить соседке, что такое нейросеть"};
+ART["article_oshibki_90_dnej"]={title:"Ошибки первых 90 дней в заработке с нейросетями"};
+ART["article_otkrytki_na_zakaz"]={title:"Открытки на заказ: заработок без текстов"};
+ART["article_otkrytyj_urok"]={title:"Открытый урок: первый запрос вместе с вами"};
+ART["article_otzyvy_kak_reklama"]={title:"Отзывы как реклама: как просить и показывать"};
+ART["article_ozvuchka_pozdravlenie"]={title:"Озвучка: аудиопоздравление голосом диктора за 10 минут"};
+ART["article_pamyat_9_uprazhnenij"]={title:"Память после 60: 9 простых упражнений, которые работают"};
+ART["article_pamyatka_bezopasnosti"]={title:"Памятка безопасности для ваших клиентов (готовая)"};
+ART["article_passiv_dohod_bezopasno"]={title:"Пассивный доход: безопасные пути и опасные ловушки"};
+ART["article_passivnyj_dohod_oshibki"]={title:"Пассивный доход: 5 ошибок, на которых теряют деньги"};
+ART["article_passivnyj_dohod_pravda"]={title:"Пассивный доход»: правда, которую скрывают"};
+ART["article_perevod_svoimi_slovami"]={title:"Переводы и «пересказ своими словами»: простая услуга"};
+ART["article_pisma_zhiloby_pozdravleniya"]={title:"Напиши за меня»: письма, жалобы, поздравления"};
+ART["article_platformy_dzen_boosty_vk"]={title:"Дзен vs Boosty vs VK: что выбрать для своих текстов"};
+ART["article_podagra_dieta"]={title:"Подагра и мочевая кислота: что можно и что нельзя есть"};
+ART["article_portfolio_za_vecher"]={title:"Портфолио за вечер: 3 работы, и заказчики увидят"};
+ART["article_pozdravlenie_ot_kota"]={title:"Поздравления «от кота» и «от внучки»: необычная услуга"};
+ART["article_pozdravlenie_s_promtom"]={title:"Праздничное поздравление: тёплый текст через промт"};
+ART["article_prajs_ne_prodeshevit"]={title:"Прайс: как назвать цену и не продешевить"};
+ART["article_promt_ne_strashno"]={title:"Промт — не страшно: что писать нейросети"};
+ART["article_promty_dlya_konsultacij"]={title:"Промты для консультации: 5 готовых запросов"};
+ART["article_prostoy_tekst"]={title:"Пишите просто: 5 правил понятного текста"};
+ART["article_proverka_dolgov_fssp"]={title:"Как проверить себя на долги (ФССП) за 5 минут"};
+ART["article_proverka_firmy_za_5_minut"]={title:"Как проверить фирму за 5 минут: реестры и сервисы"};
+ART["article_psillium"]={title:"Как псиллиум помогает наладить пищеварение и избежать ошибок"};
+ART["article_psillium_lekarstva"]={title:"Псиллиум и лекарства: важный интервал в 2 часа"};
+ART["article_public_wifi"]={title:"Публичный Wi-Fi в кафе: что можно делать, а что нельзя"};
+ART["article_rasshifrovka_video"]={title:"Расшифровка видео в текст: услуга на каждый день"};
+ART["article_rasteniya_60"]={title:"Комнатные растения после 60: польза для тела и ума"};
+ART["article_shemy_moshennikov_2026"]={title:"Новые схемы мошенников 2026: не отдайте денег"};
+ART["article_shkola_bloginga_55"]={title:"Блогинг для 55+: почему он стал делом старшего поколения"};
+ART["article_sluh_i_pamyat"]={title:"Слух и память: недооценённая связь"};
+ART["article_sluzhba_podpiski"]={title:"Служба подписки: 3 консультации в месяц"};
+ART["article_sockontrakt"]={title:"Соцконтракт: деньги на ваше дело от государства"};
+ART["article_solnechnye_paneli_balkon"]={title:"Солнечные панели на балконе: сколько света и денег они дают"};
+ART["article_sravnenie_ozvuchki"]={title:"Озвучка текста: Zvukogram, ElevenLabs или Silero"};
+ART["article_subtitry"]={title:"Субтитры на русском: не только для слабослышащих"};
+ART["article_tabldm_predskazanie"]={title:"Как нейросеть предсказывает по таблицам: просто о сложном"};
+ART["article_telegram_partnerki"]={title:"Telegram-партнёрки: заработок на «Звёздах» без вложений"};
+ART["article_upakui_za_vecher"]={title:"Как за 4 вечера создать продающий пост, который привлечёт клиентов"};
+ART["article_vajb_koding"]={title:"Вайб-кодинг без программирования: свой инструмент"};
+ART["article_video_iz_teksta"]={title:"Видео из текста: от слайда к ролику без монтажёра"};
+ART["article_volonterstvo_60"]={title:"Волонтёрство после 60: польза для души и ума"};
+ART["article_vordstat_temy"]={title:"Вордстат: как подбирать темы для статей"};
+ART["article_vozrazheniya_klientov"]={title:"Как отвечать на возражения клиентов: 5 ответов"};
+ART["article_vydumki_ii"]={title:"Как не попасться на выдумки нейросети"};
+ART["article_vyvod_s_boosty"]={title:"Как выводить деньги с Boosty: без комиссии и без ошибок"};
+ART["article_zamedlit_alzgejmer"]={title:"Как замедлить Альцгеймер: 5 рычагов в ваших руках"};
+ART["article_zamena_scheta_cb"]={title:"Замените счёт в Центробанке» — схема мошенников"};
+ART["article_zapor_sredstva"]={title:"Запоры после 60: как выбрать безопасное слабительное"};
+ART["article_zarabotok_ii_50"]={title:"Заработок с нейросетью после 50: что реально"};
+ART["article_zarabotok_na_botah"]={title:"Заработок на чат-ботах с ИИ без программирования"};
+ART["article_zhaloba_na_vracha"]={title:"Халатность врача: куда жаловаться и как защитить себя"};
+ART["article_zooterapiya"]={title:"Зоотерапия после 60: 15 минут с питомцем творят чудеса"};
+ART["article_zrenie_makula"]={title:"Зрение после 60: макулярная дегенерация и тест Амслера"};
+document.getElementById('memoGo').addEventListener('click',async()=>{
+  const slug=memoArt.value;
+  if(!ART[slug])return;
+  const resp=await fetch('../../'+slug+'.md');
+  if(!resp.ok){memoOut.textContent='Не удалось загрузить статью.';memoOut.style.display='block';return;}
+  const md=await resp.text();
+  const body=md.split(/[#
+]+\s*/);
+  const steps=[];
+  for(const ln of md.split('
+')){
+    const s=ln.trim();
+    if(/^\d+[.)]/.test(s)&&s.length<180)steps.push(s.replace(/^\d+[.)]\s+/,''));
+    if(steps.length>=5)break;
+  }
+  const out=['ПАМЯТКА: '+ART[slug].title,'','Пять шагов:']+steps.slice(0,5).map((x,i)=>(i+1)+'. '+x)+['','Что сделать сегодня: открыть статью и выполнить первый шаг.','Как проверить результат: следовать инструкциям в статье, сверяться с источниками.','','Полная статья: https://neuro-retree.github.io/site/articles/'+slug+'/'];
+  memoOut.style.display='block';memoOut.textContent=out.join('
+');
+  memoPrint.style.display='inline-block';
+});
+memoPrint.addEventListener('click',()=>{window.print();});
+</script>
+
+</div></main>
+<footer><div class="wrap footer">© 2026 Нейросети для жизни · Татьяна Зенина, Астрахань · <a href="mailto:neuro-retree@ya.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="https://neuro-retree.github.io/site/rss.xml">RSS</a></div></footer>
+<script src="/a11y-toggle.js" defer></script>
+<link rel="stylesheet" href="https://neuro-retree.github.io/site/assets/book.css">
+<script src="https://neuro-retree.github.io/site/assets/book.js" defer></script>
+<script src="https://neuro-retree.github.io/site/assets/magnifier.js" defer></script>
+</body>
+</html>
