@@ -52,140 +52,125 @@ body.lib-mode button{font-family:Georgia,serif}
   filter:brightness(1.15);
 }
 .lib-book:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
-.lib-book .spine{
-  height:100%;display:grid;place-items:center;padding:10px 8px;user-select:none;
-  writing-mode:vertical-rl;text-align:center;font-size:clamp(14px,1.4vw,20px);
-  letter-spacing:.05em;text-shadow:0 1px 2px #000, 0 0 6px rgba(182,154,99,.35);overflow:hidden;white-space:nowrap;
-  position:relative;z-index:2;
-  background:linear-gradient(90deg,rgba(0,0,0,.4),transparent 35%,rgba(255,255,255,.08)),url("library/book_side_stack.png");
-  background-size:cover;background-position:center;
-}
-/* золотое тиснение по краю корешка */
-.lib-book .spine::before{
-  content:"";position:absolute;inset:6px 4px;border:1px solid rgba(230,210,160,.35);
-  border-radius:2px;pointer-events:none;box-shadow:inset 0 0 8px rgba(0,0,0,.35);
-}
 /* боковой свет: объём корешка */
 .lib-book::after{
   content:"";position:absolute;top:0;bottom:0;right:0;width:14%;pointer-events:none;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.10) 40%,rgba(0,0,0,.35));
   z-index:1;
 }
-/* декоративные «волшебные» узоры на корешках */
-.lib-book .ornament{
-  position:absolute;left:6px;top:8px;bottom:8px;width:9px;opacity:.5;pointer-events:none;
-  background:repeating-linear-gradient(to bottom,transparent 0 6px,rgba(255,220,150,.5) 6px 8px,transparent 8px 16px);
-  border-radius:2px;
-}
 
-/* ---- Анимация вытягивания/раскрытия ---- */
-/* ---- Анимация вытягивания/раскрытия (поворот на 180°) ----
-   Книга на полке стоит корешком к зрителю.
-   1) pulling: книга приподнимается и поворачивается на 90° (корешок уходит влево).
-   2) opening: книга доворачивается до 180° (обложка обращается к зрителю
-      «обратной стороной»), передняя обложка откидывается вокруг корешка.
-   3) zooming: книга выходит на весь экран, поворот 180° сохраняется, полка затемняется. */
+/* ---- Анимация вытягивания/раскрытия — см. секцию «РАСКРЫТИЕ (в ШИРИНУ)» ниже.
+   Здесь правил нет: они объявлены ниже, чтобы не конфликтовать с поворотом книги. */
+
+/* ---- 3D-структура книги: 5 параллелепипедов (настоящие кубы из 6 граней) ----
+   П5 корешок (узкий, --bw) · П1 блок страниц (толстый, --cw) · П2 одна страница
+   (тонкая) · П3 левая обложка · П4 правая обложка (с названием).
+   На полке книга стоит корешком — видна узкая грань (--bw x высота). Обложки
+   и блок страниц (шириной --cw) стоят ВГЛУБЬ (повёрнуты на 90° вокруг Y),
+   поэтому спереди виден только корешок. При раскрытии блок самого .lib-book
+   поворачивается на 90°, и спереди оказывается ШИРОКАЯ обложка (--cw) —
+   книга раскрывается В ШИРИНУ. */
+.lib-book{transform-style:preserve-3d;perspective:1400px;width:var(--bw,64px);overflow:visible}
+.lib-book .bd{position:absolute;left:0;top:0;width:100%;height:100%;transform-style:preserve-3d}
+.lib-book .bd .face{position:absolute;left:0;top:0;width:100%;height:100%;backface-visibility:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,var(--shade,.42)) 130%);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+/* Широкие блоки (обложки, страницы) изначально повёрнуты: видно только узкое ребро */
+.lib-book .bd-cover-l,.lib-book .bd-cover-r,.lib-book .bd-pages-block,.lib-book .bd-single-page{
+  width:var(--cw,220px);height:100%;left:0;top:0;
+  transform:rotateY(-90deg);transform-origin:left center;
+  --w:6px;
+  transition:transform 1.6s cubic-bezier(.3,.7,.2,1);
+}
+.lib-book .bd-pages-block{--w:calc(var(--cw,220px)*.18)}
+.lib-book .bd-single-page{--w:2px}
+/* П4 правая обложка — сдвинута вправо от оси (чтобы раскрывалась слева) */
+.lib-book .bd-cover-r{transform:rotateY(-90deg) translateX(var(--cw,220px))}
+/* П5 КОРЕШОК: узкая грань на полке */
+.lib-book .bd-spine{width:var(--bw,64px);height:100%;left:0;top:0;transform:none;z-index:5}
+.lib-book .bd-spine .face{
+  background:var(--bc,#56372b);
+  background-image:var(--tex),linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.38));
+  background-size:cover,auto;background-position:center;
+}
+/* ---------- ГРАНИ КУБА ---------- */
+.lib-book .bd .face-front{transform:translateZ(var(--w))}
+.lib-book .bd .face-back{transform:translateZ(calc(var(--w)*-1)) rotateY(180deg)}
+.lib-book .bd .face-top{width:100%;height:var(--w);top:0;transform-origin:top;transform:rotateX(90deg)}
+.lib-book .bd .face-bottom{width:100%;height:var(--w);bottom:0;transform-origin:bottom;transform:rotateX(-90deg)}
+.lib-book .bd .face-left{width:var(--w);height:100%;left:0;transform-origin:left;transform:rotateY(-90deg)}
+.lib-book .bd .face-right{width:var(--w);height:100%;right:0;transform-origin:right;transform:rotateY(90deg)}
+/* ---------- ОФОРМЛЕНИЕ ГРАНЕЙ ---------- */
+/* страницы (П1, П2) — бумага: фронт/бэк с текстурой, боковые — срез */
+.lib-book .bd-pages-block .face,
+.lib-book .bd-single-page .face{background:#f4ecda}
+.lib-book .bd-pages-block .face-front,
+.lib-book .bd-pages-block .face-back,
+.lib-book .bd-single-page .face-front,
+.lib-book .bd-single-page .face-back{
+  background-image:url("library/tex/paper.svg"),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
+  background-size:cover,auto;background-position:center;
+}
+/* обложки (П3, П4) — кожа, текстура на всех гранях */
+.lib-book .bd-cover-l .face,
+.lib-book .bd-cover-r .face{
+  background-color:#4a3524;
+  background-image:var(--tex),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
+  background-size:cover,auto;background-position:center;
+}
+/* подпись названия: на корешке (полка) — вертикальная; на обложке (раскрытие) — горизонтальная по центру */
+.lib-book .bd-spine .title{
+  position:absolute;inset:10px 4px;display:grid;place-items:center;writing-mode:vertical-rl;
+  font-family:var(--book-font,'EB Garamond',serif);
+  font-size:clamp(14px, calc(var(--bw,64px)*.35), 22px);
+  letter-spacing:.12em;font-weight:600;text-align:center;color:#f2e5c9;
+  text-shadow:0 1px 3px rgba(0,0,0,.8);
+}
+.lib-book .bd-cover-r .title{
+  position:absolute;left:10%;right:10%;top:50%;transform:translateY(-50%);text-align:center;
+  font-family:var(--book-font,'EB Garamond',serif);
+  font-size:clamp(22px, calc(var(--cw,220px)*.15), 36px);
+  letter-spacing:.06em;font-weight:600;line-height:1.2;
+  text-shadow:0 1px 3px rgba(0,0,0,.65),0 0 12px rgba(0,0,0,.35);
+  color:#f6e27a;z-index:6;
+}
+.lib-book[style*="silver"] .bd-cover-r .title{color:#e8edf1}
+
+/* ---------- РАСКРЫТИЕ (в ШИРИНУ): широкие блоки доворачиваются -90° -> 0° ----------
+   Контейнер .lib-book НЕ поворачивается (перенос и масштаб только).
+   Обложки и страницы встают лицом к зрителю: видна ШИРИНА книги (--cw),
+   с текстурой обложки и бумаги, а не узкое ребро. */
 .lib-book.pulling{
-  transform:translateZ(180px) translateY(-52px) rotateY(90deg);
+  transform:translateZ(180px) translateY(-52px);
   transition:transform 1.6s cubic-bezier(.3,.7,.2,1),box-shadow 1.6s;
   box-shadow:-10px 14px 22px rgba(0,0,0,.6),0 0 30px var(--warm-light);
   z-index:40;
 }
 .lib-book.opening{
-  transform:translateZ(360px) translateY(-12vh) rotateY(180deg) scale(1.35);
+  transform:translateZ(360px) translateY(-12vh) scale(1.35);
   transition:transform 1.8s cubic-bezier(.25,.8,.3,1);
   box-shadow:-12px 18px 34px rgba(0,0,0,.7),0 0 50px var(--warm-light);
   z-index:50;
 }
+.lib-book.opening .bd-spine{opacity:0;transition:opacity .5s}
+/* широкие блоки встают лицом (раскрытие в ширину).
+   Обложка П4 — ПЕРЕД страницами (меньший Z = ближе к зрителю), чтобы название
+   и текстура обложки были видны, а блок страниц не перекрывал её. */
+.lib-book.opening .bd-cover-r{transform:rotateY(0deg) translateZ(6px)}
+.lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateZ(-110px) translateX(-28px)}
+.lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateZ(-90px)}
+.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateZ(-50px)}
 /* книга выходит на весь экран: сцена затемняется, книга на переднем плане */
 .lib-scene.is-opening{overflow:visible}
-/* затемняем ТОЛЬКО соседние книги и доску; сама книга остаётся непрозрачной */
 .lib-scene.is-opening .lib-book:not(.pulling):not(.opening){opacity:.22;transition:opacity 1.4s}
 .lib-scene.is-opening .lib-board{opacity:.22;transition:opacity 1.4s}
 .lib-book.zooming{
-  transform:translateZ(900px) translateY(0) rotateY(180deg) scale(8);
+  transform:translateZ(900px) translateY(0) scale(8);
   transition:transform 1.6s cubic-bezier(.25,.8,.3,1);
   box-shadow:-18px 30px 70px rgba(0,0,0,.85),0 0 100px var(--warm-light);
   z-index:60;
 }
-
-/* ---- 3D-структура книги: 5 параллелепипедов ----
-   П1 блок страниц (толстый) · П2 одна страница (тонкая) · П3 левая обложка · П4 правая обложка · П5 корешок
-   Заливка сплошным цветом + осветляющий градиент 15% к краям (кроме стыков между параллелепипедами). */
-.lib-book{transform-style:preserve-3d;perspective:1400px}
-.lib-book .bd{position:absolute;left:0;right:0;top:0;bottom:0;transform-style:preserve-3d}
-/* ---------- П5 КОРЕШОК ---------- */
-.lib-book .bd-spine{
-  left:auto;right:auto;bottom:auto;
-  width:var(--spine-w,26px);height:100%;left:0;top:0;
-  transform:translateZ(calc(var(--spine-w,26px)/-2));
-}
-.lib-book .bd-spine .face{
-  background:linear-gradient(0deg,hsla(0,0%,100%,.15),hsla(0,0%,100%,.15)); /* осветление к краям */
-}
-/* ---------- П1 БЛОК СТРАНИЦ (толстый) ---------- */
-.lib-book .bd-pages-block{
-  left:var(--spine-w,26px);
-  transform:translateZ(calc(var(--cover-t,6px)*-1));
-}
-/* толстая боковая грань страниц (срез) */
-.lib-book .bd-pages-block .face-side{background:#e9ddc4}
-/* ---------- П2 ОДНА СТРАНИЦА (тонкая) ---------- */
-.lib-book .bd-single-page{
-  left:var(--spine-w,26px);
-  transform:translateZ(0);
-}
-/* ---------- П3 ЛЕВАЯ / П4 ПРАВАЯ ОБЛОЖКИ ---------- */
-.lib-book .bd-cover-l{align-items:flex-end;transform:translateZ(calc(var(--spine-w,26px)/2))}
-.lib-book .bd-cover-r{align-items:flex-end;transform:translateZ(calc(var(--spine-w,26px)/2))}
-/* сплошная заливка + динамическое затенение (--shade от источника света сверху-справа) */
-.lib-book .face{
-  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,var(--shade,.42)) 130%);
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
-}
-/* взаимная тень книги на полке (сдвиг против света) */
-.lib-box-shadow{position:absolute;left:2%;right:2%;bottom:-14px;height:14px;border-radius:50%;background:radial-gradient(50% 60% at 50% 100%,rgba(0,0,0,.5),transparent 70%);transition:transform .2s;pointer-events:none}
-/* фронт/бэк (широкие стороны) — страницы и обложки */
-.lib-book .bd-pages-block .face-pg,
-.lib-book .bd-single-page .face-pg{background:#f4ecda}
-.lib-book .bd-cover-l .face-cv,
-.lib-book .bd-cover-r .face-cv{
-  background-color:#4a3524;
-  background-image:var(--tex),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
-  background-size:cover,auto;background-position:center;
-}
-/* осветляющий градиент 15% к краям НЕ на стыках (стыки — левый край для обложек/страниц) */
-.lib-book .bd-pages-block .face-pg,
-.lib-book .bd-single-page .face-pg{
-  background-image:url("library/tex/paper.svg"),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
-  background-size:cover,auto;background-position:center;
-}
-.lib-book .face-cv{background-image:linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%)}
-/* подпись названия книги на П4 (правая обложка): свой шрифт, золото/серебро, центрировано по корешку */
-.lib-book .bd-cover-r .title{
-  position:absolute;left:14%;right:14%;top:50%;transform:translateY(-50%);
-  text-align:center;writing-mode:vertical-rl;text-orientation:mixed;
-  font-family:var(--book-font,'EB Garamond',serif);
-  font-size:clamp(18px, calc(var(--bh,413px) * .055), 30px);
-  letter-spacing:.10em;font-weight:600;line-height:1.15;
-  text-shadow:0 1px 3px rgba(0,0,0,.65),0 0 12px rgba(0,0,0,.35);
-  transition:opacity .6s ease;
-}
-.lib-book .bd-cover-r[data-tone="gold"] .title,
-.lib-book[style*="gold"] .bd-cover-r .title{background:linear-gradient(180deg,#f6e27a,#caa84e 45%,#f2d76b);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-.lib-book .bd-cover-r[data-tone="silver"] .title,
-.lib-book[style*="silver"] .bd-cover-r .title{background:linear-gradient(180deg,#f2f4f6,#b9c0c6 45%,#dde2e6);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-.lib-book.pulling .bd-cover-r .title{opacity:0}
-.lib-book.opening .bd-cover-r .title{opacity:0}
-
-/* ---------- РАСКРЫТИЕ: П4 поворот 180°, П2 — с отставанием на 90° ---------- */
-.lib-book .bd-cover-r{transform-origin:left center;transition:transform 1.6s cubic-bezier(.3,.7,.2,1)}
-.lib-book .bd-single-page{transform-origin:left center;transition:transform 1.6s cubic-bezier(.3,.7,.2,1)}
-/* П4: от 0 до 90°; П2 включается после 90° (JS добавляет класс .phase2) */
-.lib-book.opening .bd-cover-r{transform:rotateY(-180deg) translateZ(calc(var(--spine-w,26px)/2))}
-.lib-book.opening.phase2 .bd-single-page{transform:rotateY(-180deg)}
-/* блок страниц остаётся, задник (П3) и корешок на месте */
-.lib-book.opening .bd-spine{opacity:1}
+.lib-book.zooming .bd-spine{opacity:0}
 
 /* ---------- Читалка (разворот) ---------- */
 .lib-reader{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(10,8,5,.9);perspective:2200px}
@@ -217,7 +202,6 @@ body.lib-lens-on{cursor:zoom-in}
 /* ---- Адаптив ---- */
 @media (max-width:720px){
   .lib-book{flex:0 1 var(--bw,56px);min-height:0}
-  .lib-book .spine{font-size:12px}
   .lib-page{font-size:15px;padding:20px 18px}
   .lib-spread{flex-direction:column;overflow-y:auto}
   .lib-page{max-height:none}

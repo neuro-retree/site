@@ -150,6 +150,7 @@ books: [
       book.style.setProperty("--bc", b.color);
       book.style.setProperty("--bh", b.h + "px");
       book.style.setProperty("--bw", (b.w || 64) + "px");
+      book.style.setProperty("--cw", Math.round(b.h * 0.55) + "px");
       if (b.font) book.style.setProperty("--book-font", b.font);
       if (b.tone) book.style.setProperty("--book-tone", b.tone);
       if (b.tex) book.style.setProperty("--tex", "url(" + BASE + "assets/" + b.tex + ")");
@@ -160,20 +161,27 @@ books: [
       book.tabIndex = 0;
       book.setAttribute("role", "button");
       book.setAttribute("aria-label", "Открыть книгу " + b.title);
-      book.appendChild(el("div", "ornament"));
       // 5 параллелепипедов: корешок (П5), блок страниц (П1), одна страница (П2),
-      // левая обложка (П3), правая обложка (П4 с названием)
-      var bdSpine = el("div", "bd bd-spine");
-      bdSpine.appendChild(el("div", "face face-side"));
-      var bdPages = el("div", "bd bd-pages-block");
-      bdPages.appendChild(el("div", "face face-pg"));
-      var bdSingle = el("div", "bd bd-single-page");
-      bdSingle.appendChild(el("div", "face face-pg"));
-      var bdCoverL = el("div", "bd bd-cover-l");
-      bdCoverL.appendChild(el("div", "face face-cv"));
-      var bdCoverR = el("div", "bd bd-cover-r");
-      bdCoverR.appendChild(el("div", "face face-cv"));
-      bdCoverR.appendChild(el("div", "title", b.title));
+      // левая обложка (П3), правая обложка (П4 с названием).
+      // Каждый блок — куб из 6 граней (front/back/left/right/top/bottom).
+      function cube(cls, extra) {
+        var d = el("div", "bd " + cls);
+        ["front","back","left","right","top","bottom"].forEach(function (f) {
+          d.appendChild(el("div", "face face-" + f));
+        });
+        if (extra) extra(d);
+        return d;
+      }
+      var bdSpine = cube("bd-spine", function (d) {
+        d.appendChild(el("div", "title", b.title));
+      });
+      var bdPages = cube("bd-pages-block");
+      var bdSingle = cube("bd-single-page");
+      var bdCoverL = cube("bd-cover-l");
+      var bdCoverR = cube("bd-cover-r", function (d) {
+        // название — внутри видимой передней грани (иначе перекрывается гранью)
+        d.querySelector(".face-front").appendChild(el("div", "title", b.title));
+      });
       book.appendChild(bdSpine); book.appendChild(bdPages);
       book.appendChild(bdSingle); book.appendChild(bdCoverL); book.appendChild(bdCoverR);
       book.addEventListener("click", function () { openBook(i); });
@@ -232,11 +240,6 @@ books: [
       scene.classList.add("is-opening");
       Sound.play("open", .45);
       book.classList.add("opening");
-      // П4 поворачивается на 90° за первые полфазы; затем подключается П2 (одна страница)
-      setTimeout(function () {
-        if (state !== "opening") return;
-        book.classList.add("phase2");
-      }, CONFIG.anim.open / 2);
       setTimeout(function () {
         if (state !== "opening") return;
         go("zooming");
@@ -260,7 +263,6 @@ books: [
     scene.classList.remove("is-opening");
     setTimeout(function () {
       book.classList.remove("zooming");
-      book.classList.remove("phase2");
       if (!canNext(state, "returning")) return;
       go("returning");
       Sound.play("return", .45);

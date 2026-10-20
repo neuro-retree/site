@@ -1,23 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="560">
 <defs>
   <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0" stop-color="#6a4a2e" stop-opacity="0.55"/>
-    <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.12"/>
-    <stop offset="1" stop-color="#6a4a2e" stop-opacity="0.6"/>
+    <stop offset="0" stop-color="#1a0f08" stop-opacity="0.70"/>
+    <stop offset="0.25" stop-color="#f0d9a8" stop-opacity="0.16"/>
+    <stop offset="0.75" stop-color="#f0d9a8" stop-opacity="0.22"/>
+    <stop offset="1" stop-color="#1a0f08" stop-opacity="0.65"/>
   </linearGradient>
   <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#ffffff" stop-opacity="0.18"/>
+    <stop offset="0" stop-color="#f0d9a8" stop-opacity="0.30"/>
     <stop offset="0.5" stop-color="transparent"/>
-    <stop offset="1" stop-color="#000000" stop-opacity="0.25"/>
+    <stop offset="1" stop-color="#1a0f08" stop-opacity="0.35"/>
   </linearGradient>
-  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/>
-    <feColorMatrix in="n" type="saturate" values="0" result="gray"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.05"/></feComponentTransfer>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.32"/></feComponentTransfer>
     <feComposite operator="over" in2="SourceGraphic"/></filter>
+  <pattern id="stitch" width="26" height="12" patternUnits="userSpaceOnUse">
+    <rect x="0" y="4" width="12" height="4" rx="2" fill="#f0d9a8" fill-opacity="0.55"/>
+    <rect x="14" y="4" width="12" height="4" rx="2" fill="#b0815b" fill-opacity="0.4"/>
+  </pattern>
 </defs>
-<rect width="300" height="400" fill="#6a4a2e"/>
-<rect width="300" height="400" fill="url(#g1)"/>
-<rect width="300" height="400" fill="url(#g2)"/>
-<rect width="300" height="400" filter="url(#noise)" opacity="0.7"/>
-<rect width="300" height="400" fill="none" stroke="#8a6a48" stroke-width="6" stroke-opacity="0.5" rx="4"/>
+<rect width="400" height="560" fill="#6a4a2e"/>
+<rect width="400" height="560" fill="url(#g1)"/>
+<rect width="400" height="560" fill="url(#g2)"/>
+<rect width="400" height="560" filter="url(#grain)"/>
+<rect x="10" y="10" width="380" height="540" fill="none" stroke="#b0815b" stroke-width="5" stroke-opacity="0.6" rx="8"/>
+<rect x="22" y="22" width="356" height="516" fill="none" stroke="#1a0f08" stroke-width="2" stroke-opacity="0.35" rx="5"/>
+<rect x="18" y="18" width="4" height="524" fill="url(#stitch)"/>
+<rect x="378" y="18" width="4" height="524" fill="url(#stitch)"/>
 </svg>
