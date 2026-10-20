@@ -416,7 +416,7 @@ def build_article(a, md_text):
   %s
   %s
   %s
-  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите <a href="https://t.me/tatzenbot">@tatzenbot</a>.</div>
+  <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите мне на почту <a href="mailto:neuro-retree@ya.ru">neuro-retree@ya.ru</a>.</div>
 </div>
 <script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
 function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
@@ -779,7 +779,6 @@ def build_home():
   <p>Выберите, как вам удобнее получить книги:</p>
   <p style="display:flex;gap:10px;flex-wrap:wrap">
     <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="mailto:neuro-retree@ya.ru?subject=Книги&body=Здравствуйте, Татьяна! Пришлите, пожалуйста, книги">Скачать на сайте (по почте)</a>
-    <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://t.me/tatzenbot">Получить в Telegram</a>
     <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="https://vk.com/club242405739">Получить во ВКонтакте</a>
   </p>
   <p class="note" style="color:#5b7080;font-size:15px">Если Telegram у вас открывается плохо, это не ваша вина. Выберите другой способ выше — книги пришлю письмом или через ВКонтакте.</p>
@@ -787,28 +786,19 @@ def build_home():
 
 <div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)" id="verify">
   <h2 style="margin-top:0;color:#0e7c66">Это действительно я, и меня можно поддержать</h2>
-  <p>Мошенники копируют страницы авторов и «продают» курсы от их имени. Мои настоящие адреса — только эти:</p>
-  <ul>
-    <li>Этот сайт: <strong>neuro-retree.github.io/site</strong></li>
-    <li>Telegram-канал: <a href="https://t.me/neuro_retree">t.me/neuro_retree</a></li>
-    <li>Бот для книг: <a href="https://t.me/tatzenbot">@tatzenbot</a></li>
-    <li>ВКонтакте: <a href="https://vk.com/club242405739">vk.com/club242405739</a> · страница <a href="https://vk.ru/neuro_retree">vk.ru/neuro_retree</a></li>
-    <li>Одноклассники: <a href="https://ok.ru/group/70000060482048">ok.ru/group/70000060482048</a></li>
-    <li>Дзен: <a href="https://dzen.ru/tatz">dzen.ru/tatz</a></li>
-    <li>MAX (чат с ботом): <a href="https://max.ru/se14718976_bot">@se14718976_bot в MAX</a></li>
-    <li>Rutube: <a href="https://rutube.ru/channel/76493823">rutube.ru/channel/76493823</a></li>
-    <li>VK Видео: <a href="https://vkvideo.ru/@neuro_retree">vkvideo.ru/@neuro_retree</a></li>
-    <li>YouTube: <a href="https://www.youtube.com/channel/UCdviPlS-p5D8WMq5r18U8_A">канал на YouTube</a></li>
-    <li>Поддержка на Boosty: <a href="https://boosty.to/tatzen">boosty.to/tatzen</a></li>
-    <li>Почта: <a href="mailto:neuro-retree@ya.ru">neuro-retree@ya.ru</a></li>
-  </ul>
-  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #e2e9ee">
-    <a href="https://boosty.to/tatzen" style="background:var(--accent);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Поддержать на Boosty</a>
-    <a href="https://vk.com/club242405739" style="background:var(--accent2);color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в VK-сообщество</a>
-    <a href="https://ok.ru/group/70000060482048" style="background:#f60;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Вступить в Одноклассники</a>
-    <a href="https://dzen.ru/tatz" style="background:#e8433b;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px;">Канал в Дзене</a>
+  <p>Мошенники копируют страницы авторов и «продают» курсы от их имени. Мои настоящие адреса — только те, что на кнопках ниже:</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:16px">
+    <a class="socbtn" href="https://t.me/neuro_retree" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">✈️ <span><b>Telegram-канал</b><br><small style="color:#5b7080">t.me/neuro_retree</small></span></a>
+    <a class="socbtn" href="https://vk.com/club242405739" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">ВК <span><b>ВКонтакте</b><br><small style="color:#5b7080">сообщество</small></span></a>
+    <a class="socbtn" href="https://ok.ru/group/70000060482048" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">ОК <span><b>Одноклассники</b><br><small style="color:#5b7080">группа</small></span></a>
+    <a class="socbtn" href="https://dzen.ru/tatz" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">Дзен <span><b>Дзен</b><br><small style="color:#5b7080">канал</small></span></a>
+    <a class="socbtn" href="https://rutube.ru/channel/76493823" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">▶ <span><b>Rutube</b><br><small style="color:#5b7080">канал</small></span></a>
+    <a class="socbtn" href="https://vkvideo.ru/@neuro_retree" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">▶ <span><b>VK Видео</b><br><small style="color:#5b7080">канал</small></span></a>
+    <a class="socbtn" href="https://www.youtube.com/channel/UCdviPlS-p5D8WMq5r18U8_A" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">▶ <span><b>YouTube</b><br><small style="color:#5b7080">канал</small></span></a>
+    <a class="socbtn" href="https://boosty.to/tatzen" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">❤ <span><b>Boosty</b><br><small style="color:#5b7080">поддержка</small></span></a>
+    <a class="socbtn" href="mailto:neuro-retree@ya.ru" style="display:flex;align-items:center;gap:10px;background:#f4f7f9;border:1px solid #e2e9ee;border-radius:12px;padding:12px 14px;color:#1f2d3a;text-decoration:none">✉ <span><b>Почта</b><br><small style="color:#5b7080">neuro-retree@ya.ru</small></span></a>
   </div>
-  <p style="color:#5b7080;font-size:14px;margin-top:12px">Материалы на сайте бесплатны. Если захотите сказать спасибо — угостите чашкой чая на Boosty. Перевод по СБП или QR-коду появятся позже.</p>
+  <p style="color:#5b7080;font-size:14px;margin-top:12px">Материалы на сайте бесплатны. Если захотите сказать спасибо — угостите чашкой чая на Boosty.</p>
   <p style="margin-top:12px"><strong>Я никогда не прошу</strong> номер карты, коды из СМС, паспортные данные или «срочный перевод». Если кто-то пишет от моего имени и просит такое — это мошенники.</p>
 </div>
 """ % "".join(cards)
