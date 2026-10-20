@@ -37,10 +37,10 @@ body.book-mode .article{
 .book-toolbar button:hover{background:#f3ebdc}
 .book-toolbar .tb-zoom{font-size:16px;cursor:pointer;color:#5a4630}
 
-/* Кнопка-лупа: круглая, с плавными краями */
+/* Кнопка-лупа: круглая, с плавными краями, центр строго на курсоре */
 .magnify-lens{
   position:fixed;z-index:9999;pointer-events:none;display:none;
-  width:180px;height:180px;border-radius:50%;
+  width:236px;height:236px;border-radius:50%;
   border:3px solid rgba(255,255,255,.85);
   box-shadow:0 0 0 2px rgba(60,40,10,.35), 0 8px 26px rgba(0,0,0,.45),
              inset 0 0 0 1px rgba(255,255,255,.6);
