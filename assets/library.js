@@ -107,7 +107,8 @@ books: [
   /* ================= ДИНАМИЧЕСКОЕ ЗАТЕНЕНИЕ =================
    Источник света условно сверху-справа от камеры. Каждые ~80мс пересчитываем
    затенение книг (градиент в темноту), взаимные тени и тень на полке. */
-  var lightTimer = null, shadowMap = new WeakMap();
+  var lightTimer = null, shadowMap = new WeakMap(), lightPaused = false;
+  function pauseLightLoop(v) { lightPaused = v; }
   function computeShadow(i, x) {
     // x — горизонтальная позиция книги (0..1); свет сверху-справа
     var dir = (x - 0.5) * 2;            // -1..1
@@ -121,6 +122,7 @@ books: [
   function startLightLoop() {
     if (lightTimer) return;
     lightTimer = setInterval(function () {
+      if (lightPaused || document.hidden) return; // не делаем невидимую работу (вкладка скрыта)
       var books = row.children;
       for (var i = 0; i < books.length; i++) {
         var r = books[i].getBoundingClientRect();
@@ -433,6 +435,15 @@ books: [
     lensLoad();
     Sound.load();
     startLightLoop();
+    // пауза светового цикла, когда полка вне экрана (полка внизу страницы)
+    if ("IntersectionObserver" in window) {
+      try {
+        var io = new IntersectionObserver(function (entries) {
+          pauseLightLoop(!entries[0].isIntersecting);
+        }, { rootMargin: "200px" });
+        io.observe(scene);
+      } catch (e) {}
+    }
     // синхронизируем кнопки с загруженными настройками
     if (lensOn) {
       document.body.classList.add("lib-lens-on");

@@ -25,6 +25,11 @@ body.lib-mode button{font-family:Georgia,serif}
 
 /* ---- Фон-подложка полки: чистый тёмный градиент (без деревянной текстуры) ---- */
 .lib-scene{position:relative;min-height:100svh;display:grid;place-items:end center;perspective:1200px;perspective-origin:50% 72%;padding-bottom:3vh}
+/* тёплая «лампа» сверху: мягкий радиальный свет, придаёт сцене глубину (без текстуры) */
+.lib-scene::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(45% 32% at 50% -4%,rgba(255,206,130,.22),rgba(255,206,130,.05) 55%,transparent 78%);
+}
 .lib-shelf{width:min(1120px,94vw);transform:rotateX(8deg) translateY(2vh);transform-style:preserve-3d}
 .lib-row{display:flex;align-items:flex-end;justify-content:center;gap:clamp(4px,1.1vw,16px);padding:26px 16px 0}
 .lib-board{height:var(--shelf-h);background:linear-gradient(180deg,#775337,#392419 70%,#170f0a);box-shadow:0 16px 30px rgba(0,0,0,.6);border-radius:2px}
