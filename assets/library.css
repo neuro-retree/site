@@ -57,6 +57,8 @@ body.lib-mode button{font-family:Georgia,serif}
   writing-mode:vertical-rl;text-align:center;font-size:clamp(14px,1.4vw,20px);
   letter-spacing:.05em;text-shadow:0 1px 2px #000, 0 0 6px rgba(182,154,99,.35);overflow:hidden;white-space:nowrap;
   position:relative;z-index:2;
+  background:linear-gradient(90deg,rgba(0,0,0,.4),transparent 35%,rgba(255,255,255,.08)),url("library/book_side_stack.png");
+  background-size:cover;background-position:center;
 }
 /* золотое тиснение по краю корешка */
 .lib-book .spine::before{
@@ -115,17 +117,24 @@ body.lib-mode button{font-family:Georgia,serif}
 .lib-book .cover-front{
   background:
     linear-gradient(90deg,rgba(0,0,0,.25),transparent 12%,rgba(255,255,255,.08) 70%,rgba(0,0,0,.3)),
-    url("library/book_cover_old.jpg"),var(--bc,#56372b);
-  background-size:cover,cover,auto;background-position:center;background-blend-mode:multiply;
-  display:grid;place-items:center;color:var(--paper);font-size:20px;text-align:center;padding:14px;
+    url("library/open_covers_outer.jpg");
+  background-size:cover,cover;background-position:center;background-blend-mode:multiply;
+  display:grid;place-items:center;color:rgba(255,240,220,.9);font-size:20px;text-align:center;padding:14px;
   box-shadow:inset 0 0 26px rgba(0,0,0,.4);z-index:4;
   transform-origin:left center;transition:transform .7s cubic-bezier(.3,.8,.3,1);
+}
+/* при раскрытии передняя створка показывает ВНУТРЕННЮЮ сторону обложки (форзац) */
+.lib-book.opening .cover-front{
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.18),transparent 15%),
+    url("library/open_covers_inner.jpg");
+  background-size:cover,cover;background-position:center;background-blend-mode:multiply;
 }
 .lib-book .cover-back{
   background:
     linear-gradient(270deg,rgba(0,0,0,.28),transparent 15%,rgba(255,255,255,.06) 70%,rgba(0,0,0,.3)),
-    url("library/book_cover_old.jpg"),var(--bc,#56372b);
-  background-size:cover,cover,auto;background-position:center;background-blend-mode:multiply;
+    url("library/open_covers_inner.jpg");
+  background-size:cover,cover;background-position:center;background-blend-mode:multiply;
   box-shadow:inset 0 0 26px rgba(0,0,0,.45);z-index:4;
   transform-origin:right center;transition:transform .7s cubic-bezier(.3,.8,.3,1);
 }
@@ -147,7 +156,12 @@ body.lib-mode button{font-family:Georgia,serif}
 .lib-reader{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(10,8,5,.9);perspective:2200px}
 .lib-reader.open{display:flex}
 .lib-spread{display:flex;max-width:min(1000px,95vw);max-height:88svh;border-radius:4px 10px 10px 4px;overflow:hidden;box-shadow:0 34px 90px rgba(0,0,0,.75);background:var(--paper)}
-.lib-page{flex:1;min-width:0;background:var(--paper);color:var(--ink);padding:34px 38px;font-size:17px;line-height:1.78;max-height:88svh;overflow:auto}
+.lib-page{flex:1;min-width:0;background:var(--paper);color:var(--ink);padding:34px 38px;font-size:17px;line-height:1.78;max-height:88svh;overflow:auto;position:relative}
+.lib-page::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;mix-blend-mode:multiply;
+  background:url("library/pages_open_no_cover.jpg") center/cover no-repeat;
+}
+.lib-page>*{position:relative;z-index:1}
 .lib-page.left{border-radius:4px 0 0 4px;box-shadow:inset 16px 0 22px -18px rgba(60,40,10,.6)}
 .lib-page.right{border-radius:0 8px 8px 0;box-shadow:inset -16px 0 22px -18px rgba(60,40,10,.55)}
 .lib-page h1,.lib-page h2{color:#5a4630;margin:.2em 0 .5em}
