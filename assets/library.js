@@ -14,7 +14,7 @@
       { id: "video",    title: "Видео",    color: "#3a4a69", h: 280, tag: "видеоальбом" },
       { id: "author",   title: "Об авторе",color: "#6a4a2e", h: 310, tag: "личный том" }
     ],
-    anim: { pull: 700, open: 900, zoom: 800, close: 900, ret: 700 }
+    anim: { pull: 1400, open: 1800, zoom: 1600, close: 1800, ret: 1400 }
   };
   var state = "shelf", sel = -1, cur = 0, pages = [], quiet = false;
 
@@ -126,13 +126,21 @@
       book.setAttribute("role", "button");
       book.setAttribute("aria-label", "Открыть книгу " + b.title);
       book.appendChild(el("div", "ornament"));
-      var sp = el("div", "spine", b.title);
-      book.appendChild(sp);
-      // 3D-структура книги: передняя/задняя обложки + блок страниц
-      var front = el("div", "cover-front", b.title);
-      var back = el("div", "cover-back");
-      var pages = el("div", "pages");
-      book.appendChild(front); book.appendChild(back); book.appendChild(pages);
+      // 5 параллелепипедов: корешок (П5), блок страниц (П1), одна страница (П2),
+      // левая обложка (П3), правая обложка (П4 с названием)
+      var bdSpine = el("div", "bd bd-spine");
+      bdSpine.appendChild(el("div", "face face-side"));
+      var bdPages = el("div", "bd bd-pages-block");
+      bdPages.appendChild(el("div", "face face-pg"));
+      var bdSingle = el("div", "bd bd-single-page");
+      bdSingle.appendChild(el("div", "face face-pg"));
+      var bdCoverL = el("div", "bd bd-cover-l");
+      bdCoverL.appendChild(el("div", "face face-cv"));
+      var bdCoverR = el("div", "bd bd-cover-r");
+      bdCoverR.appendChild(el("div", "face face-cv"));
+      bdCoverR.appendChild(el("div", "title", b.title));
+      book.appendChild(bdSpine); book.appendChild(bdPages);
+      book.appendChild(bdSingle); book.appendChild(bdCoverL); book.appendChild(bdCoverR);
       book.addEventListener("click", function () { openBook(i); });
       book.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openBook(i); }
@@ -189,6 +197,11 @@
       scene.classList.add("is-opening");
       Sound.play("open", .45);
       book.classList.add("opening");
+      // П4 поворачивается на 90° за первые полфазы; затем подключается П2 (одна страница)
+      setTimeout(function () {
+        if (state !== "opening") return;
+        book.classList.add("phase2");
+      }, CONFIG.anim.open / 2);
       setTimeout(function () {
         if (state !== "opening") return;
         go("zooming");
@@ -212,6 +225,7 @@
     scene.classList.remove("is-opening");
     setTimeout(function () {
       book.classList.remove("zooming");
+      book.classList.remove("phase2");
       if (!canNext(state, "returning")) return;
       go("returning");
       Sound.play("return", .45);
