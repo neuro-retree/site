@@ -18,6 +18,27 @@
   };
   var state = "shelf", sel = -1, cur = 0, pages = [], quiet = false;
 
+  /* Конечный автомат состояний (запрещает недопустимые переходы) */
+  var ALLOWED = {
+    shelf: ["pulling"],
+    pulling: ["opening", "closing"],
+    opening: ["zooming", "closing"],
+    zooming: ["reading", "closing"],
+    reading: ["closing"],
+    closing: ["returning"],
+    returning: ["shelf"]
+  };
+  function canNext(from, to) {
+    var ok = ALLOWED[from] && ALLOWED[from].indexOf(to) >= 0;
+    if (!ok) console.warn("[library] недопустимый переход: " + from + " -> " + to);
+    return ok;
+  }
+  function go(to) {
+    if (!canNext(state, to)) return false;
+    state = to;
+    return true;
+  }
+
   /* ================= ЗВУК (WebAudio) ================= */
   var Sound = (function () {
     var AC = null, on = true, cache = {};
@@ -45,14 +66,28 @@
     function play(kind, vol) {
       if (!on) return;
       var ac = ctx(); if (!ac) return;
+      // лимит частоты: не чаще 1 звука в 120мс (защита от наложения при быстром листании)
+      var now = Date.now();
+      if (now - lastPlay < 120 && kind !== "pull" && kind !== "return") return;
+      lastPlay = now;
       if (!cache[kind]) cache[kind] = make(kind);
       if (!cache[kind]) return;
       var src = ac.createBufferSource(); src.buffer = cache[kind];
       var g = ac.createGain(); g.gain.value = vol || 0.4;
       src.connect(g); g.connect(ac.destination); src.start();
-      // многократные вызовы не плодим: для курсора ограничим низкой частотой
     }
-    return { play: play, on: function () { return on; }, set: function (v) { on = v; } };
+    var lastPlay = 0;
+    var LS_SND = "library.sound";
+    function soundSave() {
+      try { localStorage.setItem(LS_SND, String(on)); } catch (e) {}
+    }
+    function soundLoad() {
+      try { on = localStorage.getItem(LS_SND) !== "false"; } catch (e) {}
+    }
+    return {
+      play: play, on: function () { return on; }, set: function (v) { on = v; },
+      save: soundSave, load: soundLoad
+    };
   })();
 
   /* ================= ЭЛЕМЕНТЫ ================= */
@@ -96,6 +131,7 @@
     var bToc = el("button", null, "☰ Оглавление"); bToc.type = "button";
     var bNext = el("button", null, "Далее ▶"); bNext.type = "button";
     var bLens = el("button", null, "🔍 Лупа"); bLens.type = "button";
+    var bLensMode = el("button", "lens-mode", "Лупа: область 🔳"); bLensMode.type = "button";
     var bSnd = el("button", null, "🔊 Звук: вкл"); bSnd.type = "button";
     var bClose = el("button", null, "✕ Закрыть"); bClose.type = "button";
     var pos = el("span", "lpos", "–");
@@ -103,10 +139,11 @@
     bNext.onclick = function () { flip(1); };
     bToc.onclick = function () { Sound.play("flip", .4); showToc(); };
     bClose.onclick = closeBook;
-    bSnd.onclick = function () { Sound.set(!Sound.on()); bSnd.textContent = Sound.on() ? "🔊 Звук: вкл" : "🔇 Звук: выкл"; };
+    bSnd.onclick = function () { Sound.set(!Sound.on()); bSnd.textContent = Sound.on() ? "🔊 Звук: вкл" : "🔇 Звук: выкл"; Sound.save(); };
     bLens.onclick = function () { toggleLens(); };
+    bLensMode.onclick = function () { cycleLensMode(); };
     bar.appendChild(bPrev); bar.appendChild(bToc); bar.appendChild(pos); bar.appendChild(bNext);
-    bar.appendChild(bLens); bar.appendChild(bSnd); bar.appendChild(bClose);
+    bar.appendChild(bLens); bar.appendChild(bLensMode); bar.appendChild(bSnd); bar.appendChild(bClose);
 
     spread = el("div", "lib-spread");
     pL = el("div", "lib-page left");
@@ -123,19 +160,19 @@
 
   /* ================= АНИМАЦИИ: открытие книги ================= */
   function openBook(i) {
-    if (state !== "shelf") return;
-    state = "pulling"; sel = i;
+    if (!canNext(state, "pulling")) return;
+    go("pulling"); sel = i;
     var book = row.children[i];
     Sound.play("pull", .5);
     book.classList.add("pulling");
     setTimeout(function () {
       if (state !== "pulling") return;
-      state = "opening";
+      go("opening");
       Sound.play("open", .45);
       book.classList.add("opening");
       setTimeout(function () {
         if (state !== "opening") return;
-        state = "zooming";
+        go("zooming");
         book.classList.add("zooming");
         setTimeout(function () {
           if (state !== "zooming") return;
@@ -147,24 +184,32 @@
   }
 
   function closeBook() {
-    if (state !== "reading") return;
-    state = "closing";
+    if (!canNext(state, "closing")) return;
+    go("closing");
     Sound.play("flip", .4);
     reader.classList.remove("open");
     var book = row.children[sel];
     book.style.visibility = "";
     setTimeout(function () {
       book.classList.remove("zooming");
-      state = "returning";
+      if (!canNext(state, "returning")) return;
+      go("returning");
       Sound.play("return", .45);
       setTimeout(function () {
         book.classList.remove("pulling", "opening");
-        state = "shelf"; sel = -1;
+        go("shelf"); sel = -1;
       }, 60);
     }, 60);
   }
 
   /* ================= ЧИТАЛКА ================= */
+  var LS_POS = "library.position"; // {book, page}
+  function posSave() {
+    try { localStorage.setItem(LS_POS, JSON.stringify({ book: sel, page: cur })); } catch (e) {}
+  }
+  function posLoad() {
+    try { return JSON.parse(localStorage.getItem(LS_POS) || "null"); } catch (e) { return null; }
+  }
   function showReader(i) {
     var id = CONFIG.books[i].id;
     var pages;
@@ -175,10 +220,16 @@
     else pages = authorPages();
     pages = pages.length ? pages : [noContent()];
     pagesObj = pages;
+    // восстановление позиции (только если книга та же и страница в диапазоне)
+    var saved = posLoad();
     cur = 0;
+    if (saved && saved.book === i && typeof saved.page === "number" && saved.page >= 0 && saved.page < pages.length) {
+      cur = saved.page;
+    }
     state = "reading";
     reader.classList.add("open");
     render();
+    posSave();
   }
 
   /* пагинация по offsetHeight: разбиваем массив блоков на «страницы» по высоте */
@@ -214,7 +265,7 @@
     var nx = cur + dir * 2;
     if (nx < 0 || nx >= n) return;
     Sound.play(dir > 0 ? "flip" : "back", .4);
-    cur = nx; render();
+    cur = nx; render(); posSave();
   }
 
   /* ================= КОНТЕНТ ================= */
@@ -255,16 +306,37 @@
     cur = 0; render();
   }
 
-  /* ================= ЛУПА (2 режима; увеличена, строго за курсором) ================= */
-  var lensOn = false, lensMode = "area"; // area | text
-  var lensBtn = null;
+  /* ================= ЛУПА (режимы A/B + localStorage; 2x, строго за курсором) ================= */
+  var lensOn = false, lensMode = "area"; // area (B) | text (A)
+  var lensBtn = null, lensModeBtn = null;
+  var LS_LENS = "library.lens"; // {on, mode}
+
+  function lensSave() {
+    try { localStorage.setItem(LS_LENS, JSON.stringify({ on: lensOn, mode: lensMode })); } catch (e) {}
+  }
+  function lensLoad() {
+    try {
+      var d = JSON.parse(localStorage.getItem(LS_LENS) || "{}");
+      if (typeof d.on === "boolean") lensOn = d.on;
+      if (d.mode === "text" || d.mode === "area") lensMode = d.mode;
+    } catch (e) {}
+  }
   function toggleLens() {
     lensOn = !lensOn;
     document.body.classList.toggle("lib-lens-on", lensOn);
     if (!lensBtn) lensBtn = bar.querySelector("button:nth-child(5)");
     if (lensBtn) lensBtn.textContent = lensOn ? "🔍 Лупа: вкл" : "🔍 Лупа: выкл";
     if (!lensOn) lens.style.display = "none";
+    lensSave();
   }
+  function cycleLensMode() {
+    lensMode = lensMode === "area" ? "text" : "area";
+    if (!lensModeBtn) lensModeBtn = bar.querySelector("button:nth-child(6)") || bar.querySelector(".lens-mode");
+    if (lensModeBtn) lensModeBtn.textContent = lensMode === "area" ? "Лупа: область 🔳" : "Лупа: текст 🔤";
+    lensSave();
+    lens.style.display = "none";
+  }
+
   document.addEventListener("mousemove", function (e) {
     if (!lensOn) return;
     var t = e.target;
@@ -273,18 +345,35 @@
     var r = page.getBoundingClientRect();
     var w = page.offsetWidth;
     lens.innerHTML = "";
-    var cl = page.cloneNode(true);
-    cl.style.cssText = "position:absolute;top:0;left:0;width:" + w + "px;padding:34px 38px;box-shadow:none;border:0;border-radius:0;";
+    var cl;
+    if (lensMode === "area" || true) {
+      // область: клонируем страницу целиком
+      cl = page.cloneNode(true);
+      cl.style.cssText = "position:absolute;top:0;left:0;width:" + w + "px;padding:34px 38px;box-shadow:none;border:0;border-radius:0;";
+    }
     lens.appendChild(cl);
     lens.style.display = "block";
+    // центр строго на курсоре; смещение к краю, чтобы не обрезать
+    var R = 130, L = lens.offsetWidth || 236;
+    var offX = e.clientX - r.left, offY = e.clientY - r.top;
+    cl.style.transform = "translate(" + (-offX * 2 + R) + "px," + (-offY * 2 + R) + "px) scale(2)";
     lens.style.left = e.clientX + "px"; lens.style.top = e.clientY + "px";
-    var dx = (e.clientX - r.left), dy = (e.clientY - r.top);
-    cl.style.transform = "translate(" + (-dx * 2 + 130) + "px," + (-dy * 2 + 130) + "px) scale(2)";
   });
 
   /* ================= ИНИЦИАЛИЗАЦИЯ ================= */
   function init() {
     buildShelf();
+    lensLoad();
+    Sound.load();
+    // синхронизируем кнопки с загруженными настройками
+    if (lensOn) {
+      document.body.classList.add("lib-lens-on");
+      if (lensBtn) lensBtn.textContent = "🔍 Лупа: вкл";
+    }
+    if (!Sound.on()) {
+      var sb = bar.querySelector("button:has-text('Звук')") || bar.querySelectorAll("button")[6];
+      if (sb) sb.textContent = "🔇 Звук: выкл";
+    }
     // запоминаем потребность в пользовательском жесте для AudioContext
     document.addEventListener("click", function once() {
       document.removeEventListener("click", once);
