@@ -14,7 +14,7 @@ books: [
 { id: "video",    title: "Видео",    color: "#3a4a69", h: 373, w: 52, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" },
 { id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
     ],
-    anim: { pull: 1400, open: 1800, zoom: 1600, close: 1800, ret: 1400 }
+    anim: { pull: 700, open: 900, zoom: 650, close: 700, ret: 650 }
   };
   var state = "shelf", sel = -1, cur = 0, pages = [], quiet = false;
 
@@ -132,7 +132,7 @@ books: [
     }, 80);
   }
   function stopLightLoop() { if (lightTimer) { clearInterval(lightTimer); lightTimer = null; } }
-  var scene, shelf, row, reader, spread, pL, pR, bar, lens;
+  var scene, shelf, row, reader, spread, pL, pR, bar, lens, mount;
   function q(s) { return document.querySelector(s); }
   function el(tag, cls, html) {
     var e = document.createElement(tag);
@@ -140,6 +140,8 @@ books: [
     if (html !== undefined) e.innerHTML = html;
     return e;
   }
+  /* Текстовый узел со значением (для санитарной вставки текста, без innerHTML) */
+  function textNode(s) { return document.createTextNode(s || ""); }
 
   function buildShelf() {
     scene = el("div", "lib-scene");
@@ -221,10 +223,17 @@ books: [
     reader.appendChild(bar); reader.appendChild(spread);
 
     lens = el("div", "lib-lens");
-    document.body.appendChild(scene);
-    document.body.appendChild(reader);
-    document.body.appendChild(lens);
-    document.body.classList.add("lib-mode");
+    // Сцена, читалка и лупа монтируются в контейнер #libraryApp (а не в body),
+    // чтобы стили и порядок элементов оставались под контролем страницы.
+    mount = document.getElementById("libraryApp");
+    if (!mount) {
+      console.error("[library] не найден контейнер #libraryApp — полка не создана");
+      return;
+    }
+    mount.classList.add("lib-mode");
+    mount.appendChild(scene);
+    mount.appendChild(reader);
+    mount.appendChild(lens);
   }
 
   /* ================= АНИМАЦИИ: открытие книги ================= */
@@ -261,16 +270,22 @@ books: [
     var book = row.children[sel];
     book.style.visibility = "";
     scene.classList.remove("is-opening");
+    // Полноценный обратный сценарий: книга возвращается из режима zooming
+    // в состояние opening (закрывается разворот), затем на полку.
+    book.classList.remove("zooming");
     setTimeout(function () {
-      book.classList.remove("zooming");
-      if (!canNext(state, "returning")) return;
+      if (state !== "closing") return;
       go("returning");
       Sound.play("return", .45);
+      // снимаем opening — книга сворачивается обратно на полку
+      book.classList.remove("opening");
       setTimeout(function () {
-        book.classList.remove("pulling", "opening");
+        if (state !== "returning") return;
+        book.classList.remove("pulling");
         go("shelf"); sel = -1;
-      }, 60);
-    }, 60);
+        if (book && book.focus) { try { book.focus(); } catch (e) {} }
+      }, CONFIG.anim.ret);
+    }, CONFIG.anim.close);
   }
 
   /* ================= ЧИТАЛКА ================= */
@@ -283,41 +298,46 @@ books: [
   }
   function showReader(i) {
     var id = CONFIG.books[i].id;
-    var pages;
-    if (id === "articles") pages = articlePages();
-    else if (id === "learning") pages = learningPages();
-    else if (id === "book") pages = volumePages();
-    else if (id === "video") pages = videoPages();
-    else pages = authorPages();
-    pages = pages.length ? pages : [noContent()];
-    pagesObj = pages;
-    // восстановление позиции (только если книга та же и страница в диапазоне)
-    var saved = posLoad();
-    cur = 0;
-    if (saved && saved.book === i && typeof saved.page === "number" && saved.page >= 0 && saved.page < pages.length) {
-      cur = saved.page;
+    // Контент загружается асинхронно (JSON), после получения — пагинация и показ
+    function done(pages) {
+      pages = pages && pages.length ? pages : [noContent()];
+      pagesObj = pages;
+      var saved = posLoad();
+      cur = 0;
+      if (saved && saved.book === i && typeof saved.page === "number" && saved.page >= 0 && saved.page < pages.length) {
+        cur = saved.page;
+      }
+      state = "reading";
+      reader.classList.add("open");
+      renderRead();
+      posSave();
     }
-    state = "reading";
-    reader.classList.add("open");
-    render();
-    posSave();
+    if (id === "articles") articlePages(done);
+    else if (id === "learning") learningPages(done);
+    else if (id === "book") volumePages(done);
+    else if (id === "video") videoPages(done);
+    else authorPages(done);
   }
 
-  /* пагинация по offsetHeight: разбиваем массив блоков на «страницы» по высоте */
+  /* Пагинация по фактической заполненности страницы: блоки добавляются в пробную
+   страницу, после каждого добавления проверяется СУММАРНАЯ высота. */
   function paginate(blocks, pageEl) {
     var pagesArr = [], curBlocks = [];
+    var maxH = pageEl.clientHeight;
     var container = el("div");
-    container.style.cssText = "visibility:hidden;position:absolute;width:" + pageEl.clientWidth + "px;font-size:17px;line-height:1.78;padding:34px 38px;";
+    container.style.cssText = "visibility:hidden;position:absolute;left:-9999px;top:0;width:" + pageEl.clientWidth + "px;font-size:17px;line-height:1.78;padding:34px 38px;box-sizing:border-box;";
     document.body.appendChild(container);
+    function measure(html) {
+      container.innerHTML = html;
+      return container.offsetHeight;
+    }
     blocks.forEach(function (b) {
-      var tmp = container.cloneNode(false);
-      tmp.innerHTML = b;
-      document.body.appendChild(tmp);
-      var h = tmp.offsetHeight;
-      document.body.removeChild(tmp);
-      if (h > pageEl.clientHeight && curBlocks.length) {
+      var next = curBlocks.concat([b]).join("");
+      if (curBlocks.length && measure(next) > maxH) {
         pagesArr.push(curBlocks); curBlocks = [b];
-      } else curBlocks.push(b);
+      } else {
+        curBlocks.push(b);
+      }
     });
     if (curBlocks.length) pagesArr.push(curBlocks);
     document.body.removeChild(container);
@@ -325,12 +345,13 @@ books: [
   }
 
   var pagesObj = [];
-  function render() {
+  function renderRead() {
     var show = pagesObj.slice(cur, cur + 2);
     pL.innerHTML = show[0] ? show[0] : '<p style="color:#8a7a60">·</p>';
     pR.innerHTML = show[1] ? show[1] : (cur + 1 >= pagesObj.length ? '<p style="color:#8a7a60">— конец раздела —</p>' : '<p style="color:#8a7a60">·</p>');
     bar.querySelector(".lpos").textContent = (cur + 1) + " / " + pagesObj.length;
   }
+  function render() { renderRead(); }
   function flip(dir) {
     var n = pagesObj.length;
     var nx = cur + dir * 2;
@@ -347,35 +368,80 @@ books: [
       .catch(function (e) { console.error("[library] загрузка", url, e); cb(null); });
   }
 
-  function articlePages() {
-    var blocks = ['<h1>Статьи</h1><p>135 публикаций — безопасности, деньги, здоровье, госуслуги, нейросети.</p>'];
-    // заглушки-ссылки на реальные статьи (полный каталог — из articles.json при следующей итерации)
-    for (var i = 0; i < 5; i++) blocks.push('<p>→ <a href="' + BASE + 'articles/">Читать статьи на сайте</a> (каталог №' + (i + 1) + ')</p>');
-    return paginate(blocks, pL);
+  function articlePages(cb) {
+    // Реальный каталог статей из data/articles.json (135 публикаций).
+    fetchJSON(BASE + "data/articles.json", function (data) {
+      var arts = data && data.articles ? data.articles : [];
+      var blocks = ['<h1>Статьи</h1><p>' + arts.length + ' публикаций — безопасность, деньги, здоровье, госуслуги, нейросети. Выберите статью — она откроется на сайте.</p>'];
+      arts.forEach(function (a) {
+        blocks.push('<h2>' + escapeHtml(a.title) + '</h2><p>' + escapeHtml(a.description || '') + '</p><p><a href="' + (a.url || BASE + "articles/") + '">Читать статью на сайте</a></p>');
+      });
+      cb(paginate(blocks, pL));
+    });
   }
-  function learningPages() {
+  function learningPages(cb) {
+    // Существующий раздел /learning/ — уровни обучения (по реальной странице).
     var levels = ["Уровень 0 — Без нейросетей. Фундамент", "Уровень 1 — Первое знакомство с нейросетью", "Уровень 2 — Нейросети в быту", "Уровень 3 — Промты: как просить правильно", "Уровень 4 — Агенты и автоматизация"];
-    var blocks = ['<h1>Обучение</h1><p>Пять уровней — от фундамента до автоматизации.</p>'];
-    levels.forEach(function (l) { blocks.push("<h2>" + l + "</h2><p><a href='" + BASE + "learning/'>Открыть уровень на сайте</a></p>"); });
-    return paginate(blocks, pL);
+    var blocks = ['<h1>Обучение</h1><p>Пять уровней — от фундамента до автоматизации. Полные уроки — в разделе «Обучение» на сайте.</p>'];
+    levels.forEach(function (l) { blocks.push('<h2>' + l + '</h2><p><a href="' + BASE + 'learning/">Открыть уровень на сайте</a></p>'); });
+    cb(paginate(blocks, pL));
   }
-  function volumePages() {
-    var volumes = ["Том 1. Знакомство с нейросетями", "Том 2. Заработок и развитие", "Том 3. Инструменты и сервисы", "Том 4. Практика и справочник"];
-    var blocks = ['<h1>Книга — четыре тома</h1>'];
-    volumes.forEach(function (v, i) { blocks.push("<h2>" + v + "</h2><p><a href='" + BASE + "books/'>Открыть том на сайте</a></p>"); });
-    return paginate(blocks, pL);
+  function volumePages(cb) {
+    // Реальные четыре тома из data/tomes.json (главы уже сформированы в pages).
+    fetchJSON(BASE + "data/tomes.json", function (data) {
+      var tomes = data && data.tomes ? data.tomes : [];
+      if (!tomes.length) { cb([noContent()]); return; }
+      var blocks = ['<h1>Книга — четыре тома</h1>'];
+      tomes.forEach(function (t) {
+        blocks.push('<h2>' + escapeHtml(t.title) + '</h2><p>Глав: ' + (t.count || (t.pages ? t.pages.length : 0)) + '</p>');
+        if (t.pages && t.pages.length) {
+          t.pages.slice(0, 6).forEach(function (pg) { blocks.push('<p>' + pg + '</p>'); });
+          if (t.pages.length > 6) blocks.push('<p><em>… и ещё ' + (t.pages.length - 6) + ' фрагментов в полной версии.</em></p>');
+        }
+        blocks.push('<p><a href="' + BASE + 'books/">Открыть том на сайте</a></p>');
+      });
+      cb(paginate(blocks, pL));
+    });
   }
-  function videoPages() {
-    return ['<h1>Видео</h1><div class="lib-video-ph">🎬 Здесь скоро будут видеоролики<br><small>YouTube · Rutube · VK Видео</small></div><p><a href="' + BASE + '">На главную</a></p>'];
+  function videoPages(cb) {
+    cb(['<h1>Видео</h1><div class="lib-video-ph">🎬 Здесь скоро будут видеоролики<br><small>YouTube · Rutube · VK Видео</small></div><p><a href="' + BASE + '">На главную</a></p>']);
   }
-  function authorPages() {
-    return ['<h1>Об авторе</h1><p>Татьяна Зенина, Астрахань. Мне за шестьдесят. Пишу о нейросетях простыми словами — про книги, безопасность, деньги и здоровье.</p><h2>Это действительно я, и меня можно поддержать</h2><p><a href="https://t.me/neuro_retree">Telegram</a> · <a href="https://vk.com/club242405739">ВКонтакте</a> · <a href="https://boosty.to/tatzen">Boosty</a> · <a href="mailto:neuro-retree@ya.ru">Почта</a></p>'];
+  function authorPages(cb) {
+    cb(['<h1>Об авторе</h1><p>Татьяна Зенина, Астрахань. Мне за шестьдесят. Пишу о нейросетях простыми словами — про книги, безопасность, деньги и здоровье.</p><h2>Это действительно я, и меня можно поддержать</h2><p>Мои настоящие адреса: <a href="https://t.me/neuro_retree">Telegram</a> · <a href="https://vk.com/club242405739">ВКонтакте</a> · <a href="https://ok.ru/group/70000060482048">Одноклассники</a> · <a href="https://dzen.ru/tatz">Дзен</a> · <a href="https://boosty.to/tatzen">Boosty</a> · <a href="mailto:neuro-retree@ya.ru">Почта</a></p><p>Я никогда не прошу номер карты, коды из СМС или «срочный перевод» — если кто-то пишет от моего имени и просит такое, это мошенники.</p>']);
+  }
+  function escapeHtml(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
   }
 
   function showToc() {
     Sound.play("flip", .4);
-    cur = 0; render();
+    // Оглавление: список разделов читаемого материала (заголовки первого уровня).
+    var items = [];
+    for (var i = 0; i < pagesObj.length; i++) {
+      var heading = (pagesObj[i].match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1];
+      if (!heading) heading = (pagesObj[i].match(/<h2[^>]*>([\s\S]*?)<\/h2>/) || [])[1];
+      if (heading) {
+        items.push('<p style="margin:10px 0"><a href="#" data-toc="' + i + '" style="color:#5a4630;text-decoration:none">' + (i + 1) + '. ' + heading + '</a></p>');
+      }
+    }
+    var html = '<h2>Содержание</h2>' + (items.length ? items.join("") : '<p>Разделов нет.</p>') + '<p style="margin-top:16px"><a href="#" data-toc="back" style="color:#5a4630">← Вернуться к чтению</a></p>';
+    pL.innerHTML = html;
+    pR.innerHTML = '<p style="color:#8a7a60">Выберите раздел слева.</p>';
+    bar.querySelector(".lpos").textContent = "Оглавление";
+    // делегирование кликов по пунктам
+    pL.querySelectorAll("[data-toc]").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var idx = a.getAttribute("data-toc");
+        if (idx === "back") { cur = tocBack || 0; }
+        else { cur = parseInt(idx, 10); tocBack = cur; }
+        render();
+      });
+    });
   }
+  var tocBack = 0;
 
   /* ================= ЛУПА (режимы A/B + localStorage; 2x, строго за курсором) ================= */
   var lensOn = false, lensMode = "area"; // area (B) | text (A)
@@ -394,7 +460,7 @@ books: [
   }
   function toggleLens() {
     lensOn = !lensOn;
-    document.body.classList.toggle("lib-lens-on", lensOn);
+    if (mount) mount.classList.toggle("lib-lens-on", lensOn);
     if (!lensBtn) lensBtn = bar.querySelector("button:nth-child(5)");
     if (lensBtn) lensBtn.textContent = lensOn ? "🔍 Лупа: вкл" : "🔍 Лупа: выкл";
     if (!lensOn) lens.style.display = "none";
@@ -417,17 +483,23 @@ books: [
     var w = page.offsetWidth;
     lens.innerHTML = "";
     var cl;
-    if (lensMode === "area" || true) {
-      // область: клонируем страницу целиком
+    if (lensMode === "area") {
+      // Режим A — увеличение области: клонируем страницу целиком, двигаем срез
       cl = page.cloneNode(true);
       cl.style.cssText = "position:absolute;top:0;left:0;width:" + w + "px;padding:34px 38px;box-shadow:none;border:0;border-radius:0;";
+    } else {
+      // Режим B — увеличение текста: та же страница, но текст крупнее (читабельный),
+      // без увеличения декора; масштаб применяем к контенту, позиционируем под курсор.
+      cl = page.cloneNode(true);
+      cl.style.cssText = "position:absolute;top:0;left:0;width:" + w + "px;padding:34px 38px;box-shadow:none;border:0;border-radius:0;font-size:21px;line-height:1.8;";
     }
     lens.appendChild(cl);
     lens.style.display = "block";
-    // центр строго на курсоре; смещение к краю, чтобы не обрезать
+    // Геометрия: диаметр 260px -> радиус 130px (совпадает с размером в CSS)
     var R = 130, L = lens.offsetWidth || 236;
     var offX = e.clientX - r.left, offY = e.clientY - r.top;
-    cl.style.transform = "translate(" + (-offX * 2 + R) + "px," + (-offY * 2 + R) + "px) scale(2)";
+    var k = lensMode === "text" ? 1.7 : 2;
+    cl.style.transform = "translate(" + (-offX * k + R) + "px," + (-offY * k + R) + "px) scale(" + k + ")";
     lens.style.left = e.clientX + "px"; lens.style.top = e.clientY + "px";
   });
 
@@ -448,7 +520,7 @@ books: [
     }
     // синхронизируем кнопки с загруженными настройками
     if (lensOn) {
-      document.body.classList.add("lib-lens-on");
+      if (mount) mount.classList.add("lib-lens-on");
       if (lensBtn) lensBtn.textContent = "🔍 Лупа: вкл";
     }
     if (!Sound.on()) {
