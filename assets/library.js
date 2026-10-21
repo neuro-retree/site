@@ -350,6 +350,25 @@ books: [
     pL.innerHTML = show[0] ? show[0] : '<p style="color:#8a7a60">·</p>';
     pR.innerHTML = show[1] ? show[1] : (cur + 1 >= pagesObj.length ? '<p style="color:#8a7a60">— конец раздела —</p>' : '<p style="color:#8a7a60">·</p>');
     bar.querySelector(".lpos").textContent = (cur + 1) + " / " + pagesObj.length;
+    // делегирование кликов: выбор статьи из каталога
+    var links = pL.querySelectorAll("[data-article]");
+    var self = this;
+    Array.prototype.forEach.call(links, function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var idx = parseInt(a.getAttribute("data-article"), 10);
+        var arts = pagesObj._articles || (show[0] && show[0]._articles) || null;
+        if (arts) openArticle(idx, arts);
+      });
+    });
+    // возврат из статьи к каталогу
+    var back = pL.querySelector("[data-back-catalog]");
+    if (back) back.addEventListener("click", function (e) {
+      e.preventDefault();
+      var arts = pagesObj._arts || null;
+      if (arts) { articlePages(function (p) { pagesObj = p; cur = 0; renderRead(); }); }
+      else { cur = 0; renderRead(); }
+    });
   }
   function render() { renderRead(); }
   function flip(dir) {
@@ -372,11 +391,53 @@ books: [
     // Реальный каталог статей из data/articles.json (135 публикаций).
     fetchJSON(BASE + "data/articles.json", function (data) {
       var arts = data && data.articles ? data.articles : [];
-      var blocks = ['<h1>Статьи</h1><p>' + arts.length + ' публикаций — безопасность, деньги, здоровье, госуслуги, нейросети. Выберите статью — она откроется на сайте.</p>'];
-      arts.forEach(function (a) {
-        blocks.push('<h2>' + escapeHtml(a.title) + '</h2><p>' + escapeHtml(a.description || '') + '</p><p><a href="' + (a.url || BASE + "articles/") + '">Читать статью на сайте</a></p>');
+      var blocks = ['<h1>Статьи</h1><p>' + arts.length + ' публикаций — безопасность, деньги, здоровье, госуслуги, нейросети. Нажмите на статью — она откроется полным текстом здесь.</p>'];
+      arts.forEach(function (a, idx) {
+        blocks.push(
+          '<h2 style="margin-bottom:4px"><a href="#" data-article="' + idx + '" style="color:#133a33;text-decoration:none">' + escapeHtml(a.title) + '</a></h2>' +
+          '<p style="margin-top:2px">' + escapeHtml(a.description || '') + '</p>' +
+          '<p><a href="' + (a.url || BASE + "articles/") + '" style="color:#0e7c66">Открыть на сайте →</a></p>'
+        );
       });
-      cb(paginate(blocks, pL));
+      var pages = paginate(blocks, pL);
+      pages._articles = arts;
+      cb(pages);
+    });
+  }
+  /* Открыть полный текст статьи в читалке (укачиваем .md из корня сайта) */
+  function openArticle(idx, arts) {
+    var a = arts && arts[idx];
+    if (!a) return;
+    cur = 0;
+    pL.innerHTML = '<p style="color:#8a7a60">Загружаю статью…</p>';
+    pR.innerHTML = '';
+    bar.querySelector(".lpos").textContent = "… / …";
+    fetch(BASE + a.slug + ".md").then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    }).then(function (md) {
+      // простое преобразование markdown-абзацев в блоки (безопасно: текст экранируется)
+      var blocks = ['<h1>' + escapeHtml(a.title) + '</h1>'];
+      md.split(/\n{2,}/).forEach(function (par) {
+        par = par.trim();
+        if (!par) return;
+        if (par.replace(/^#+\s*/, '') === par && par.indexOf('#') === 0) {
+          return; // заголовок верхнего уровня (название) пропускаем — уже есть
+        }
+        if (par.indexOf('# ') === 0) blocks.push('<h1>' + escapeHtml(par.slice(2)) + '</h1>');
+        else if (par.indexOf('## ') === 0) blocks.push('<h2>' + escapeHtml(par.slice(3)) + '</h2>');
+        else if (par.indexOf('### ') === 0) blocks.push('<h3>' + escapeHtml(par.slice(4)) + '</h3>');
+        else if (/^[-*]\s/.test(par)) blocks.push('<ul>' + par.split(/\n/).map(function (li) { return '<li>' + escapeHtml(li.replace(/^[-*]\s*/, '')) + '</li>'; }).join('') + '</ul>');
+        else blocks.push('<p>' + escapeHtml(par).replace(/\n/g, '<br>') + '</p>');
+      });
+      blocks.push('<p style="color:#8a7a60">← <a href="#" data-back-catalog style="color:#5a4630">К списку статей</a></p>');
+      pagesObj = paginate(blocks, pL);
+      pagesObj._isArticleView = true;
+      pagesObj._arts = arts;
+      renderRead();
+      posSave();
+    }).catch(function (e) {
+      pL.innerHTML = '<h2>Не удалось загрузить статью</h2><p>' + escapeHtml(String(e)) + '</p><p><a href="#" data-article-retry style="color:#0e7c66">Повторить</a></p>';
     });
   }
   function learningPages(cb) {
