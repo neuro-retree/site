@@ -93,16 +93,21 @@
   width:var(--cw,220px);height:calc(100% + 12px);left:0;top:-6px;
   transform:rotateY(-90deg);transform-origin:left center;
   --w:6px;
-  transition:transform 1.6s cubic-bezier(.3,.7,.2,1);
+  transition:transform var(--lib-anim-open,900ms) cubic-bezier(.3,.7,.2,1);
 }
 .lib-book .bd-pages-block,.lib-book .bd-single-page{
   width:var(--cw,220px);height:100%;left:0;top:0;
   transform:rotateY(-90deg);transform-origin:left center;
   --w:6px;
-  transition:transform 1.6s cubic-bezier(.3,.7,.2,1);
+  transition:transform var(--lib-anim-open,900ms) cubic-bezier(.3,.7,.2,1);
 }
 .lib-book .bd-pages-block{--w:calc(var(--cw,220px)*.18)}
 .lib-book .bd-single-page{--w:2px}
+/* Обложки с РАЗНЫХ сторон от страниц и корешка (закрытое состояние):
+   П4 (передняя) сдвинута вправо от блока страниц (в глубине за корешком),
+   П3 (задняя) — сразу за корешком; страницы между ними. */
+.lib-book .bd-cover-r{transform:rotateY(-90deg) translateX(var(--cw,220px))}
+.lib-book .bd-cover-l{transform:rotateY(-90deg)}
 /* П5 КОРЕШОК: узкая грань на полке, высота тоже на 2 толщины больше страниц */
 .lib-book .bd-spine{width:var(--bw,64px);height:calc(100% + 12px);left:0;top:-6px;transform:none;z-index:5}
 .lib-book .bd-spine .face{
@@ -171,12 +176,13 @@
 }
 .lib-book.opening .bd-spine{opacity:0;transition:opacity .5s}
 /* широкие блоки встают лицом (раскрытие в ширину).
-   Обложки на 2 толщины больше страниц: П3 слева, П4 справа (лицом к зрителю
-   с названием), между ними блок страниц. Все три центрированы по вертикали. */
-.lib-book.opening .bd-cover-r{transform:rotateY(0deg) translateZ(30px)}
-.lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateZ(-70px) translateX(-34px)}
-.lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateZ(-20px)}
-.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateZ(0px)}
+   Обложки с РАЗНЫХ сторон разворота: П4 (передняя, с названием) — СПРАВА от
+   страниц, П3 (задняя) — СЛЕВА, блок страниц между ними. Все — на 2 толщины
+   выше страниц (одевают их сверху и снизу). */
+.lib-book.opening .bd-cover-r{transform:rotateY(0deg) translateX(calc(var(--cw,220px) + 30px))}
+.lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateX(calc(var(--cw,220px)*-0.32))}
+.lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateX(8px)}
+.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateX(8px)}
 /* книга выходит к читалке: сцена затемняется, книга приближается к центру.
    Вместо scale(8) — умеренный перенос к центру и лёгкий рост; текст после
    этого появляется в читалке (отдельная сцена с тем же оформлением). */
