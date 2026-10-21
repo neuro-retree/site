@@ -63,8 +63,12 @@ body.lib-mode button{font-family:Georgia,serif}
    Здесь правил нет: они объявлены ниже, чтобы не конфликтовать с поворотом книги. */
 
 /* ---- 3D-структура книги: 5 параллелепипедов (настоящие кубы из 6 граней) ----
-   П5 корешок (узкий, --bw) · П1 блок страниц (толстый, --cw) · П2 одна страница
-   (тонкая) · П3 левая обложка · П4 правая обложка (с названием).
+   П1 блок страниц (толстый) · П2 одна страница (тонкая) · П3 левая обложка
+   · П4 правая обложка (с названием) · П5 корешок.
+   РАСПОЛОЖЕНИЕ (как у настоящей книги): блок страниц (П1+П2) лежит ВНУТРИ
+   обложек (П3, П4) — обложки больше страниц НА 2 ТОЛЩИНЫ (выступают сверху,
+   снизу и сбоку), корешок (П5) — узкая грань сбоку тоже на 2 толщины больше
+   по высоте, чем страницы. Толщина = var(--th) (для страниц ~ 6px).
    На полке книга стоит корешком — видна узкая грань (--bw x высота). Обложки
    и блок страниц (шириной --cw) стоят ВГЛУБЬ (повёрнуты на 90° вокруг Y),
    поэтому спереди виден только корешок. При раскрытии блок самого .lib-book
@@ -75,8 +79,17 @@ body.lib-mode button{font-family:Georgia,serif}
 .lib-book .bd .face{position:absolute;left:0;top:0;width:100%;height:100%;backface-visibility:hidden;
   background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,var(--shade,.42)) 130%);
   box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
-/* Широкие блоки (обложки, страницы) изначально повёрнуты: видно только узкое ребро */
-.lib-book .bd-cover-l,.lib-book .bd-cover-r,.lib-book .bd-pages-block,.lib-book .bd-single-page{
+/* Широкие блоки (обложки, страницы) изначально повёрнуты: видно только узкое ребро
+   ТОЛЩИНА блока --w: у обложек 6px, у страниц 2px (тонкая) и ~18% ширины (блок).
+   Высота страниц меньше высоты обложек на 2 толщины обложки (выступы сверху/снизу),
+   обложки и корешок "одевают" страницы. */
+.lib-book .bd-cover-l,.lib-book .bd-cover-r{
+  width:var(--cw,220px);height:calc(100% + 12px);left:0;top:-6px;
+  transform:rotateY(-90deg);transform-origin:left center;
+  --w:6px;
+  transition:transform 1.6s cubic-bezier(.3,.7,.2,1);
+}
+.lib-book .bd-pages-block,.lib-book .bd-single-page{
   width:var(--cw,220px);height:100%;left:0;top:0;
   transform:rotateY(-90deg);transform-origin:left center;
   --w:6px;
@@ -84,10 +97,8 @@ body.lib-mode button{font-family:Georgia,serif}
 }
 .lib-book .bd-pages-block{--w:calc(var(--cw,220px)*.18)}
 .lib-book .bd-single-page{--w:2px}
-/* П4 правая обложка — сдвинута вправо от оси (чтобы раскрывалась слева) */
-.lib-book .bd-cover-r{transform:rotateY(-90deg) translateX(var(--cw,220px))}
-/* П5 КОРЕШОК: узкая грань на полке */
-.lib-book .bd-spine{width:var(--bw,64px);height:100%;left:0;top:0;transform:none;z-index:5}
+/* П5 КОРЕШОК: узкая грань на полке, высота тоже на 2 толщины больше страниц */
+.lib-book .bd-spine{width:var(--bw,64px);height:calc(100% + 12px);left:0;top:-6px;transform:none;z-index:5}
 .lib-book .bd-spine .face{
   background:var(--bc,#56372b);
   background-image:var(--tex),linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.38));
@@ -154,12 +165,12 @@ body.lib-mode button{font-family:Georgia,serif}
 }
 .lib-book.opening .bd-spine{opacity:0;transition:opacity .5s}
 /* широкие блоки встают лицом (раскрытие в ширину).
-   Обложка П4 — ПЕРЕД страницами (меньший Z = ближе к зрителю), чтобы название
-   и текстура обложки были видны, а блок страниц не перекрывал её. */
-.lib-book.opening .bd-cover-r{transform:rotateY(0deg) translateZ(6px)}
-.lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateZ(-110px) translateX(-28px)}
-.lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateZ(-90px)}
-.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateZ(-50px)}
+   Обложки на 2 толщины больше страниц: П3 слева, П4 справа (лицом к зрителю
+   с названием), между ними блок страниц. Все три центрированы по вертикали. */
+.lib-book.opening .bd-cover-r{transform:rotateY(0deg) translateZ(30px)}
+.lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateZ(-70px) translateX(-34px)}
+.lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateZ(-20px)}
+.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateZ(0px)}
 /* книга выходит на весь экран: сцена затемняется, книга на переднем плане */
 .lib-scene.is-opening{overflow:visible}
 .lib-scene.is-opening .lib-book:not(.pulling):not(.opening){opacity:.22;transition:opacity 1.4s}
