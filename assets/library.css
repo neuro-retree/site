@@ -154,9 +154,9 @@
 }
 /* ЗАКРЫТАЯ КНИГА = ВИДЕН ТОЛЬКО КОРЕШОК (наладка 23.10.2026).
    Обложки, страницы и срез существуют только для раскрытия (.opening/.zooming),
-   в состоянии полки они скрыты за корешком (visibility, чтобы анимация поворота
-   при раскрытии сохранила закрытое положение). */
-.lib-book:not(.opening):not(.zooming) .bd:not(.bd-spine){visibility:hidden}
+   в состоянии полки они полностью убраны (display:none — visibility оставляет
+   transform-позицию, и узкое ребро блока всё равно рисуется). */
+.lib-book:not(.opening):not(.zooming) .bd:not(.bd-spine){display:none}
 /* ---------- ГРАНИ КУБА ---------- */
 .lib-book .bd .face-front{transform:translateZ(var(--w))}
 .lib-book .bd .face-back{transform:translateZ(calc(var(--w)*-1)) rotateY(180deg)}
@@ -226,7 +226,10 @@
   z-index:40;
 }
 .lib-book.opening{
-  transform:translateZ(360px) translateY(-12vh) scale(1.35);
+  /* Центрирование раскрытой книги: контейнер узкий (--bw), раскрытые блоки широкие
+     (--cw). Смещаем композицию так, чтобы центр раскрытой книги совпал с центром
+     контейнера: сдвиг влево на (--cw - --bw)/2 (корешок скрыт, его место пусто). */
+  transform:translateX(calc((var(--bw,84px) - var(--cw,220px))/2)) translateZ(360px) translateY(-12vh) scale(1.35);
   transition:transform var(--lib-anim-open,900ms) cubic-bezier(.25,.8,.3,1);
   box-shadow:-12px 18px 34px rgba(0,0,0,.7),0 0 50px var(--warm-light);
   z-index:50;
