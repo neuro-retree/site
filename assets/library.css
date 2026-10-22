@@ -81,16 +81,16 @@
   border-radius:inherit;
   background:
     /* каптал сверху: тёмная полоса с «нитками» */
-    repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 2px,transparent 2px 5px) 0 0/100% 7px no-repeat,
+    repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 2px,transparent 2px 5px) 0 0/100% 8px no-repeat,
     /* каптал снизу */
-    repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 2px,transparent 2px 5px) 0 100%/100% 7px no-repeat,
+    repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 2px,transparent 2px 5px) 0 100%/100% 8px no-repeat,
     /* бинты: 3 поперечные выпуклости на корешке (свет сверху, тень снизу) */
-    linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(0,0,0,.28)) 0 180px/100% 30px no-repeat,
-    linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(0,0,0,.28)) 0 55%/100% 30px no-repeat,
+    linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.05) 45%,rgba(0,0,0,.4)) 0 180px/100% 34px no-repeat,
+    linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.05) 45%,rgba(0,0,0,.4)) 0 55%/100% 34px no-repeat,
     /* лёгкая «рамка-тиснение»: сверху и снизу корешка */
-    linear-gradient(180deg,#fff8,transparent 9px) 0 0/100% 9px no-repeat,
-    linear-gradient(0deg,#0005,transparent 9px) 0 100%/100% 9px no-repeat;
-  opacity:.85;
+    linear-gradient(180deg,#fff9,transparent 10px) 0 0/100% 10px no-repeat,
+    linear-gradient(0deg,#0006,transparent 10px) 0 100%/100% 10px no-repeat;
+  opacity:.95;
 }
 .lib-book.opening::before,.lib-book.zooming::before{opacity:0;transition:opacity .5s}
 
