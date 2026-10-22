@@ -322,7 +322,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
 """
 
 
-def page(title, desc, body, canonical, extra_head="", lib=False):
+def page(title, desc, body, canonical, extra_head="", lib=False, ogtype="website"):
     assets_lib = ('<link rel="stylesheet" href="assets/library.css?v=20261022">\n<script src="assets/library.js?v=20261022"></script>') if lib else ""
     return """<!DOCTYPE html>
 <html lang="ru">
@@ -333,7 +333,7 @@ def page(title, desc, body, canonical, extra_head="", lib=False):
 <meta name="description" content="%s">
 <meta name="theme-color" content="#0b5c4f">
 <link rel="canonical" href="%s">
-<meta property="og:type" content="website">
+<meta property="og:type" content="%s">
 <meta property="og:locale" content="ru_RU">
 <meta property="og:site_name" content="Нейросети для жизни">
 <meta property="og:title" content="%s">
@@ -369,7 +369,7 @@ def page(title, desc, body, canonical, extra_head="", lib=False):
 %s
 </body>
 </html>""" % (
-        html.escape(title), html.escape(desc[:190]), canonical,
+        html.escape(title), html.escape(desc[:190]), canonical, ogtype,
         html.escape(title), html.escape(desc[:190]), canonical, BASE_URL,
         BASE_URL, extra_head, CSS, BASE_URL, BASE_URL, BASE_URL, BASE_URL, BASE_URL,
         body, AUTHOR, BASE_URL, BASE_URL, BASE_URL, BASE_URL, BASE_URL, assets_lib
@@ -473,7 +473,8 @@ function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍
     extra = '<script type="application/ld+json">%s</script>' % jsonld
 
     out = page(a["title"] + " — Нейросети для жизни", a["desc"],
-               body, "%sarticles/%s/" % (BASE_URL, a["slug"]), extra)
+               body, "%sarticles/%s/" % (BASE_URL, a["slug"]), extra,
+               ogtype="article")
     p = ROOT / "articles" / a["slug"] / "index.html"
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(out, encoding="utf-8")
@@ -858,13 +859,18 @@ def build_aux():
     (ROOT / "sitemap.xml").write_text("\n".join(sitemap) + "\n", encoding="utf-8")
 
     rss_items = []
+    # Единая дата публикации для RSS (генерация партией). Настоящие даты статей
+    # появятся после простановки "date" в ARTICLES (этап 7 пакета).
+    pub_dt = BUILD_DATE + "T00:00:00+03:00"
     for a in ARTICLES:
         rss_items.append("""    <item>
       <title>%s</title>
       <link>%sarticles/%s/</link>
-      <guid>%sarticles/%s/</guid>
+      <guid isPermaLink="true">%sarticles/%s/</guid>
       <description>%s</description>
-    </item>""" % (html.escape(a["title"]), BASE_URL, a["slug"], BASE_URL, a["slug"], html.escape(a["desc"])))
+      <pubDate>%s</pubDate>
+    </item>""" % (html.escape(a["title"]), BASE_URL, a["slug"], BASE_URL, a["slug"],
+                  html.escape(a["desc"]), pub_dt))
     rss = """<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
@@ -872,10 +878,11 @@ def build_aux():
     <link>%s</link>
     <description>Нейросети, цифровая безопасность и полезные интернет-сервисы простыми словами для людей старшего возраста.</description>
     <language>ru</language>
+    <lastBuildDate>%s</lastBuildDate>
     <atom:link href="%srss.xml" rel="self" type="application/rss+xml"/>
 %s  </channel>
 </rss>
-""" % (BASE_URL, BASE_URL, "\n".join(rss_items))
+""" % (BASE_URL, pub_dt, BASE_URL, "\n".join(rss_items))
     (ROOT / "rss.xml").write_text(rss, encoding="utf-8")
 
     registry = {"schema_version": 1, "generated": BUILD_DATE, "articles": []}
