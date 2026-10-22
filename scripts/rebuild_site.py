@@ -323,7 +323,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
 
 
 def page(title, desc, body, canonical, extra_head="", lib=False):
-    assets_lib = ('<link rel="stylesheet" href="assets/library.css">\n<script src="assets/library.js"></script>') if lib else ""
+    assets_lib = ('<link rel="stylesheet" href="assets/library.css?v=20261022">\n<script src="assets/library.js?v=20261022"></script>') if lib else ""
     return """<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -362,10 +362,10 @@ def page(title, desc, body, canonical, extra_head="", lib=False):
 %s
 </div></main>
 <footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro-retree@ya.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
-<script src="%sa11y-toggle.js" defer></script>
+<script src="%sa11y-toggle.js?v=20261022" defer></script>
 <link rel="stylesheet" href="%sassets/book.css">
-<script src="%sassets/book.js" defer></script>
-<script src="%sassets/magnifier.js" defer></script>
+<script src="%sassets/book.js?v=20261022" defer></script>
+<script src="%sassets/magnifier.js?v=20261022" defer></script>
 %s
 </body>
 </html>""" % (
@@ -943,7 +943,7 @@ def build_books():
 <div class="book-toolbar" id="bookNav"></div>
 <script>function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='Звуки: нет';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
 function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
-<script data-tomes src="%sassets/books.js" defer></script>
+<script data-tomes src="%sassets/books.js?v=20261022" defer></script>
 """ % (BASE_URL, BASE_URL)
     out = page("Книги — Нейросети для жизни",
                "Четыре тома книги «Нейросети для жизни» Татьяны Зениной: листайте онлайн как настоящую книгу.",
