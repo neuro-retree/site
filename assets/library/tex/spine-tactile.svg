@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="560">
+<!-- spine-tactile.svg — рельеф классического книжного корешка (для узкой грани).
+     Бинты (поперечные выпуклости), капталы, кожаная зернистость, лёгкое тиснение.
+     Сочетается с leather-*.svg, но ориентирован на вертикальный корешок книги. -->
+<defs>
+  <linearGradient id="cyl" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#000" stop-opacity="0.55"/>
+    <stop offset="0.18" stop-color="#ffffff" stop-opacity="0.14"/>
+    <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.20"/>
+    <stop offset="0.82" stop-color="#000" stop-opacity="0.12"/>
+    <stop offset="1" stop-color="#000" stop-opacity="0.6"/>
+  </linearGradient>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85 0.6" numOctaves="3" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.28"/></feComponentTransfer>
+    <feComposite operator="over" in2="SourceGraphic"/></filter>
+</defs>
+<!-- основа: кожу даёт leather-*.svg; здесь только объём и рельеф -->
+<rect width="140" height="560" fill="#000000" fill-opacity="0"/>
+<!-- цилиндрическая выпуклость корешка -->
+<rect width="140" height="560" fill="url(#cyl)"/>
+<!-- бинты: 3 поперечные выпуклые полосы (как у старинных переплётов) -->
+<g fill="#1a0f08">
+  <rect x="6" y="150" width="128" height="34" rx="5" fill-opacity="0.55"/>
+  <rect x="6" y="305" width="128" height="34" rx="5" fill-opacity="0.55"/>
+  <rect x="6" y="460" width="128" height="34" rx="5" fill-opacity="0.55"/>
+</g>
+<g fill="#ffffff" fill-opacity="0.18">
+  <rect x="6" y="150" width="128" height="5" rx="5"/>
+  <rect x="6" y="305" width="128" height="5" rx="5"/>
+  <rect x="6" y="460" width="128" height="5" rx="5"/>
+</g>
+<!-- капталы сверху и снизу: тёмные полосы с нитками -->
+<g stroke="#f0d9a8" stroke-opacity="0.5" stroke-width="2">
+  <line x1="10" y1="10" x2="130" y2="10"/>
+  <line x1="10" y1="16" x2="130" y2="16"/>
+  <line x1="10" y1="544" x2="130" y2="544"/>
+  <line x1="10" y1="550" x2="130" y2="550"/>
+</g>
+<!-- зерно кожи -->
+<rect width="140" height="560" filter="url(#grain)"/>
+</svg>

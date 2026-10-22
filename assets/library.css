@@ -57,6 +57,10 @@
   box-shadow:-9px 10px 16px rgba(0,0,0,.55),0 0 28px var(--warm-light);
   filter:brightness(1.15);
 }
+/* лёгкая тень между соседними книгами (глубина ряда): тонкая тёмная полоса справа */
+.lib-row .lib-book:not(:last-child)::before{
+  box-shadow:inset -8px 0 10px -8px rgba(0,0,0,.75);
+}
 .lib-book:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
 /* боковой свет: объём корешка */
 .lib-book::after{
@@ -64,6 +68,31 @@
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.10) 40%,rgba(0,0,0,.35));
   z-index:1;
 }
+/* ==== «Книжность» корешка: переплётные бинты, капталы, выпуклость, тиснение ====
+   Корешок — узкая грань книги, когда она стоит на полке. Чтобы он выглядел
+   как настоящий переплёт, а не плоский цветной прямоугольник:
+   - вертикальные «бинты» (поперечные выпуклости переплёта) — repeating-gradient;
+   - капталы сверху/снизу (утолщение с лентами у обложки);
+   - цилиндрическая выпуклость (горизонтальный градиент света/тени);
+   - мягкая рамка-«тиснение» по краям.
+   Всё скрывается при раскрытии (.opening/.zooming), когда видна обложка. */
+.lib-book::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  border-radius:inherit;
+  background:
+    /* каптал сверху: тёмная полоса с «нитками» */
+    repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 2px,transparent 2px 5px) 0 0/100% 7px no-repeat,
+    /* каптал снизу */
+    repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 2px,transparent 2px 5px) 0 100%/100% 7px no-repeat,
+    /* бинты: 3 поперечные выпуклости на корешке (свет сверху, тень снизу) */
+    linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(0,0,0,.28)) 0 180px/100% 30px no-repeat,
+    linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(0,0,0,.28)) 0 55%/100% 30px no-repeat,
+    /* лёгкая «рамка-тиснение»: сверху и снизу корешка */
+    linear-gradient(180deg,#fff8,transparent 9px) 0 0/100% 9px no-repeat,
+    linear-gradient(0deg,#0005,transparent 9px) 0 100%/100% 9px no-repeat;
+  opacity:.85;
+}
+.lib-book.opening::before,.lib-book.zooming::before{opacity:0;transition:opacity .5s}
 
 /* ---- Анимация вытягивания/раскрытия — см. секцию «РАСКРЫТИЕ (в ШИРИНУ)» ниже.
    Здесь правил нет: они объявлены ниже, чтобы не конфликтовать с поворотом книги. */
@@ -112,8 +141,11 @@
 .lib-book .bd-spine{width:var(--bw,64px);height:calc(100% + 12px);left:0;top:-6px;transform:none;z-index:5}
 .lib-book .bd-spine .face{
   background:var(--bc,#56372b);
-  background-image:var(--tex),linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.38));
-  background-size:cover,auto;background-position:center;
+  background-image:
+    url("library/tex/spine-tactile.svg"),
+    var(--tex),
+    linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.38));
+  background-size:cover,cover,auto;background-position:center;
 }
 /* ---------- ГРАНИ КУБА ---------- */
 .lib-book .bd .face-front{transform:translateZ(var(--w))}
@@ -132,6 +164,23 @@
 .lib-book .bd-single-page .face-back{
   background-image:url("library/tex/paper.svg"),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
   background-size:cover,auto;background-position:center;
+}
+/* профиль страниц: узкие грани (торец блока, срез листов) — текстура среза */
+.lib-book .bd-pages-block .face-top,
+.lib-book .bd-pages-block .face-bottom,
+.lib-book .bd-pages-block .face-left,
+.lib-book .bd-pages-block .face-right,
+.lib-book .bd-single-page .face-top,
+.lib-book .bd-single-page .face-bottom,
+.lib-book .bd-single-page .face-left,
+.lib-book .bd-single-page .face-right{
+  background-image:url("library/tex/paper-edge.svg");
+  background-size:cover;background-position:center;
+}
+/* лёгкое затенение профиля: торец блока страниц не плоский, а с тенью у обложек */
+.lib-book .bd-pages-block .face-left,
+.lib-book .bd-pages-block .face-right{
+  box-shadow:inset 0 0 6px rgba(60,40,10,.55), inset 2px 0 4px rgba(60,40,10,.25);
 }
 /* обложки (П3, П4) — кожа, текстура на всех гранях */
 .lib-book .bd-cover-l .face,
@@ -183,6 +232,10 @@
 .lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateX(calc(var(--cw,220px)*-0.32))}
 .lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateX(8px)}
 .lib-book.opening .bd-single-page{transform:rotateY(0deg) translateX(8px)}
+/* при раскрытии страницы остаются чуть ниже обложек (эталон: страницы < обложек):
+   сдвигаем страничные блоки вниз на 2px, чтобы верхний выступ обложки был виден */
+.lib-book.opening .bd-pages-block,
+.lib-book.opening .bd-single-page{top:2px}
 /* книга выходит к читалке: сцена затемняется, книга приближается к центру.
    Вместо scale(8) — умеренный перенос к центру и лёгкий рост; текст после
    этого появляется в читалке (отдельная сцена с тем же оформлением). */

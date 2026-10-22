@@ -252,23 +252,33 @@ body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,'Arial',sans-serif;
 a{color:var(--accent2);text-decoration:underline;text-underline-offset:0.18em}
 a:hover{text-decoration-thickness:2px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-header{background:linear-gradient(135deg,#133a33,#0e7c66 60%%,#1565a8);color:#fff;padding:28px 0 24px}
+header{background:linear-gradient(135deg,#133a33,#0e7c66 60%,#1565a8);color:#fff;padding:28px 0 24px}
 header .inline{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
 header .title{font-size:24px;margin:0;color:#fff}
 header .links a{display:inline-block;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:20px;margin:4px 8px 4px 0;font-size:15px}
 .breadcrumbs{font-size:14px;color:#5b7080;margin:18px 0 8px}
 main{padding:10px 0 60px}
-.card{background:#fff;border:1px solid #e2e9ee;border-radius:14px;box-shadow:0 2px 10px rgba(20,40,60,.08);overflow:hidden;display:flex;flex-direction:column;height:100%%}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:18px}
-.card img{width:100%%;height:100%%;object-fit:cover;object-position:center;display:block}
-.card .cov{width:100%%;aspect-ratio:16/9;overflow:hidden;background:#dfe9e4;display:flex;align-items:center;justify-content:center}
-.card .body{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column}
-.card h3{margin:0 0 8px;font-size:19px;line-height:1.3}
-.card p{margin:0 0 12px;color:#5b7080;font-size:15px}
-.tag{font-size:12.5px;background:#dcebe6;color:#0e6a57;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
-.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:10px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.card{background:#fdfaf3;border:1px solid #e2d9c4;border-radius:4px 14px 14px 4px;box-shadow:0 10px 26px rgba(60,40,10,.16), inset 6px 0 10px -8px rgba(60,40,10,.22);overflow:hidden;display:flex;flex-direction:column;height:100%;position:relative;transition:transform .15s ease,box-shadow .15s ease}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(60,40,10,.22), inset 6px 0 10px -8px rgba(60,40,10,.22)}
+/* «корешок книги» слева: тёмная полоса с поперечными прожилками переплёта */
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,#5f4a2b,#8d7250 55%,#c9b183);border-radius:5px 0 0 5px;box-shadow:inset -5px 0 7px rgba(40,25,5,.55), 3px 0 8px rgba(60,40,10,.3);z-index:3;pointer-events:none;
+background-image:repeating-linear-gradient(to bottom,rgba(255,255,255,.16) 0 1px,transparent 1px 4px),linear-gradient(90deg,#5f4a2b,#8d7250 55%,#c9b183)}
+/* гребень листов между корешком и обложкой */
+.card .cov::after{content:"";position:absolute;left:20px;top:0;height:100%;width:8px;background:repeating-linear-gradient(to bottom,#e8dfc9 0 2px,#f7f0dd 2px 5px,#d9cba8 5px 7px);opacity:1;pointer-events:none;z-index:3}
+.card .cov{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#e9e2d4;display:flex;align-items:center;justify-content:center}
+/* уголок страницы + бумажная текстура (одно правило) */
+.card::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(120,90,40,.04) 1px,transparent 1px),linear-gradient(315deg,transparent 40%,#dccfa8 41%,#dccfa8 52%,#e8dfc9 53%);background-size:5px 5px,100% 100%;background-position:0 0,100% 100%;pointer-events:none;z-index:1;box-shadow:-3px -3px 7px rgba(60,40,10,.14)}
+.card .body{padding:14px 16px 18px 22px;flex:1;display:flex;flex-direction:column;position:relative;z-index:3}
+.card h3{margin:0 0 8px;font-size:19px;line-height:1.3;color:#43392a}
+.card p{margin:0 0 12px;color:#6d5f47;font-size:15px}
+.tag{font-size:12.5px;background:#e9e2d4;color:#6d5430;padding:3px 9px;border-radius:12px;align-self:flex-start;margin-bottom:8px}
+.btn-read{margin-top:auto;background:#0e7c66;color:#fff;border:0;padding:11px 0;border-radius:8px;font-size:16px;cursor:pointer;text-align:center;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 .btn-read:hover{background:#0b6a58;text-decoration:none}
-.article{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:30px 32px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
+/* страница статьи как лист книги: бумага, тень, корешок слева */
+.article{background:#fdfaf3;border:1px solid #e2d9c4;border-radius:4px 16px 16px 4px;padding:30px 34px 32px 42px;box-shadow:0 14px 34px rgba(60,40,10,.18), inset 8px 0 12px -8px rgba(60,40,10,.25);color:#3a3228;position:relative;overflow:hidden}
+.article::before{content:"";position:absolute;left:0;top:0;bottom:0;width:12px;background:repeating-linear-gradient(to bottom,#e8dfc9 0 2px,#f7f0dd 2px 5px,#e2d6ba 5px 7px);opacity:.9;pointer-events:none}
+.article::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(120,90,40,.05) 1px,transparent 1px);background-size:5px 5px;pointer-events:none;z-index:0}
+.article>*{position:relative;z-index:1}
 .article h1{margin:0 0 8px;color:#133a33;font-size:28px;line-height:1.3}
 .article .meta{color:#5b7080;font-size:14px;margin-bottom:16px}
 .article h2{margin:26px 0 10px;color:#0e7c66;font-size:23px}
@@ -277,7 +287,7 @@ main{padding:10px 0 60px}
 .article ul,.article ol{margin:10px 0;padding-left:26px}
 .article blockquote{border-left:4px solid #e2e9ee;margin:12px 0;padding:6px 16px;color:#5b7080}
 .article hr{border:0;border-top:1px solid #e2e9ee;margin:20px 0}
-.article img{max-width:100%%;height:auto}
+.article img{max-width:100%;height:auto}
 .toc{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:12px 18px;margin:18px 0}
 .toc b{color:#153a4d}
 .toc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
@@ -302,17 +312,18 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
 .tool-page{background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:28px 30px;box-shadow:0 2px 10px rgba(20,40,60,.08)}
 .tool-page h1{margin:0 0 10px;color:#133a33;font-size:26px}
 .tool-page label{display:block;font-weight:600;margin:16px 0 6px;color:#153a4d}
-.tool-page input,.tool-page select,.tool-page textarea{width:100%%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
+.tool-page input,.tool-page select,.tool-page textarea{width:100%;padding:11px 14px;font-size:16px;border:1px solid #e2e9ee;border-radius:10px;background:#fff;color:#1f2d3a}
 .tool-page textarea{min-height:120px}
 .tool-page .out{background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;padding:16px;margin-top:16px;white-space:pre-wrap;font-size:16px}
 .btn{display:inline-block;background:#0e7c66;color:#fff;border:0;padding:11px 20px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:12px;min-height:44px}
 .btn:hover{background:#0b6a58}
-@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
+@media(max-width:560px){.wrap{padding-inline:14px}.h1{font-size:26px}.grid{grid-template-columns:1fr}.article{padding:20px 15px}.card .body{padding:12px 12px 14px}.panel{padding:20px 14px}.tools-bar{flex-direction:column}.toolbar select{width:100%}}@media(min-width:561px) and (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}.article{padding:22px 18px}.article h1{font-size:24px}}
 @media print{.tools-bar,.breadcrumbs,.footer,.related{display:none}.article{border:0;box-shadow:none;padding:0}}
 """
 
 
-def page(title, desc, body, canonical, extra_head=""):
+def page(title, desc, body, canonical, extra_head="", lib=False):
+    assets_lib = ('<link rel="stylesheet" href="assets/library.css">\n<script src="assets/library.js"></script>') if lib else ""
     return """<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -351,27 +362,30 @@ def page(title, desc, body, canonical, extra_head=""):
 %s
 </div></main>
 <footer><div class="wrap footer">© 2026 Нейросети для жизни · %s, Астрахань · <a href="mailto:neuro-retree@ya.ru?subject=Ошибка на сайте">Нашли ошибку? Напишите нам</a> · <a href="%srss.xml">RSS</a></div></footer>
-<script src="/a11y-toggle.js" defer></script>
+<script src="%sa11y-toggle.js" defer></script>
 <link rel="stylesheet" href="%sassets/book.css">
 <script src="%sassets/book.js" defer></script>
 <script src="%sassets/magnifier.js" defer></script>
+%s
 </body>
 </html>""" % (
         html.escape(title), html.escape(desc[:190]), canonical,
         html.escape(title), html.escape(desc[:190]), canonical, BASE_URL,
         BASE_URL, extra_head, CSS, BASE_URL, BASE_URL, BASE_URL, BASE_URL, BASE_URL,
-        body, AUTHOR, BASE_URL, BASE_URL, BASE_URL, BASE_URL
+        body, AUTHOR, BASE_URL, BASE_URL, BASE_URL, BASE_URL, BASE_URL, assets_lib
     )
 
 
 HEADER_HOME = """
-<h1 style="font-size:30px;margin:20px 0 6px;color:#133a33">Нейросети для жизни</h1>
-<p style="color:#5b7080;font-size:17px;margin:0 0 10px">Просто о главном: для людей в возрасте. Статьи, советы, личный опыт.</p>
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 18px">
-  <a style="background:#0e7c66;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="articles/">Все статьи</a>
-  <a style="background:#1565a8;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="tools/">Инструменты</a>
-  <a style="background:#5b7080;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="learning/">Обучение</a>
-  <a style="background:#8a6f4e;color:#fff;padding:11px 18px;border-radius:10px;font-size:16px" href="books/">Книги</a>
+<div style="text-align:center;padding:26px 16px 8px">
+  <h1 style="font-size:clamp(26px,4vw,40px);margin:0 0 6px;color:#133a33">Нейросети для жизни</h1>
+  <p style="color:#5b7080;font-size:17px;margin:0 0 4px">Простые объяснения, полезные советы и цифровая безопасность для повседневной жизни.</p>
+  <p style="color:#5b7080;font-size:15px;margin:0 0 14px">Автор: <strong>Татьяна Зенина</strong>, Астрахань</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:6px 0 4px">
+    <a style="background:#0e7c66;color:#fff;padding:11px 20px;border-radius:10px;font-size:16px" href="#library">Выбрать книгу</a>
+    <a style="background:#1565a8;color:#fff;padding:11px 20px;border-radius:10px;font-size:16px" href="articles/">Все статьи</a>
+    <a style="background:#5b7080;color:#fff;padding:11px 20px;border-radius:10px;font-size:16px" href="learning/">Обучение</a>
+  </div>
 </div>
 """
 
@@ -766,13 +780,12 @@ def build_home():
              html.escape(cat), BASE_URL, a["slug"], html.escape(a["title"]),
              html.escape(a["desc"]), BASE_URL, a["slug"]))
     body = HEADER_HOME + """
-<div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:18px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)">
-  <h2 style="margin-top:0;color:#0e7c66">Здравствуйте, дорогие мои!</h2>
-  <p>Меня зовут <strong>Татьяна Зенина</strong>, я живу в Астрахани, мне за шестьдесят. Этот сайт — про нейросети, но написано здесь совсем не научно: простыми словами, с примерами из жизни. Здесь я отвечаю на вопросы, которые чаще всего задают люди в возрасте.</p>
-  <p>Подписывайтесь на <a href="https://t.me/neuro_retree">канал</a>, чтобы не потеряться. Мои книги — «Нейросети для жизни» в четырёх томах — можно получить любым удобным способом (см. ниже).</p>
+<div style="text-align:center;margin:8px 0 2px" id="library">
+  <h2 style="font-size:clamp(20px,3vw,28px);color:#133a33;margin:0 0 4px">Добро пожаловать в библиотеку</h2>
+  <p style="color:#5b7080;font-size:15px;margin:0 0 6px">Выберите книгу на полке: нажмите — книга вытянется, раскроется и приблизится. Читайте с лупой и звуком.</p>
 </div>
-<h2 style="color:#133a33">Что я пишу</h2>
-<div class="grid">%s</div>
+<!-- Интерактивная книжная полка: Статьи · Обучение · Книга · Видео · Об авторе -->
+<div id="libraryApp"></div>
 
 <div class="about" style="background:#fff;border:1px solid #e2e9ee;border-radius:14px;padding:20px 24px;margin:22px 0;box-shadow:0 2px 10px rgba(20,40,60,.08)" id="books">
   <h2 style="margin-top:0;color:#0e7c66">Книги «Нейросети для жизни» — четыре тома</h2>
@@ -801,10 +814,10 @@ def build_home():
   <p style="color:#5b7080;font-size:14px;margin-top:12px">Материалы на сайте бесплатны. Если захотите сказать спасибо — угостите чашкой чая на Boosty.</p>
   <p style="margin-top:12px"><strong>Я никогда не прошу</strong> номер карты, коды из СМС, паспортные данные или «срочный перевод». Если кто-то пишет от моего имени и просит такое — это мошенники.</p>
 </div>
-""" % "".join(cards)
+"""
     out = page("Нейросети для жизни — Татьяна Зенина, Астрахань",
                "Нейросети простыми словами для людей в возрасте: статьи, советы, личный опыт. Татьяна Зенина, Астрахань.",
-               body, BASE_URL, extra)
+               body, BASE_URL, extra, lib=True)
     (ROOT / "index.html").write_text(out, encoding="utf-8")
 
 
@@ -919,9 +932,10 @@ def build_books():
     body = """
 <div class="breadcrumbs"><a href="%s">Главная</a> → Книги</div>
 <h1 style="color:#133a33;font-size:28px;margin:8px 0 4px">Книги «Нейросети для жизни»</h1>
-<p style="color:#5b7080">Четыре тома простыми словами. Листайте как настоящую книгу: перелистывание со звуком,
+<p style="color:#5b7080">Четыре тома книги и статьи простыми словами. Листайте как настоящую книгу: перелистывание со звуком,
 ведение курсором — как шуршание бумаги. Кнопка «Лупа» увеличивает текст под курсором.</p>
 <div class="book-toolbar" id="bookToolbar">
+  <button type="button" id="btnMode">📚 Тома книги</button>
   <button type="button" id="btnSound" onclick="toggleBookSound(this)">🔊 Звуки книги: вкл</button>
   <button type="button" id="btnLens" onclick="toggleLens(this)">🔍 Лупа: выкл</button>
 </div>

@@ -1,17 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="560">
+<!-- paper.svg — анфас: поверхность страницы с волокнами и лёгкой «жёлтизной» по краям.
+     Соответствует эталону: страницы бежевые, чуть меньше обложек по размеру. -->
 <defs>
   <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0" stop-color="#cbb98f" stop-opacity="0.55"/>
-    <stop offset="0.5" stop-color="#fffdf4" stop-opacity="0.10"/>
-    <stop offset="1" stop-color="#cbb98f" stop-opacity="0.6"/>
+    <stop offset="0" stop-color="#cbb98f" stop-opacity="0.5"/>
+    <stop offset="0.18" stop-color="#fffdf4" stop-opacity="0.06"/>
+    <stop offset="0.82" stop-color="#fffdf4" stop-opacity="0.1"/>
+    <stop offset="1" stop-color="#cbb98f" stop-opacity="0.55"/>
   </linearGradient>
-  <filter id="fibres"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.9" numOctaves="3" result="n"/>
+  <filter id="fibres"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.65" numOctaves="4" result="n"/>
     <feColorMatrix in="n" type="saturate" values="0" result="g"/>
-    <feComponentTransfer><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+    <feComponentTransfer><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
     <feComposite operator="over" in2="SourceGraphic"/></filter>
 </defs>
 <rect width="400" height="560" fill="#f2e7cd"/>
 <rect width="400" height="560" fill="url(#g1)"/>
 <rect width="400" height="560" filter="url(#fibres)"/>
-<line x1="0" y1="280" x2="400" y2="280" stroke="#d8c9a6" stroke-width="2" stroke-opacity="0.7"/>
+<line x1="0" y1="280" x2="400" y2="280" stroke="#d8c9a6" stroke-width="2" stroke-opacity="0.65"/>
 </svg>
