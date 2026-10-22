@@ -407,7 +407,6 @@ VERIFIED_SLUGS = {
     "article_nalogovyj_vychet_obuchenie",
     "article_nalogovyj_vychet_obuchenie_2026",
     "article_markirovka_reklamy",
-    "article_statiny_6_mifov",
 }
 
 
