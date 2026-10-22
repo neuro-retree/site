@@ -44,10 +44,11 @@
 .lib-book{
   position:relative;flex:0 1 var(--bw,64px);min-width:0;height:var(--bh,413px);cursor:pointer;
   border:1px solid rgba(230,200,145,.4);border-radius:3px 8px 8px 3px;
+  /* ВРЕМЕННО (23.10.2026): сплошной цвет книги, без фоновой картинки-заглушки */
   background:
     linear-gradient(90deg,rgba(0,0,0,.5),transparent 14%,rgba(255,255,255,.09) 72%,rgba(0,0,0,.35)),
-    url("library/book_cover_old.jpg"),var(--bc,#56372b);
-  background-size:cover,cover,auto;background-position:center;background-blend-mode:multiply;
+    var(--bc,#56372b);
+  background-size:cover,auto;background-position:center;background-blend-mode:multiply;
   box-shadow:-6px 7px 11px rgba(0,0,0,.5),0 14px 24px rgba(0,0,0,.35);
   transform-origin:center bottom;
   transition:transform .45s ease,box-shadow .45s ease,filter .45s ease;
@@ -153,17 +154,17 @@
 .lib-book .bd .face-left{width:var(--w);height:100%;left:0;transform-origin:left;transform:rotateY(-90deg)}
 .lib-book .bd .face-right{width:var(--w);height:100%;right:0;transform-origin:right;transform:rotateY(90deg)}
 /* ---------- ОФОРМЛЕНИЕ ГРАНЕЙ ---------- */
-/* страницы (П1, П2) — бумага: фронт/бэк с текстурой, боковые — срез */
+/* страницы (П1, П2) — сплошной пергаментный цвет (ВРЕМЕННО, для наладки полки 23.10.2026) */
 .lib-book .bd-pages-block .face,
-.lib-book .bd-single-page .face{background:#f4ecda}
+.lib-book .bd-single-page .face{background:#efe6d0}
 .lib-book .bd-pages-block .face-front,
 .lib-book .bd-pages-block .face-back,
 .lib-book .bd-single-page .face-front,
 .lib-book .bd-single-page .face-back{
-  background-image:url("library/tex/paper.svg"),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
-  background-size:cover,auto;background-position:center;
+  background-image:linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
+  background-size:auto;background-position:center;
 }
-/* профиль страниц: узкие грани (торец блока, срез листов) — текстура среза */
+/* профиль страниц: узкие грани (торец блока, срез листов) — сплошной цвет среза */
 .lib-book .bd-pages-block .face-top,
 .lib-book .bd-pages-block .face-bottom,
 .lib-book .bd-pages-block .face-left,
@@ -172,20 +173,20 @@
 .lib-book .bd-single-page .face-bottom,
 .lib-book .bd-single-page .face-left,
 .lib-book .bd-single-page .face-right{
-  background-image:url("library/tex/paper-edge.svg");
-  background-size:cover;background-position:center;
+  background-image:none;
 }
 /* лёгкое затенение профиля: торец блока страниц не плоский, а с тенью у обложек */
 .lib-book .bd-pages-block .face-left,
 .lib-book .bd-pages-block .face-right{
   box-shadow:inset 0 0 6px rgba(60,40,10,.55), inset 2px 0 4px rgba(60,40,10,.25);
 }
-/* обложки (П3, П4) — сплошной цвет (ВРЕМЕННО, для наладки полки 22.10.2026) */
-.lib-book .bd-cover-l .face,
-.lib-book .bd-cover-r .face{
-  background-color:var(--bc,#4a3524);
-  background-image:linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
-  background-size:auto;background-position:center;
+/* обложки (П3, П4) — сплошной цвет (ВРЕМЕННО, для наладки полки 23.10.2026):
+   передняя обложка светлее (filter), задняя темнее; корешок --bc. */
+.lib-book .bd-cover-r .face{background-color:var(--bc,#4a3524);background-image:none}
+.lib-book .bd-cover-l .face{background-color:var(--bc,#4a3524);background-image:none;filter:brightness(.72) saturate(.9)}
+/* лёгкий глянец на передней обложке (свет сверху), чтобы она не выглядела плоской */
+.lib-book .bd-cover-r .face-front{
+  background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.05) 40%,transparent 70%);
 }
 /* подпись названия: на корешке (полка) — вертикальная; на обложке (раскрытие) — горизонтальная по центру */
 .lib-book .bd-spine .title{
