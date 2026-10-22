@@ -141,11 +141,9 @@
 .lib-book .bd-spine{width:var(--bw,64px);height:calc(100% + 12px);left:0;top:-6px;transform:none;z-index:5}
 .lib-book .bd-spine .face{
   background:var(--bc,#56372b);
-  background-image:
-    url("library/tex/spine-tactile.svg"),
-    var(--tex),
-    linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.38));
-  background-size:cover,cover,auto;background-position:center;
+  /* ВРЕМЕННО (22.10.2026): текстуры отключены для наладки полки — корешок сплошного цвета */
+  background-image:linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.38));
+  background-size:auto;background-position:center;
 }
 /* ---------- ГРАНИ КУБА ---------- */
 .lib-book .bd .face-front{transform:translateZ(var(--w))}
@@ -182,12 +180,12 @@
 .lib-book .bd-pages-block .face-right{
   box-shadow:inset 0 0 6px rgba(60,40,10,.55), inset 2px 0 4px rgba(60,40,10,.25);
 }
-/* обложки (П3, П4) — кожа, текстура на всех гранях */
+/* обложки (П3, П4) — сплошной цвет (ВРЕМЕННО, для наладки полки 22.10.2026) */
 .lib-book .bd-cover-l .face,
 .lib-book .bd-cover-r .face{
-  background-color:#4a3524;
-  background-image:var(--tex),linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
-  background-size:cover,auto;background-position:center;
+  background-color:var(--bc,#4a3524);
+  background-image:linear-gradient(90deg,transparent 8%,rgba(255,255,255,.15) 55%,rgba(255,255,255,.15) 100%);
+  background-size:auto;background-position:center;
 }
 /* подпись названия: на корешке (полка) — вертикальная; на обложке (раскрытие) — горизонтальная по центру */
 .lib-book .bd-spine .title{

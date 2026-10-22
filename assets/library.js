@@ -6,13 +6,17 @@
 (function () {
   "use strict";
   var BASE = "https://neuro-retree.github.io/site/";
-  var CONFIG = {
-books: [
-{ id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, w: 66, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
-{ id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, w: 58, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
-{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, w: 84, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold", tex: "library/tex/leather-book.svg" },
-{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, w: 52, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" },
-{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
+var CONFIG = {
+ books: [
+ /* ВРЕМЕННО скрыты для наладки полки (22.10.2026):
+ { id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, w: 66, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
+ { id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, w: 58, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
+ */
+{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, w: 84, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold", tex: "library/tex/leather-book.svg" }
+/* ВРЕМЕННО скрыты для наладки полки (22.10.2026):
+,{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, w: 52, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" }
+,{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
+ */
     ],
     anim: { pull: 700, open: 900, zoom: 650, close: 700, ret: 650 }
   };
@@ -155,7 +159,8 @@ books: [
       book.style.setProperty("--cw", Math.round(b.h * 0.55) + "px");
       if (b.font) book.style.setProperty("--book-font", b.font);
       if (b.tone) book.style.setProperty("--book-tone", b.tone);
-      if (b.tex) book.style.setProperty("--tex", "url(" + BASE + "assets/" + b.tex + ")");
+      // ВРЕМЕННО: текстуры отключены для наладки полки (22.10.2026) — книги сплошного цвета (--bc).
+      // if (b.tex) book.style.setProperty("--tex", "url(" + BASE + "assets/" + b.tex + ")");
       // тень на полку (элемент для динамического смещения в computeShadow)
       var sh = el("div", "lib-box-shadow");
       shadowMap.set(book, sh);
@@ -585,7 +590,11 @@ books: [
       if (lensBtn) lensBtn.textContent = "🔍 Лупа: вкл";
     }
     if (!Sound.on()) {
-      var sb = bar.querySelector("button:has-text('Звук')") || bar.querySelectorAll("button")[6];
+      var sb = null;
+      var btns = bar.querySelectorAll("button");
+      for (var bi = 0; bi < btns.length; bi++) {
+        if (btns[bi].textContent.indexOf("Звук") >= 0) { sb = btns[bi]; break; }
+      }
       if (sb) sb.textContent = "🔇 Звук: выкл";
     }
     // запоминаем потребность в пользовательском жесте для AudioContext
