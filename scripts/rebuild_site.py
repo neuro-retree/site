@@ -400,6 +400,28 @@ def related_block(slug, tags):
 
 # ---------- Страница статьи ----------
 
+# ---------- Блок «Что проверено»: только для статей с ПРОВЕДЁННЫМ фактчеком.
+# Список пополняется по мере выполнения этапа 5 (facts/<slug>.md с официальными источниками).
+VERIFIED_SLUGS = {
+    "article_nakopitelnaya_pensiya_2026",
+    "article_nalogovyj_vychet_obuchenie",
+    "article_nalogovyj_vychet_obuchenie_2026",
+    "article_markirovka_reklamy",
+    "article_statiny_6_mifov",
+}
+
+
+def verified_block(slug, title):
+    if slug not in VERIFIED_SLUGS:
+        return ""
+    return ('<div class="verified" style="background:#f4f7f9;border:1px solid #e2e9ee;border-radius:10px;'
+            'padding:12px 16px;margin:18px 0;font-size:15px;color:#1f2d3a">'
+            '<b>Что проверено.</b> Дата проверки: 22.10.2026. Числа, лимиты и пороги сверены с '
+            'официальными источниками: nalog.gov.ru (ст. 219 НК РФ), sfr.gov.ru, rkn.gov.ru, '
+            'cr.minzdrav.gov.ru. Материал носит информационный характер и не заменяет консультацию '
+            'специалиста. Нашли ошибку — напишите: neuro-retree@ya.ru.</div>')
+
+
 def build_article(a, md_text):
     body_html, toc = md_to_html(md_text)
     cat = CATEGORY_LABELS.get(a["tags"][0], a["tags"][0])
@@ -430,13 +452,14 @@ def build_article(a, md_text):
   %s
   %s
   %s
+  %s
   <div class="cta"><strong>Дорогие мои, напоследок.</strong> Больше простых историй про нейросети — в моём канале <a href="https://t.me/neuro_retree">t.me/neuro_retree</a>. Подпишитесь, чтобы не потерять. А если нужна книга «Нейросети для жизни» — напишите мне на почту <a href="mailto:neuro-retree@ya.ru">neuro-retree@ya.ru</a>.</div>
 </div>
 <script>function copyLink(){const u=location.href;if(navigator.clipboard){navigator.clipboard.writeText(u).then(()=>alert('Ссылка скопирована: '+u));}else{alert(u);}}
 function toggleBookSound(btn){const s=window.__bookSounds;if(!s){btn.textContent='🔊 Звуки: недоступно';return;}s.setEnabled(!s.isEnabled());btn.textContent=s.isEnabled()?'🔊 Звуки книги: вкл':'🔇 Звуки книги: выкл';}
 function toggleLens(btn){const m=window.__magnifier;if(!m){btn.textContent='🔍 Лупа: нет';return;}const on=m.toggle();btn.textContent=on?'🔍 Лупа: вкл':'🔍 Лупа: выкл';}</script>
 """ % (BASE_URL, BASE_URL, html.escape(a["title"]), html.escape(cat), html.escape(a["title"]),
-       AUTHOR, BUILD_DATE, toc_html, body_html, related_block(a["slug"], a["tags"]))
+       AUTHOR, BUILD_DATE, toc_html, verified_block(a["slug"], a["title"]), body_html, related_block(a["slug"], a["tags"]))
 
     jsonld = json.dumps({
         "@context": "https://schema.org",
