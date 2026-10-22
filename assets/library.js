@@ -12,7 +12,11 @@ var CONFIG = {
  { id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, w: 66, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
  { id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, w: 58, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
  */
-{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, w: 84, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold", tex: "library/tex/leather-book.svg" }
+{ id: "book",     title: "Книга",    color: "#4a3a69", h: 465, w: 84, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold",
+      /* Тестовая палитра для наладки полки (23.10.2026): каждый элемент — свой цвет.
+         c-body зелёный, c-spine красный, c-cover синий, c-cover-back зелёный, c-pages жёлтый, c-edge оранжевый.
+         Для раскраски граней JS ставит эти значения в CSS-переменные книги. */
+      colors: { body: "#3a6b35", spine: "#b3261e", cover: "#2e6cb3", coverBack: "#3a6b35", pages: "#e8c840", edge: "#e07b1f" } }
 /* ВРЕМЕННО скрыты для наладки полки (22.10.2026):
 ,{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, w: 52, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" }
 ,{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
@@ -154,6 +158,15 @@ var CONFIG = {
     CONFIG.books.forEach(function (b, i) {
       var book = el("div", "lib-book");
       book.style.setProperty("--bc", b.color);
+      // Тестовая раскраска элементов книги (наладка полки, 23.10.2026)
+      if (b.colors) {
+        book.style.setProperty("--c-body", b.colors.body);
+        book.style.setProperty("--c-spine", b.colors.spine);
+        book.style.setProperty("--c-cover", b.colors.cover);
+        book.style.setProperty("--c-cover-back", b.colors.coverBack);
+        book.style.setProperty("--c-pages", b.colors.pages);
+        book.style.setProperty("--c-edge", b.colors.edge);
+      }
       book.style.setProperty("--bh", b.h + "px");
       book.style.setProperty("--bw", (b.w || 64) + "px");
       book.style.setProperty("--cw", Math.round(b.h * 0.55) + "px");
