@@ -52,7 +52,7 @@
      --c-cover-back зелёный — задняя обложка
      --c-pages жёлтый    — большие грани страниц
      --c-edge  оранжевый — срез страниц (торцы блока) */
-  background:var(--c-body,#3a6b35);
+  background:transparent;
   background-size:auto;background-position:center;
   box-shadow:-6px 7px 11px rgba(0,0,0,.5),0 14px 24px rgba(0,0,0,.35);
   transform-origin:center bottom;
@@ -142,18 +142,21 @@
    П3 (задняя) — сразу за корешком; страницы между ними. */
 .lib-book .bd-cover-r{transform:rotateY(-90deg) translateX(var(--cw,220px))}
 .lib-book .bd-cover-l{transform:rotateY(-90deg)}
-/* П5 КОРЕШОК: узкая грань на полке. Высотой равен обложкам (--bh + 12px),
-   стоит ПО ЦЕНТРУ ГЛУБИНЫ книги: обложки повёрнуты от левого края на -90° и уходят
-   вглубь на --cw, поэтому их центр глубины = --cw/2 от левого края. Сдвигаем корешок
-   так, чтобы его ось совпала с центром обложек/страниц (left = --cw/2 - --bw/2),
-   он ПОВЕРХ них (z-index выше) и закрывает и обложки, и страницы. */
-.lib-book .bd-spine{--cw2:calc(var(--cw,220px)/2 - var(--bw,64px)/2);width:var(--bw,64px);height:calc(100% + 12px);left:calc(var(--cw2, 78px));top:-6px;transform:none;z-index:10}
+/* П5 КОРЕШОК: узкая грань на полке. В закрытом виде — ЕДИНСТВЕННЫЙ видимый элемент
+   книги (все остальные блоки скрыты, см. правило ниже). Высотой равен обложкам
+   (--bh + 12px), стоит по центру контейнера (left:0 при width:var(--bw)). */
+.lib-book .bd-spine{width:var(--bw,64px);height:calc(100% + 12px);left:0;top:-6px;transform:none;z-index:10}
 .lib-book .bd-spine .face{
   background:var(--c-spine,#b3261e);
   /* ВРЕМЕННО (23.10.2026): корешок — сплошной красный, без текстур и градиентов */
   background-image:none;
   background-size:auto;background-position:center;
 }
+/* ЗАКРЫТАЯ КНИГА = ВИДЕН ТОЛЬКО КОРЕШОК (наладка 23.10.2026).
+   Обложки, страницы и срез существуют только для раскрытия (.opening/.zooming),
+   в состоянии полки они скрыты за корешком (visibility, чтобы анимация поворота
+   при раскрытии сохранила закрытое положение). */
+.lib-book:not(.opening):not(.zooming) .bd:not(.bd-spine){visibility:hidden}
 /* ---------- ГРАНИ КУБА ---------- */
 .lib-book .bd .face-front{transform:translateZ(var(--w))}
 .lib-book .bd .face-back{transform:translateZ(calc(var(--w)*-1)) rotateY(180deg)}
