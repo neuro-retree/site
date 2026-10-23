@@ -22,7 +22,9 @@ var CONFIG = {
 ,{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
  */
     ],
-    anim: { pull: 700, open: 900, zoom: 650, close: 700, ret: 650 }
+    /* ВРЕМЕННО (23.10.2026): замедлено для наблюдения.
+       Раскрытие: 2000 + 5000 + 3000 = 10 секунд. Должно совпадать с --lib-anim-* в CSS. */
+    anim: { pull: 2000, open: 5000, zoom: 3000, close: 2000, ret: 1500 }
   };
   var state = "shelf", sel = -1, cur = 0, pages = [], quiet = false;
 

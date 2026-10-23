@@ -323,7 +323,7 @@ button:focus-visible,a:focus-visible{outline:3px solid #e5a000;outline-offset:3p
 
 
 def page(title, desc, body, canonical, extra_head="", lib=False, ogtype="website"):
-    assets_lib = ('<link rel="stylesheet" href="assets/library.css?v=20261022c">\n<script src="assets/library.js?v=20261022c"></script>') if lib else ""
+    assets_lib = ('<link rel="stylesheet" href="assets/library.css?v=20261023d">\n<script src="assets/library.js?v=20261023d"></script>') if lib else ""
     return """<!DOCTYPE html>
 <html lang="ru">
 <head>

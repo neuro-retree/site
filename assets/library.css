@@ -20,11 +20,13 @@
   font-family:Georgia,'Times New Roman',serif;
   min-height:100vh;overflow-x:hidden;
   /* Единый источник длительностей (читается JS) — всегда согласованы CSS и JS */
-  --lib-anim-pull:700ms;
-  --lib-anim-open:900ms;
-  --lib-anim-zoom:650ms;
-  --lib-anim-close:700ms;
-  --lib-anim-return:650ms;
+  /* ВРЕМЕННО (23.10.2026): замедлено для наблюдения за анимацией.
+     Раскрытие: 2с (вытягивание) + 5с (раскрытие) + 3с (приближение) = 10 секунд. */
+  --lib-anim-pull:2000ms;
+  --lib-anim-open:5000ms;
+  --lib-anim-zoom:3000ms;
+  --lib-anim-close:2000ms;
+  --lib-anim-return:1500ms;
 }
 #libraryApp.lib-mode a{color:var(--gold)}
 #libraryApp.lib-mode button{font-family:Georgia,serif}
