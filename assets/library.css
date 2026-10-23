@@ -137,15 +137,23 @@
 }
 .lib-book .bd-pages-block{--w:calc(var(--cw,220px)*.18)}
 .lib-book .bd-single-page{--w:2px}
+/* СРЕЗ СТРАНИЦ (модель владельца): по всем боковым граням блока страниц,
+   ширина = ПОЛОВИНА толщины блока страниц ((--cw*.18)/2), а не полная толщина. */
+.lib-book .bd-pages-block .face-top,
+.lib-book .bd-pages-block .face-bottom,
+.lib-book .bd-pages-block .face-left,
+.lib-book .bd-pages-block .face-right{--w:calc(var(--cw,220px)*.18/2)}
 /* Закрытое состояние (по модели владельца):
    Корешок (П5) — у ПЕРЕДНЕГО края (left:0), z-index поверх всего.
-   Передняя обложка (П4, с названием) — крепится КРОМКОЙ к ЛЕВОМУ краю ЗАДНЕЙ
-     грани корешка, одевает ЛЕВУЮ грань блока страниц (rotateY(-90) от left center).
-   Задняя обложка (П3) — крепится к ПРАВОМУ краю задней грани корешка, одевает
-     ПРАВУЮ грань блока страниц (rotateY(+90) от right center, сдвиг вправо на --cw).
+   Передняя обложка (П4, с названием, теперь ЛЕВАЯ .bd-cover-l) — крепится КРОМКОЙ
+     к ЛЕВОМУ краю ЗАДНЕЙ грани корешка, одевает ЛЕВУЮ грань блока страниц:
+     поворачивается вокруг своей левой кромки (rotateY(-90) от left center).
+   Задняя обложка (П3, теперь ПРАВАЯ .bd-cover-r) — крепится к ПРАВОМУ краю задней
+     грани корешка, одевает ПРАВУЮ грань блока страниц: rotateY(90) от right center
+     (правый край на месте, блок уходит вглубь вправо).
    Страницы (П1, П2) — крепятся к ЦЕНТРУ задней грани корешка, между обложками. */
-.lib-book .bd-cover-r{transform:rotateY(-90deg) translateX(var(--cw,220px))}
 .lib-book .bd-cover-l{transform:rotateY(-90deg)}
+.lib-book .bd-cover-r{transform:rotateY(90deg)}
 /* П5 КОРЕШОК: узкая грань на полке. В закрытом виде — ЕДИНСТВЕННЫЙ видимый элемент
    книги (все остальные блоки скрыты, см. правило ниже). Высотой равен обложкам
    (--bh + 12px), стоит по центру контейнера (left:0 при width:var(--bw)). */
@@ -197,10 +205,12 @@
 }
 /* обложки (П3, П4) — сплошные РАЗНЫЕ цвета (ВРЕМЕННО, для наладки полки 23.10.2026):
    передняя (П4, лицо) — СИНЯЯ, задняя (П3) — ЗЕЛЁНАЯ. */
-.lib-book .bd-cover-r .face{background:var(--c-cover,#2e6cb3);background-image:none}
-.lib-book .bd-cover-l .face{background:var(--c-cover-back,#3a6b35);background-image:none}
-/* глянец на передней обложке: отключён для наладки (чистые цвета) 23.10.2026 */
-.lib-book .bd-cover-r .face-front{background:var(--c-cover,#2e6cb3)}
+/* Обложки: ЛЕВАЯ = передняя (лицо, с названием, --c-cover синяя),
+   ПРАВАЯ = задняя (--c-cover-back зелёная). */
+.lib-book .bd-cover-l .face{background:var(--c-cover,#2e6cb3);background-image:none}
+.lib-book .bd-cover-r .face{background:var(--c-cover-back,#3a6b35);background-image:none}
+/* лицо (левая обложка) — чистый цвет (глянец снят для наладки) */
+.lib-book .bd-cover-l .face-front{background:var(--c-cover,#2e6cb3)}
 /* подпись названия: на корешке (полка) — вертикальная; на обложке (раскрытие) — горизонтальная по центру */
 .lib-book .bd-spine .title{
   position:absolute;inset:10px 4px;display:grid;place-items:center;writing-mode:vertical-rl;
@@ -231,37 +241,40 @@
 }
 .lib-book.opening{
   /* Центрирование раскрытой книги (по модели владельца):
-     передняя обложка слева (левая кромка у 0), страницы по центру (у 8px),
-     задняя обложка справа (у --cw). Раскрытая ширина ≈ 2*--cw + 8px.
-     Контейнер узкий (--bw). Чтобы центр совпал, смещаем влево на
-     (2*--cw + 8 - --bw)/2 - (ширина слева от центра контейнера). Упрощённо:
-     центр раскрытой книги ≈ --cw + 4; центр контейнера = --bw/2;
-     сдвиг = --bw/2 - (--cw + 4). */
-  transform:translateX(calc(var(--bw,84px)/2 - var(--cw,220px) - 4px)) translateZ(360px) translateY(-12vh) scale(1.35);
+     ось/корешок — в ЦЕНТРЕ контейнера (--bw/2). Раскрытая книга симметрична
+     относительно корешка: слева левая обложка (--cw), справа правая (--cw),
+     между ними страницы. Центр раскрытой композиции ≈ позиция корешка.
+     Сдвиг контейнера не нужен (ось уже по центру) — только выдвижение вперёд. */
+  transform:translateZ(360px) translateY(-12vh) scale(1.35);
   transition:transform var(--lib-anim-open,900ms) cubic-bezier(.25,.8,.3,1);
   box-shadow:-12px 18px 34px rgba(0,0,0,.7),0 0 50px var(--warm-light);
   z-index:50;
 }
 .lib-book.opening .bd-spine{
-  /* Корешок при раскрытии поворачивается на 180° вокруг своей оси и уходит
-     к ЗАДНЕМУ краю (книга раскрывается, корешок оказывается сзади). */
-  transform:rotateY(180deg);opacity:0;transition:transform var(--lib-anim-open,900ms),opacity .5s;
+  /* Корешок — ось раскрытия: поворачивается на 180° (его задняя грань становится
+     передней), остаётся ПО ЦЕНТРУ, но уходит назад по Z (книга раскрывается).
+     Он «нести» обложки/страницы не обязан — те крепятся к его задней грани. */
+  transform:rotateY(180deg) translateZ(calc(var(--cw,220px)*-1));
+  opacity:0;transition:transform var(--lib-anim-open,900ms),opacity .5s;
 }
-/* Раскрытие (по модели владельца):
-   Передняя обложка (П4) поворачивается вокруг своей ЛЕВОЙ кромки и встаёт
-   СЛЕВА от страниц, в одну линию с корешком: rotateY(0) без сдвига (её левая
-   кромка — на месте левого края контейнера), корешок позади.
-   Задняя обложка (П3) поворачивается вокруг своей ПРАВОЙ кромки и встаёт
-   СПРАВА от страниц: rotateY(0) + translateX(на свою ширину --cw).
-   Страницы — по центру между ними. */
+/* Раскрытие (по модели владельца): центральную часть занимает блок страниц,
+   он растягивается на (2 обложки + корешок − 2 толщины обложки) и центрируется
+   по корешку. Слева от страниц — левая обложка (--cw), справа — правая (--cw),
+   обе повёрнуты лицом (rotateY(0)) вокруг своих кромок. */
 .lib-book.opening .bd-cover-l{transform:rotateY(0deg) translateX(0)}
 .lib-book.opening .bd-cover-r{transform:rotateY(0deg) translateX(var(--cw,220px))}
-.lib-book.opening .bd-pages-block{transform:rotateY(0deg) translateX(8px)}
-.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateX(8px)}
+/* Страницы растягиваются: ширина = 2 обложки + корешок − 2 толщины обложки.
+   Центр корешка = --bw/2; левый край страниц = (--bw/2) − (ширина/2). */
+.lib-book.opening .bd-pages-block{
+  width:calc(2*var(--cw,220px) + var(--bw,84px) - 2*var(--th,6px));
+  left:calc(var(--bw,84px)/2 - (2*var(--cw,220px) + var(--bw,84px) - 2*var(--th,6px))/2);
+  transform:rotateY(0deg) translateX(0);
+}
+.lib-book.opening .bd-single-page{transform:rotateY(0deg) translateX(0)}
 /* при раскрытии страницы остаются чуть ниже обложек (эталон: страницы < обложек):
-   сдвигаем страничные блоки вниз на 2px, чтобы верхний выступ обложки был виден */
+   кант (обложки и корешок) выступает сверху/снизу на толщину --th */
 .lib-book.opening .bd-pages-block,
-.lib-book.opening .bd-single-page{top:2px}
+.lib-book.opening .bd-single-page{top:var(--th,6px);height:calc(100% + 12px - 2*var(--th,6px))}
 /* книга выходит к читалке: сцена затемняется, книга приближается к центру.
    Вместо scale(8) — умеренный перенос к центру и лёгкий рост; текст после
    этого появляется в читалке (отдельная сцена с тем же оформлением). */
