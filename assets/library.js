@@ -8,23 +8,14 @@
   var BASE = "https://neuro-retree.github.io/site/";
 var CONFIG = {
  books: [
- /* ВРЕМЕННО скрыты для наладки полки (22.10.2026):
  { id: "articles", title: "Статьи",   color: "#5b3a2e", h: 440, w: 66, tag: "сборник публикаций", font: "'EB Garamond',serif", tone: "gold", tex: "library/tex/leather-articles.svg" },
  { id: "learning", title: "Обучение", color: "#2f4a3a", h: 400, w: 58, tag: "учебник", font: "'Jost',sans-serif", tone: "silver", tex: "library/tex/leather-learning.svg" },
- */
 { id: "book",     title: "Книга",    color: "#4a3a69", h: 465, w: 84, tag: "четыре тома", font: "'Playfair Display',serif", tone: "gold",
-      /* Тестовая палитра для наладки полки (23.10.2026): каждый элемент — свой цвет.
-         c-body зелёный, c-spine красный, c-cover синий, c-cover-back зелёный, c-pages жёлтый, c-edge оранжевый.
-         Для раскраски граней JS ставит эти значения в CSS-переменные книги. */
-      colors: { body: "#3a6b35", spine: "#b3261e", cover: "#2e6cb3", coverBack: "#3a6b35", pages: "#e8c840", edge: "#e07b1f" } }
-/* ВРЕМЕННО скрыты для наладки полки (22.10.2026):
+      colors: { body: "#3a6b35", spine: "#4a3a69", cover: "#4a3a69", coverBack: "#4a3a69", pages: "#e8c840", edge: "#e07b1f" } }
 ,{ id: "video",    title: "Видео",    color: "#3a4a69", h: 373, w: 52, tag: "видеоальбом", font: "'Montserrat',sans-serif", tone: "silver", tex: "library/tex/leather-video.svg" }
 ,{ id: "author",   title: "Об авторе",color: "#6a4a2e", h: 413, w: 62, tag: "личный том", font: "'Libre Baskerville',serif", tone: "gold", tex: "library/tex/leather-author.svg" }
- */
     ],
-    /* ВРЕМЕННО (23.10.2026): замедлено для наблюдения.
-       Раскрытие: 2000 + 5000 + 3000 = 10 секунд. Должно совпадать с --lib-anim-* в CSS. */
-    anim: { pull: 2000, open: 5000, zoom: 3000, close: 2000, ret: 1500 }
+    anim: { pull: 700, open: 900, zoom: 650, close: 700, ret: 650 }
   };
   var state = "shelf", sel = -1, cur = 0, pages = [], quiet = false;
 
